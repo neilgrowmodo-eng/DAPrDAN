@@ -1,0 +1,187 @@
+<style>
+  .video-with-text {
+    padding: 60px 0;
+    background: var(--gradient-background);
+  }
+
+  .video-with-text__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+    max-width: 1312px;
+    margin: 0 auto;
+    background: #0A2B39;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .video-with-text__content {
+    padding: 60px;
+  }
+
+  .video-with-text__heading {
+    margin: 0 0 20px;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    text-transform: capitalize;
+    color: #fff;
+  }
+
+  .video-with-text__text {
+    margin: 0 0 30px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    color: #e7e7e7;
+    max-width: 363px;
+  }
+
+  .video-with-text__video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgb(var(--color-base-background));
+  }
+
+  .video-with-text__video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 990px) {
+    .video-with-text__container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .video-with-text__content {
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .video-with-text__heading {
+      font-size: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .video-with-text__content {
+    padding: 40px 20px;
+}
+
+.video-with-text__container {
+    gap: 0;
+    border-radius: 0;
+}
+    .video-with-text {
+      padding: 40px 0;
+    }
+
+    .video-with-text__heading {
+      font-size: 1.75rem;
+    }
+
+    .video-with-text__text {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<div class="video-with-text">
+  <div class="video-with-text__container {% if section.settings.image_position == 'right' %}image-right{% endif %}">
+    <div class="video-with-text__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="video-with-text__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="video-with-text__text">{{ section.settings.text }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a href="{{ section.settings.button_link }}" class="button-primary">
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="video-with-text__video-wrapper">
+      {%- if section.settings.video != blank -%}
+        {{ section.settings.video | video_tag: class: 'video-with-text__video', autoplay: true, loop: true, muted: true, playsinline: true, preload: "auto" }}
+      {%- else -%}
+        <div class="video-with-text__video" style="background: #f4f4f4; display: flex; align-items: center; justify-content: center;">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Video with Text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Have Complete Confidence In Your Home's Appearance"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Maintain your home in perfect balance year round with recurring services from DAPDAN! Total peace of mind INCLUDED.</p>"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Content Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "SUBSCRIBE TODAY - AS LOW AS $89/M"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video with Text",
+      "settings": {
+        "heading": "Have Complete Confidence In Your Home's Appearance",
+        "text": "<p>Maintain your home in perfect balance year round with recurring services from DAPDAN! Total peace of mind INCLUDED.</p>",
+        "button_label": "SUBSCRIBE TODAY - AS LOW AS $89/M"
+      }
+    }
+  ]
+}
+{% endschema %} 

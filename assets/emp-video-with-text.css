@@ -1,0 +1,215 @@
+/* Video with Text Section Styles */
+.emp-vwt {
+  position: relative;
+}
+
+.emp-vwt.section-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+
+.emp-vwt__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.emp-vwt__container.video-right .emp-vwt__video-wrapper {
+  order: 2;
+}
+
+.emp-vwt__container.video-right .emp-vwt__content {
+  order: 1;
+}
+
+.emp-vwt__container.video-left .emp-vwt__video-wrapper {
+  order: 1;
+}
+
+.emp-vwt__container.video-left .emp-vwt__content {
+  order: 2;
+}
+
+/* Content */
+.emp-vwt__heading {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 110%;
+  color: #0A2B39;
+  margin: 0 0 16px;
+}
+
+.emp-vwt__text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  color: #414141;
+  margin: 0 0 28px;
+}
+
+.emp-vwt__text p {
+  margin: 0;
+}
+
+.emp-vwt__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.emp-vwt__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.emp-vwt__btn--primary {
+  background: linear-gradient(97deg, #ff9500 -18.05%, #fbbc04 69.77%, #ff9500 110.15%);
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px !important;
+  letter-spacing: .8px !important;
+  padding: 18px 25px !important;
+  opacity: 1 !important;
+  transition: all .3s ease !important;
+  color: #fff;
+}
+
+.emp-vwt__btn--primary:hover {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: linear-gradient(97deg, #ff9500 -18.05% 69.77%, #ff9500 110.15%) !important;
+  opacity: 1 !important;
+}
+
+.emp-vwt__btn--secondary {
+  background-color: transparent;
+  border: 1px solid #FF9500;
+  border-radius: 4px;
+  font-size: 16px !important;
+  letter-spacing: .8px !important;
+  padding: 18px 25px !important;
+  opacity: 1 !important;
+  transition: all .3s ease !important;
+  color: #FF9500;
+}
+
+.emp-vwt__btn--secondary:hover {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: linear-gradient(97deg, #ff9500 -18.05% 69.77%, #ff9500 110.15%) !important;
+  opacity: 1 !important;
+  color: #fff;
+}
+
+/* Video Wrapper */
+.emp-vwt__video-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+
+.emp-vwt__video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.emp-vwt__video-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8e8e8;
+}
+
+.emp-vwt__video-placeholder svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Video Badge */
+.emp-vwt__video-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 10px 18px;
+  background-color: #F5A623;
+  color: #0A2B39;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  border-top-right-radius: 4px;
+}
+/* Responsive */
+@media screen and (max-width: 1023px) {
+  .emp-vwt.section-container {
+    padding: 0 15px;
+  }
+
+  .emp-vwt__container {
+    gap: 40px;
+  }
+
+  .emp-vwt__heading {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .emp-vwt__container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .emp-vwt__container.video-right .emp-vwt__video-wrapper,
+  .emp-vwt__container.video-left .emp-vwt__video-wrapper {
+    order: 1;
+  }
+
+  .emp-vwt__container.video-right .emp-vwt__content,
+  .emp-vwt__container.video-left .emp-vwt__content {
+    order: 2;
+  }
+
+  .emp-vwt__heading {
+    font-size: 26px;
+  }
+
+  .emp-vwt__text {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .emp-vwt__buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .emp-vwt__btn {
+    text-align: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,233 @@
+
+<style>
+  .multi-column {
+    padding: 60px 0;
+  }
+
+  .multi-column__header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+  }
+
+  .multi-column__title {
+    margin: 0 0 20px;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    text-transform: capitalize;
+    max-width: 768px;
+    color: #0A2B39;
+  }
+
+  .multi-column__description {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: #414141;
+  }
+
+  .multi-column__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1354px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .multi-column__column {
+    text-align: center;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.12);
+    padding: 40px 32px 24px;
+    border-bottom: 8px solid #0A2B39;
+  }
+
+  .multi-column__icon-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .multi-column__icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+
+  .multi-column__column-title {
+    margin: 0 0 15px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%
+  }
+
+  .multi-column__column-text {
+    margin: 0;
+    ont-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    color: #414141;
+  }
+
+  @media screen and (max-width: 990px) {
+    .multi-column__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .multi-column {
+      padding: 40px 0;
+    }
+
+    .multi-column__grid {
+      grid-template-columns: 1fr;
+      gap: 25px;
+    }
+
+    .multi-column__title {
+      font-size: 1.75rem;
+    }
+
+    .multi-column__description {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<div class="multi-column {{ section.settings.custom_class }}">
+  <div class="multi-column__header">
+    {%- if section.settings.title != blank -%}
+      <h2 class="multi-column__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="multi-column__description">{{ section.settings.description }}</div>
+    {%- endif -%}
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="multi-column__grid">
+      {%- for block in section.blocks -%}
+        <div class="multi-column__column" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <div class="multi-column__icon-wrapper">
+              {%
+                render 'rimg',
+                img: block.settings.icon,
+                size: '120x',
+                lazy: true,
+                class: 'multi-column__icon',
+              %}
+            </div>
+          {%- endif -%}
+
+          {%- if block.settings.title != blank -%}
+            <h3 class="multi-column__column-title">{{ block.settings.title | escape }}</h3>
+          {%- endif -%}
+
+          {%- if block.settings.text != blank -%}
+            <div class="multi-column__column-text">{{ block.settings.text }}</div>
+          {%- endif -%}
+
+          {%- if block.settings.url_text != blank and block.settings.url != blank -%}
+            <a href="{{ block.settings.url }}" class="multi-column__column-url">{{ block.settings.url_text }}</a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Multi Column",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Hiring Home Services Shouldn't Be Rocket Science"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Working with DAPDAN couldn't be easier!</p>"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "60 x 60px recommended"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Column title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Share information about your brand with your customers.</p>"
+        },
+        {
+          "type": "text",
+          "id": "url_text",
+          "label": "URL Text"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multi Column",
+      "blocks": [
+        {
+          "type": "column",
+          "settings": {
+            "title": "1. Get Your Instant Quote",
+            "text": "<p>With DAPDAN, it only takes a few minutes to get your instant quote online. (Of course, you can always call to speak with us about your project.)</p>"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "title": "2. Pick Your Service Day",
+            "text": "<p>If you're happy with your quote, simply accept the proposal, and a team member will be in touch to schedule your project.</p>"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "title": "3. Sit-back & Relax",
+            "text": "<p>Your work is done! Unless you want take a few \"Before\" pictures (because you might not be able to believe your eyes later... 😉)</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

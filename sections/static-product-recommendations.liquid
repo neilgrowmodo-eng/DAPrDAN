@@ -1,0 +1,85 @@
+{% if section.settings.show_product_recommendations %}
+  {% assign product_limit = 4 %}
+
+  <script
+    type="application/json"
+    data-section-type="static-product-recommendations"
+    data-section-id="{{ section.id }}"
+    data-section-data
+    >
+{
+  "settings": {
+    "limit": {{ product_limit }}
+  },
+    "productId": {{ product.id | json }},
+    "sectionId": {{ section.id | json }}
+}
+  </script>
+
+  <section
+    class="product-section--container product-row--container product-recommendations--container"
+    data-html
+    data-product-recommendations
+    >
+    {% if recommendations.products_count > 0 %}
+      <div class="product-recommendations--container-inner{% if section.settings.button_text != blank and section.settings.button_url != blank %} product-recommendations--container-inner--with-button{% endif %}">
+        <h2 class="product-section--title product-recommendations--title">
+          {{ section.settings.product_recommendations_heading }}
+        </h2>
+        {% if section.settings.button_text != blank and section.settings.button_url != blank %}
+          <a href="{{ section.settings.button_url }}" class="product-recommendations--button button-primary">
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+    
+
+    <div
+      class="product-section--content product-row"
+      data-product-row
+      >
+      {% for product in recommendations.products limit: product_limit %}
+        {%
+          render 'product-grid-item',
+          product: product,
+        %}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+
+  {% render 'quick-shop' %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.product_recommendations.name",
+  "class": "product-recommendations--section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_product_recommendations",
+      "label": "t:sections.product_recommendations.show_product_recommendations.label",
+      "info": "t:sections.product_recommendations.show_product_recommendations.info",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_recommendations_heading",
+      "label": "t:sections.product_recommendations.product_recommendations_heading.label",
+      "default": "You may also like"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ]
+}
+{% endschema %}

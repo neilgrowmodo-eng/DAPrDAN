@@ -1,0 +1,879 @@
+{% liquid
+  assign enable_autoplay = section.settings.enable_autoplay
+  assign autoplay_interval = section.settings.autoplay_duration
+  assign autoplay_interval_css = autoplay_interval | append: 's'
+  assign slideshow_height = section.settings.slideshow_height
+  assign slideshow_height_mobile = section.settings.slideshow_height_mobile
+  assign show_pagination = true
+  assign mobile_navigation_adjust = true
+  assign slideshow_classes = 'slideshow--height-' | append: section.settings.slideshow_height | append: ' slideshow--height-' | append: section.settings.slideshow_height_mobile | append: '-mobile' | append: ' slideshow--width-' | append: section.settings.slideshow_width | append: ' slideshow--text-below-image-' | append: section.settings.slideshow_text_below_image
+  if slideshow_height == 'adapt' or slideshow_height_mobile == 'adapt'
+    assign first_block = section.blocks[0]
+    assign min_aspect_ratio_desktop = first_block.settings.background_image.aspect_ratio
+    assign min_aspect_ratio_mobile = first_block.settings.mobile_background_image.aspect_ratio
+    assign slide_height = 100 | divided_by: min_aspect_ratio_desktop
+    assign slide_height_mobile = 100 | divided_by: min_aspect_ratio_mobile
+  endif
+
+  assign performance_lazyload = false
+
+  if section.index > 3 or slideshow_height == 'original'
+    assign performance_lazyload = true
+  endif
+%}
+
+{% if enable_autoplay %}
+  {% capture custom_pagination %}
+    <div class="circle-timer">
+      <svg class="circle-timer__svg">
+        <circle class="circle-timer__countdown" r="3.5" cx="50%" cy="50%"></circle>
+        <circle class="circle-timer__background" r="3.5" cx="50%" cy="50%"></circle>
+      </svg>
+    </div>
+  {% endcapture %}
+{% else %}
+  {% assign custom_pagination = false %}
+{% endif %}
+
+<script type="application/pxs-animation-mapping+json">
+  {
+    "blocks": [".slideshow-slide"],
+    "elements": [
+      ".slideshow-slide__heading",
+      ".slideshow-slide__subheading",
+      ".slideshow-slide__text",
+      ".slideshow-slide__button"
+    ]
+  }
+</script>
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --autoplay-interval: {{ autoplay_interval_css }};
+  }
+
+  {% if slideshow_height == 'adapt' %}
+    @media screen and (min-width: 720px) {
+      #shopify-section-{{ section.id }} .slideshow-slide__image-wrapper {
+        height: {{ slide_height | append: 'vw' }};
+      }
+    }
+  {% endif %}
+
+  {% if slideshow_height_mobile == 'adapt' %}
+    @media screen and (max-width: 719px) {
+      #shopify-section-{{ section.id }} .slideshow-slide__image-wrapper {
+        {% if slide_height_mobile != blank %}
+          height: {{ slide_height_mobile | append: 'vw' }};
+        {% else %}
+          height: {{ slide_height | append: 'vw' }};
+        {% endif %}
+      }
+    }
+  {% endif %}
+
+  .video-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .video-popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .video-popup {
+    width: 1380px;
+    max-width: 90vw;
+    background: white;
+    border-radius: 8px;
+    padding: 60px 80px;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: center;
+  }
+
+  .video-popup-overlay.active .video-popup {
+    transform: translateY(0);
+  }
+
+  .video-popup__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+
+  .video-popup__close:hover {
+    background-color: #f0f0f0;
+  }
+
+  .video-popup__title {
+    font-family: Outfit;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    text-transform: capitalize;
+    margin: 0 0 20px 0;
+    color: #000;
+  }
+
+  .video-popup__description {
+    font-family: "Nunito Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    margin: 0 0 40px 0;
+    color: #000;
+  }
+
+  .video-popup__videos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .video-popup__video-container {
+    position: relative;
+    width: 373px;
+    height: 508px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .video-popup__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .video-popup__video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .video-popup__video-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .video-popup__play-button {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
+
+  .video-popup__video-text {
+    font-family: Outfit;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  @media screen and (max-width: 1400px) {
+    .video-popup {
+      padding: 40px 60px;
+    }
+    
+    .video-popup__videos {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .video-popup {
+      padding: 30px 20px;
+    }
+    
+    .video-popup__title {
+      font-size: 32px;
+    }
+    
+    .video-popup__description {
+      font-size: 16px;
+    }
+    
+    .video-popup__video-container {
+      width: 280px;
+      height: 380px;
+    }
+  }
+{% endstyle %}
+
+{% comment %}Inject @pixelunion/pxs-slideshow/slideshow begin{% endcomment %}
+{%- comment -%}
+  @param section {Object}
+    The section object with all section data.
+
+  @param slideshow_heading {String}
+    The heading to be shown above the slideshow if one exists
+
+  @param treat_as_banner {Boolean} Optional
+    If this is set to true an attribute will be added to treat this as a banner. Usually important for the header if it is transparent.
+
+  @param enable_autoplay {Boolean}
+    If true the slideshow will play automatically
+
+  @param autoplay_interval {Number}
+    The number of seconds before switching to a new slide if autoplay is enabled
+
+  @param show_pagination {Boolean}
+    If set to true, the pagination dots will show on the slideshow
+
+  @param mobile_navigation_adjust {Boolean}
+    If set to true, the pagination dots will be dynamically placed below the image on mobile, and the
+    arrows (if displayed) will show in the middle of the image
+
+  @param transition_fade {Boolean}
+    If true, the slides will use a fade transition instead of a slide transition
+
+  @param slide_attraction {String}
+    This is the attraction of how fast a slide will move into place when changed - based on Flickity's property
+
+  @param slide_friction {String}
+    This is the friction of the slides and how sticky they are when snapping into place - based on Flickity's property
+
+  @param slideshow_classes {String}
+    A space separated list of classnames to add to the slideshow section element
+
+  @param wrapper_classes {String}
+    A space separated list of classnames to add to the slideshow internal wrapper element
+
+  @param performance_lazyload {Bool}
+    Specifies the 'lazy' property for rimg
+{%- endcomment -%}
+
+{% liquid
+  assign treat_as_banner = treat_as_banner | default: false
+
+  # If the performance_lazyload variable does not exist, default to true
+
+  if performance_lazyload != nil
+    assign lazyload = performance_lazyload
+  else
+    assign lazyload = true
+  endif
+%}
+
+<script
+  type="application/json"
+  data-section-type="pxs-slideshow"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  {
+    "enable_autoplay": {{ enable_autoplay | json }},
+    "autoplay_interval": {{ autoplay_interval | json }},
+    "mobile_navigation_adjust": {{ mobile_navigation_adjust | json }},
+    "transition_fade": {{ transition_fade | json }},
+    "slide_attraction": {{ slide_attraction | json }},
+    "slide_friction": {{ slide_friction | json }},
+    "next_text": {{ 'sections.slideshow.next_slide' | t | json }},
+    "previous_text": {{ 'sections.slideshow.previous_slide' | t | json }}
+  }
+</script>
+
+<section
+  class="
+    slideshow
+    custom-slideshow
+    {{ slideshow_classes }}
+    {% if section.settings.custom_class != blank %}{{ section.settings.custom_class }}{% endif %}
+  "
+  aria-label="{{ 'sections.slideshow.slideshow' | t }}"
+  data-autoplay="{% if enable_autoplay %}true{% else %}false{% endif %}"
+  data-autoplay-interval="{{ autoplay_interval }}"
+  data-banner="{{ treat_as_banner }}"
+  data-slideshow
+>
+  {%- if slideshow_heading != blank -%}
+    <h2 class="slideshow__heading">
+      {{ slideshow_heading }}
+    </h2>
+  {%- endif -%}
+
+  <div
+    class="slideshow__wrapper {{ wrapper_classes }}"
+    data-slideshow-wrapper
+  >
+    {%- for block in section.blocks -%}
+      {%
+        render 'slideshow-slide-video',
+        section: section,
+        lazyload: lazyload,
+        block: block,
+        block_index: forloop.index0,
+      %}
+    {%- endfor -%}
+  </div>
+
+  {%- if section.blocks.size > 1 and show_pagination -%}
+    <ol
+      class="slideshow-pagination"
+      data-slideshow-pagination
+    >
+      {%- for block in section.blocks -%}
+        <li class="slideshow-pagination__dot">
+          <button
+            class="slideshow-pagination__button"
+            data-selected="{% if forloop.index == 1 %}true{% else %}false{% endif %}"
+            data-slide-button="{{ forloop.index0 }}"
+          >
+            {% if custom_pagination %}
+              {{ custom_pagination }}
+            {% endif %}
+            <span class="visually-hidden">{{ 'sections.slideshow.slide_index' | t: count: forloop.index }}</span>
+          </button>
+        </li>
+      {%- endfor -%}
+    </ol>
+  {%- endif -%}
+
+  <div
+    class="slideshow__current-slide visually-hidden"
+    aria-live="polite"
+    aria-atomic="true"
+    data-slide-counter
+    data-counter-template="{{ 'sections.slideshow.slide_counter' | t }}"
+  >
+  </div>
+</section>
+
+{% for block in section.blocks %}
+  {% if block.settings.button_one_action == 'popup' %}
+    <div id="video-popup-{{ block.id }}" class="video-popup-overlay">
+      <div class="video-popup">
+        <button class="video-popup__close" onclick="closeVideoPopup('{{ block.id }}')">&times;</button>
+        
+        {% if block.settings.popup_title != blank %}
+          <h2 class="video-popup__title">{{ block.settings.popup_title }}</h2>
+        {% endif %}
+        
+        {% if block.settings.popup_description != blank %}
+          <p class="video-popup__description">{{ block.settings.popup_description }}</p>
+        {% endif %}
+        
+        <div class="video-popup__videos">
+          {% if block.settings.popup_video_1 != blank %}
+            <div class="video-popup__video-container">
+              <video class="video-popup__video" preload="metadata">
+                <source src="{{ block.settings.popup_video_1.sources[1].url }}" type="video/mp4">
+              </video>
+              <div class="video-popup__video-overlay" onclick="playVideo(this)">
+                <svg class="video-popup__play-button" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <path d="M40 1.5C61.263 1.5 78.5 18.737 78.5 40C78.5 61.263 61.263 78.5 40 78.5C18.737 78.5 1.5 61.263 1.5 40C1.5 18.737 18.737 1.5 40 1.5Z" stroke="white" stroke-width="3"/>
+                  <path d="M56.25 37.904C57.9167 38.8355 57.9167 41.1645 56.25 42.096L33.75 54.6721C32.0833 55.6037 30 54.4392 30 52.5761L30 27.4239C30 25.5608 32.0833 24.3963 33.75 25.3279L56.25 37.904Z" fill="white"/>
+                </svg>
+                {% if block.settings.popup_video_1_text != blank %}
+                  <div class="video-popup__video-text">{{ block.settings.popup_video_1_text }}</div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+          
+          {% if block.settings.popup_video_2 != blank %}
+            <div class="video-popup__video-container">
+              <video class="video-popup__video" preload="metadata">
+                <source src="{{ block.settings.popup_video_2.sources[1].url }}" type="video/mp4">
+              </video>
+              <div class="video-popup__video-overlay" onclick="playVideo(this)">
+                <svg class="video-popup__play-button" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <path d="M40 1.5C61.263 1.5 78.5 18.737 78.5 40C78.5 61.263 61.263 78.5 40 78.5C18.737 78.5 1.5 61.263 1.5 40C1.5 18.737 18.737 1.5 40 1.5Z" stroke="white" stroke-width="3"/>
+                  <path d="M56.25 37.904C57.9167 38.8355 57.9167 41.1645 56.25 42.096L33.75 54.6721C32.0833 55.6037 30 54.4392 30 52.5761L30 27.4239C30 25.5608 32.0833 24.3963 33.75 25.3279L56.25 37.904Z" fill="white"/>
+                </svg>
+                {% if block.settings.popup_video_2_text != blank %}
+                  <div class="video-popup__video-text">{{ block.settings.popup_video_2_text }}</div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+          
+          {% if block.settings.popup_video_3 != blank %}
+            <div class="video-popup__video-container">
+              <video class="video-popup__video" preload="metadata">
+                <source src="{{ block.settings.popup_video_3.sources[1].url }}" type="video/mp4">
+              </video>
+              <div class="video-popup__video-overlay" onclick="playVideo(this)">
+                <svg class="video-popup__play-button" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <path d="M40 1.5C61.263 1.5 78.5 18.737 78.5 40C78.5 61.263 61.263 78.5 40 78.5C18.737 78.5 1.5 61.263 1.5 40C1.5 18.737 18.737 1.5 40 1.5Z" stroke="white" stroke-width="3"/>
+                  <path d="M56.25 37.904C57.9167 38.8355 57.9167 41.1645 56.25 42.096L33.75 54.6721C32.0833 55.6037 30 54.4392 30 52.5761L30 27.4239C30 25.5608 32.0833 24.3963 33.75 25.3279L56.25 37.904Z" fill="white"/>
+                </svg>
+                {% if block.settings.popup_video_3_text != blank %}
+                  <div class="video-popup__video-text">{{ block.settings.popup_video_3_text }}</div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}
+
+<script>
+function openVideoPopup(blockId) {
+  const popup = document.getElementById('video-popup-' + blockId);
+  if (popup) {
+    popup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeVideoPopup(blockId) {
+  const popup = document.getElementById('video-popup-' + blockId);
+  if (popup) {
+    popup.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    const videos = popup.querySelectorAll('video');
+    videos.forEach(video => {
+      video.pause();
+      video.currentTime = 0;
+      const overlay = video.parentNode.querySelector('.video-popup__video-overlay');
+      if (overlay) {
+        overlay.classList.remove('hidden');
+      }
+    });
+  }
+}
+
+function playVideo(overlay) {
+  const video = overlay.parentNode.querySelector('video');
+  if (video) {
+    video.play();
+    overlay.classList.add('hidden');
+    
+    video.addEventListener('pause', function() {
+      overlay.classList.remove('hidden');
+    });
+    
+    video.addEventListener('ended', function() {
+      overlay.classList.remove('hidden');
+    });
+  }
+}
+
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('video-popup-overlay')) {
+    const blockId = e.target.id.replace('video-popup-', '');
+    closeVideoPopup(blockId);
+  }
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const activePopup = document.querySelector('.video-popup-overlay.active');
+    if (activePopup) {
+      const blockId = activePopup.id.replace('video-popup-', '');
+      closeVideoPopup(blockId);
+    }
+  }
+});
+</script>
+{% comment %}Inject @pixelunion/pxs-slideshow/slideshow end{% endcomment %}
+
+
+{% schema %}
+{
+  "name": "t:sections.slideshow.name",
+  "class": "slideshow--section",
+  "settings": [
+    {
+      "id": "enable_autoplay",
+      "type": "checkbox",
+      "label": "t:sections.slideshow.enable_autoplay.label",
+      "default": true
+    },
+    {
+      "id": "autoplay_duration",
+      "type": "range",
+      "label": "t:sections.slideshow.autoplay_duration.label",
+      "min": 5,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "default": 8
+    },
+    {
+      "id": "slideshow_width",
+      "type": "select",
+      "label": "t:sections.slideshow.slideshow_width.label",
+      "options": [
+        {
+          "value": "full",
+          "label": "t:sections.slideshow.slideshow_width.option_1"
+        },
+        {
+          "value": "content",
+          "label": "t:sections.slideshow.slideshow_width.option_2"
+        }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.slideshow.header_1.content"
+    },
+    {
+      "id": "slideshow_height",
+      "type": "select",
+      "label": "t:sections.slideshow.slideshow_height.label",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.slideshow.slideshow_height.option_1"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.slideshow.slideshow_height.option_2"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.slideshow.slideshow_height.option_3"
+        },
+        {
+          "value": "fit_screen",
+          "label": "t:sections.slideshow.slideshow_height.option_4"
+        },
+        {
+          "value": "adapt",
+          "label": "t:sections.slideshow.slideshow_height.option_5"
+        },
+        {
+          "value": "original",
+          "label": "t:sections.slideshow.slideshow_height.option_6"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.slideshow.header_2.content"
+    },
+    {
+      "id": "slideshow_height_mobile",
+      "type": "select",
+      "label": "t:sections.slideshow.slideshow_height_mobile.label",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.slideshow.slideshow_height_mobile.option_1"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.slideshow.slideshow_height_mobile.option_2"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.slideshow.slideshow_height_mobile.option_3"
+        },
+        {
+          "value": "x-large",
+          "label": "t:sections.slideshow.slideshow_height_mobile.option_4"
+        },
+        {
+          "value": "fit_screen",
+          "label": "t:sections.slideshow.slideshow_height_mobile.option_5"
+        },
+        {
+          "value": "adapt",
+          "label": "t:sections.slideshow.slideshow_height_mobile.option_6"
+        },
+        {
+          "value": "original",
+          "label": "t:sections.slideshow.slideshow_height_mobile.option_7"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "checkbox",
+      "id": "slideshow_text_below_image",
+      "label": "t:sections.slideshow.slideshow_text_below_image.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class",
+      "info": "Add custom class for additional styling"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "t:sections.slideshow.blocks.slide.name",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Background video"
+        },
+        {
+          "id": "background_image",
+          "type": "image_picker",
+          "label": "t:sections.slideshow.blocks.slide.background_image.label",
+          "info": "t:sections.slideshow.blocks.slide.background_image.info"
+        },
+        {
+          "id": "mobile_background_image",
+          "type": "image_picker",
+          "label": "t:sections.slideshow.blocks.slide.mobile_background_image.label",
+          "info": "t:sections.slideshow.blocks.slide.mobile_background_image.info"
+        },
+        {
+          "id": "subheading",
+          "type": "text",
+          "label": "Subheading above title"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "t:sections.slideshow.blocks.slide.title.label",
+          "default": "Slide"
+        },
+        {
+          "id": "text",
+          "type": "text",
+          "label": "t:sections.slideshow.blocks.slide.text.label",
+          "default": "Introduce customers to your shop with lifestyle and product imagery"
+        },
+        {
+          "id": "color",
+          "type": "color",
+          "label": "t:sections.slideshow.blocks.slide.color.label",
+          "default": "#FFFFFF"
+        },
+        {
+          "id": "link",
+          "type": "url",
+          "label": "t:sections.slideshow.blocks.slide.link.label"
+        },
+        {
+          "id": "text_alignment",
+          "type": "text_alignment",
+          "label": "t:sections.slideshow.blocks.slide.text_alignment.label",
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.slideshow.blocks.slide.header_1.content"
+        },
+        {
+          "id": "button_one_label",
+          "type": "text",
+          "label": "t:sections.slideshow.blocks.slide.button_one_label.label",
+          "default": "Button"
+        },
+        {
+          "id": "button_one_action",
+          "type": "select",
+          "label": "Button action",
+          "options": [
+            {
+              "value": "link",
+              "label": "Link to URL"
+            },
+            {
+              "value": "popup",
+              "label": "Open video popup"
+            }
+          ],
+          "default": "link"
+        },
+        {
+          "id": "button_one_link",
+          "type": "url",
+          "label": "t:sections.slideshow.blocks.slide.button_one_link.label"
+        },
+        {
+          "id": "button_one_style",
+          "type": "select",
+          "label": "t:sections.slideshow.blocks.slide.button_one_style.label",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.slideshow.blocks.slide.button_one_style.option_1"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.slideshow.blocks.slide.button_one_style.option_2"
+            }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "header",
+          "content": "Video Popup Settings"
+        },
+        {
+          "id": "popup_title",
+          "type": "text",
+          "label": "Popup title",
+          "default": "Video Quizzes"
+        },
+        {
+          "id": "popup_description",
+          "type": "textarea",
+          "label": "Popup description",
+          "default": "Discover DAPrDAN"
+        },
+        {
+          "id": "popup_video_1",
+          "type": "video",
+          "label": "Video 1"
+        },
+        {
+          "id": "popup_video_1_text",
+          "type": "text",
+          "label": "Video 1 text"
+        },
+        {
+          "id": "popup_video_2",
+          "type": "video",
+          "label": "Video 2"
+        },
+        {
+          "id": "popup_video_2_text",
+          "type": "text",
+          "label": "Video 2 text"
+        },
+        {
+          "id": "popup_video_3",
+          "type": "video",
+          "label": "Video 3"
+        },
+        {
+          "id": "popup_video_3_text",
+          "type": "text",
+          "label": "Video 3 text"
+        },
+        {
+          "type": "header",
+          "content": "Second Button (Optional)"
+        },
+        {
+          "id": "button_two_label",
+          "type": "text",
+          "label": "t:sections.slideshow.blocks.slide.button_two_label.label"
+        },
+        {
+          "id": "button_two_link",
+          "type": "url",
+          "label": "t:sections.slideshow.blocks.slide.button_two_link.label"
+        },
+        {
+          "id": "button_two_style",
+          "type": "select",
+          "label": "t:sections.slideshow.blocks.slide.button_two_style.label",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.slideshow.blocks.slide.button_two_style.option_1"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.slideshow.blocks.slide.button_two_style.option_2"
+            }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.slideshow.blocks.slide.header_2.content"
+        },
+        {
+          "id": "show_overlay",
+          "type": "checkbox",
+          "label": "t:sections.slideshow.blocks.slide.show_overlay.label",
+          "default": true
+        },
+        {
+          "id": "overlay_color",
+          "type": "color",
+          "label": "t:sections.slideshow.blocks.slide.overlay_color.label",
+          "default": "#000000"
+        },
+        {
+          "id": "overlay_opacity",
+          "type": "range",
+          "label": "t:sections.slideshow.blocks.slide.overlay_opacity.label",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom: Slideshow",
+      "category": "t:sections.slideshow.presets.slideshow.category",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Slide 1"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "title": "Slide 2"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["*"]
+  }
+}
+
+{% endschema %}

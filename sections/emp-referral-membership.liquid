@@ -1,0 +1,586 @@
+<style>
+  .referral-membership {
+    padding: 100px 0;
+    background: #f8f9fa;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .referral-membership--has-background {
+    color: white;
+  }
+
+  .referral-membership__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(13, 43, 60, 0.8);
+    z-index: 1;
+  }
+
+  .referral-membership__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .referral-membership__grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* Left Column - Content */
+  .referral-membership--has-background .referral-membership__content {
+    color: white;
+    width: 100%;
+    max-width: 50%;
+  }
+
+  .referral-membership:not(.referral-membership--has-background) .referral-membership__content {
+    background: #0D2B3C;
+    color: white;
+    border-radius: 12px;
+  }
+
+  .referral-membership__label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 15px;
+    opacity: 0.8;
+  }
+
+  .referral-membership__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    max-width: 488px;
+  }
+
+  .referral-membership__description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0 0 30px;
+    opacity: 0.9;
+  }
+
+  .referral-membership__benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px;
+    max-width: 420px;
+  }
+
+  .referral-membership__benefit {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    line-height: 1.5;
+    gap: 8px;
+  }
+
+  /* Right Column - Referral Card */
+  .referral-membership__card {
+    background: #ffffffe3;
+    padding: 32px 35px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    max-width: 477px;
+    flex-direction: column;
+  }
+
+  .referral-membership__card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 15px;
+    color: #0A2B39;
+  }
+
+  .referral-membership__card-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 30px;
+    color: #666;
+  }
+
+  .referral-membership__referrer {
+    margin: 0 0 8px;
+  }
+
+  .referral-membership__referrer-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+    margin: 0 0 5px;
+  }
+
+  .referral-membership__referrer-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0A2B39;
+    margin: 0;
+  }
+
+  .referral-membership__code-section {
+    margin: 0 0 8px;
+  }
+
+  .referral-membership__code-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+    margin: 0 0 10px;
+  }
+
+  .referral-membership__code-wrapper {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .referral-membership__code-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: #f8f9fa;
+    color: #0A2B39;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+  }
+  .referral-membership__copy-button.copied:hover,
+  .referral-membership__copy-button.copied {
+    background: #28a745 !important;
+  }
+
+  /* Tooltip for copy confirmation */
+  .referral-membership__tooltip {
+    position: relative;
+  }
+
+  .referral-membership__tooltip-text {
+    visibility: hidden;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .referral-membership__tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+  }
+
+  .referral-membership__tooltip.show .referral-membership__tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  /* Referral Membership Page */
+  section.referral-membership.section-container {
+      width: 100%;
+      max-width: 1376px;
+      margin: 20px auto;
+      border-radius: 8px;
+      padding: 65px 20px;
+  }
+  @media( max-width: 1376px ){
+      section.referral-membership.section-container {
+          max-width: calc(100% - 40px);
+      }
+      .referral-membership__card {
+          max-width: 43%;
+      }
+  }
+  /* Mobile Styles */
+  @media screen and (max-width: 768px) {
+    .referral-membership {
+      padding: 60px 0;
+    }
+
+
+    .referral-membership__title {
+      font-size: 2rem;
+    }
+
+    .referral-membership__description {
+      font-size: 1rem;
+    }
+
+    .referral-membership__card {
+      padding: 30px 25px;
+    }
+
+    .referral-membership__card-title {
+      font-size: 1.5rem;
+    }
+
+    .referral-membership__code-wrapper {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .referral-membership__copy-button {
+      width: 100%;
+    }
+    .referral-membership--has-background .referral-membership__content {
+        max-width: 45%;
+    }
+    .referral-membership__grid {
+        gap: 20px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .referral-membership--has-background .referral-membership__content,
+    .referral-membership__card {
+          max-width: 100%;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .referral-membership__container {
+      padding: 0 15px;
+    }
+
+    .referral-membership__title {
+      font-size: 1.75rem;
+    }
+
+    .referral-membership__card {
+      padding: 25px 20px;
+    }
+
+    .referral-membership__benefit {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('.referral-membership__copy-button');
+    
+    copyButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const input = this.parentElement.querySelector('.referral-membership__code-input');
+        const originalText = this.textContent;
+        const tooltip = this.parentElement.parentElement.querySelector('.referral-membership__tooltip');
+        
+        // Copy to clipboard
+        input.select();
+        input.setSelectionRange(0, 99999); // For mobile devices
+        
+        try {
+          document.execCommand('copy');
+          
+          // Update button state
+          this.textContent = 'Copied!';
+          this.classList.add('copied');
+          
+          // Show tooltip
+          if (tooltip) {
+            tooltip.classList.add('show');
+          }
+          
+          // Reset after 2 seconds
+          setTimeout(() => {
+            this.textContent = originalText;
+            this.classList.remove('copied');
+            if (tooltip) {
+              tooltip.classList.remove('show');
+            }
+          }, 2000);
+          
+        } catch (err) {
+          console.error('Failed to copy text: ', err);
+        }
+        
+        // Deselect the input
+        input.blur();
+      });
+    });
+  });
+</script>
+
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-type="emp-referral-membership"
+>
+</script>
+
+<script type="application/pxs-animation-mapping+json">
+  {
+    "blocks": [".referral-membership__content", ".referral-membership__card"],
+    "elements": [".referral-membership__title", ".referral-membership__description", ".referral-membership__card-title"]
+  }
+</script>
+
+{%- liquid
+  assign has_background = false
+  if section.settings.background_image != blank
+    assign has_background = true
+  endif
+-%}
+
+<section 
+  class="referral-membership {% if has_background %}referral-membership--has-background{% endif %} {% if section.settings.section_container %}section-container{% endif %} {{ section.settings.custom_class }}" 
+  {% if has_background %}
+    style="background-image: url('{{ section.settings.background_image | image_url: width: 1920 }}');"
+  {% endif %}
+  {{ section.shopify_attributes }}
+>
+
+  <div class="referral-membership__container">
+    <div class="referral-membership__grid">
+      <!-- Left Column - Content -->
+      <div class="referral-membership__content">
+        {%- if section.settings.label != blank -%}
+          <p class="referral-membership__label">{{ section.settings.label | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="referral-membership__title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <p class="referral-membership__description">{{ section.settings.description | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <ul class="referral-membership__benefits">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'benefit' and block.settings.text != blank -%}
+                <li class="referral-membership__benefit" {{ block.shopify_attributes }}>
+                  <span class="referral-membership__benefit-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                      <path d="M7.5 12.5L10.5 15.5L16.5 9.5M22 12.5C22 18.0228 17.5228 22.5 12 22.5C6.47715 22.5 2 18.0228 2 12.5C2 6.97715 6.47715 2.5 12 2.5C17.5228 2.5 22 6.97715 22 12.5Z" stroke="#00A1E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <span>{{ block.settings.text | escape }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank -%}
+          <a href="{{ section.settings.button_link | default: '#' }}" class="rich-text__button button-primary">
+            {{ section.settings.button_text | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column - Referral Card -->
+      <div class="referral-membership__card">
+        {%- if section.settings.card_title != blank -%}
+          <h3 class="referral-membership__card-title">{{ section.settings.card_title | escape }}</h3>
+        {%- endif -%}
+
+        {%- if section.settings.card_description != blank -%}
+          <p class="referral-membership__card-description">{{ section.settings.card_description | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.referrer_name != blank -%}
+          <div class="referral-membership__referrer">
+            <p class="referral-membership__referrer-name">Referrer Name: {{ section.settings.referrer_name | escape }}</p>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.referral_code != blank -%}
+          <div class="referral-membership__code-section">
+            <div class="referral-membership__tooltip">
+              <div class="referral-membership__code-wrapper">
+                <input 
+                  type="text" 
+                  class="referral-membership__code-input" 
+                  value="{{ section.settings.referral_code | escape }}" 
+                  readonly
+                >
+                <button class="referral-membership__copy-button rich-text__button button-primary">
+                  {{ section.settings.copy_button_text | default: 'Copy Referral Link' | escape }}
+                </button>
+              </div>
+              <span class="referral-membership__tooltip-text">Copied to clipboard!</span>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Referral Membership",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Optional background image for the entire section"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_container",
+      "label": "Section Container",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Left Column Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Small Label Text",
+      "default": "Referral Membership"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Invite Friends, Earn Rewards Together!"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Make the most of your membership by sharing the benefits with your friends. With our Shared Reward Program, everyone wins! When you refer someone, both you and your friend will receive exciting rewards."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Refer Now and Start Earning"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Referral Card"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Card Title",
+      "default": "Share Your Referral Link"
+    },
+    {
+      "type": "textarea",
+      "id": "card_description",
+      "label": "Card Description",
+      "default": "Once your friend places their first order, you earn $100 credit toward your annual membership spend."
+    },
+    {
+      "type": "text",
+      "id": "referrer_name",
+      "label": "Referrer Name",
+      "default": "John Doe Smith"
+    },
+    {
+      "type": "text",
+      "id": "referral_code",
+      "label": "Referral Code",
+      "default": "JDS-48291-DAP-QX73KZ"
+    },
+    {
+      "type": "text",
+      "id": "copy_button_text",
+      "label": "Copy Button Text",
+      "default": "Copy Referral Link"
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit Point",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Benefit Text",
+          "default": "Existing Prime Member refers a New Prime Member"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Referral Membership",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Existing Prime Member refers a New Prime Member"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Existing Member gets $100 credit towards their total annual spend"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "New Prime Member gets $100 discount towards their initial order"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Existing Prime Members can stack recurring rewards and never pay for home maintenance again!"
+          }
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10
+}
+{% endschema %}

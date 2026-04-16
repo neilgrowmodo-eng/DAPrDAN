@@ -1,0 +1,157 @@
+{% liquid
+  assign heading = block.settings.heading
+  assign products_per_slide = block.settings.products_per_slide
+
+  if settings.product_grid_emphasize_price
+    assign wrapper_class = 'complementary-products--emphasized'
+  endif
+%}
+
+{% comment %}Inject @pixelunion/pxs-complementary-products/complementary-product-block begin{% endcomment %}
+{% comment %}
+  @param block {Object}
+  @param wrapper_class {String}
+  @param heading {String}
+  @param products_per_slide {Integer}
+  @param format_currency {Boolean}
+  @param crop_thumbnails {Boolean}
+  @param wrap_heading {Boolean}
+{% endcomment %}
+
+{% liquid
+  assign products_per_slide = products_per_slide | default: 2
+  assign format_currency = format_currency | default: false
+  assign wrap_heading = wrap_heading | default: false
+  assign crop_thumbnails = crop_thumbnails | default: false
+%}
+
+<div
+  class="
+    complementary-products
+    {{ wrapper_class }}
+  "
+  {{ block.shopify_attributes }}
+  data-complementary-products
+  data-html
+>
+{% if recommendations.performed and recommendations.products_count > 0 %}
+    {% assign slider = false %}
+
+    {% if recommendations.products_count > products_per_slide %}
+      {% assign slider = true %}
+    {% endif %}
+
+    {% if heading != blank %}
+      {%- if wrap_heading -%}
+        <div class="complementary-products__title-wrapper">
+      {%- endif -%}
+      {% assign comp_id = block.id | default: block.settings.id | default: forloop.index0 | default: '1' %}
+      <button type="button" id="complementary-products-toggle-{{ comp_id }}" class="complementary-products__toggle-btn" aria-expanded="false" aria-controls="complementary-products-content-{{ comp_id }}">
+        <span class="collapsible-tab__heading">
+          {{ heading | escape }}
+        </span>
+        <svg class="chevron-icon" width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 8L10 12L14 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      {%- if wrap_heading -%}
+        </div>
+      {%- endif -%}
+    {% endif %}
+
+    <div
+        id="complementary-products-content-{{ comp_id }}"
+        class="complementary-products__collapsible"
+        style="display: none; transition: none; overflow: hidden;"
+      >
+      <div
+        class="
+          complementary-products__container
+          {% if slider %}
+            complementary-products__container--slider
+          {% else %}
+            complementary-products__container--grid
+          {% endif %}
+        "
+      data-slider-wrapper
+      >
+        <div
+          class="complementary-products__slider"
+          data-slider
+        >
+        {% for product in recommendations.products %}
+            {% assign slide_index_remainder = forloop.index | modulo: products_per_slide %}
+            {% if slide_index_remainder == 1 or products_per_slide == 1 %}
+              <div
+                class="
+                  {% if slider %}
+                    complementary-products__slide
+                  {% else %}
+                    complementary-products__grid
+                  {% endif %}
+                "
+                {% if slider %}
+                  data-slide
+                {% endif %}
+              >
+            {% endif %}
+
+            <div data-slide-item>
+              {% render 'complementary-product', product: product, format_currency: format_currency, crop_thumbnails: crop_thumbnails %}
+            </div>
+
+            {% if forloop.last or slide_index_remainder == 0 or products_per_slide == 1 %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% comment %}Inject @pixelunion/pxs-complementary-products/complementary-product-block end{% endcomment %}
+<style>
+.complementary-products__toggle-btn {
+  background: none;
+  border: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 0 0;
+  cursor: pointer;
+}
+.complementary-products__toggle-btn:focus {
+  outline: 2px solid #005fcc;
+}
+.complementary-products__toggle-btn .collapsible-tab__heading {
+  margin: 0;
+  color: #0A2B39;
+  text-align: left;
+  font-family: "Nunito Sans", sans-serif;
+}
+.complementary-products__toggle-btn .chevron-icon {
+  transition: transform 0.2s;
+}
+.complementary-products__toggle-btn[aria-expanded="true"] .chevron-icon {
+  transform: rotate(180deg);
+}
+.complementary-products__container.complementary-products__container--grid {
+  margin-top: 0px;
+}
+</style>
+<script>
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('complementary-products__toggle-btn') || event.target.closest('.complementary-products__toggle-btn')) {
+    var btn = event.target.closest('.complementary-products__toggle-btn');
+    var contentId = btn.getAttribute('aria-controls');
+    var content = document.getElementById(contentId);
+    if (content) {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+      content.style.display = expanded ? 'none' : 'block';
+      // No text to update, icon rotates via CSS
+    }
+  }
+});
+</script>

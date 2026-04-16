@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "announcement-bar": {
+      "type": "static-announcement",
+      "settings": {
+        "show_announcement": true,
+        "homepage_announcement": false,
+        "announcement_text": "Join DAPrDAN Today and Maintain Your Home All Year.",
+        "announcement_text_mobile": "",
+        "announcement_link": "",
+        "announcement_color": "#ffffff",
+        "announcement_background": "#00a1e0"
+      }
+    },
+    "utility-bar": {
+      "type": "static-utility-bar",
+      "settings": {
+        "use_full_width": true,
+        "background_color": "#ffffff",
+        "link_color": "#414141",
+        "link_hover_color": "#00a1e0",
+        "border_color": "rgba(0,0,0,0)",
+        "menu": "secondary-menu",
+        "show_menu_mobile": true,
+        "mobile_layout": "below",
+        "show_locale_selector": true,
+        "show_currency_selector": true,
+        "show_social_icons": true
+      }
+    },
+    "header": {
+      "type": "static-header",
+      "settings": {
+        "sticky_header": true,
+        "full_width_header": true,
+        "logo": "shopify://shop_images/daprdan-logo.png",
+        "logo_height": 40,
+        "logo_width": 153,
+        "filter_search_by": "product_type",
+        "enable_live_search": true,
+        "show_mobile_search_bar": false,
+        "enable_live_search_images": true,
+        "quick_links": "",
+        "menu": "menu-desktop",
+        "secondary_menu": "",
+        "location_menu": "location",
+        "small_promo_heading": "Call Us M-F, 8A-5P",
+        "small_promo_text": "<p>(425) 659-3009</p>",
+        "small_promo_text_mobile": "",
+        "small_promo_link": "tel:14256593009",
+        "small_promo_icon": "icon-chat",
+        "cart_icon": "icon-bag",
+        "custom_button_label": "REGISTER",
+        "custom_button_link": "#"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "utility-bar",
+    "header"
+  ]
+}

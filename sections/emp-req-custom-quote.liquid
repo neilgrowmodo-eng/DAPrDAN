@@ -1,0 +1,498 @@
+{{ 'emp-req-custom-quote.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign section_id   = 'rcq-' | append: section.id
+  assign form_id      = 'rcq-form-' | append: section.id
+  assign multiselect_id = 'rcq-ms-' | append: section.id
+
+  assign services_raw        = section.settings.select_services
+  assign membership_raw      = section.settings.membership_tier
+  assign assistance_raw      = section.settings.assistance_type
+
+  assign services_list   = services_raw | split: ','
+  assign membership_list = membership_raw | split: ','
+  assign assistance_list = assistance_raw | split: ','
+-%}
+
+<section
+  id="{{ section_id }}"
+  class="rcq {{ section.settings.custom_class }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="emp-req-custom-quote"
+  {{ section.shopify_attributes }}
+>
+  <div class="rcq__inner">
+    <div class="rcq__layout">
+
+      {%- comment -%} ── LEFT: Form Column ── {%- endcomment -%}
+      <div class="rcq__form-col">
+        <div class="rcq__form-card">
+
+          {%- if section.settings.heading != blank -%}
+            <h2 class="rcq__form-heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.description != blank -%}
+            <div class="rcq__form-description">{{ section.settings.description }}</div>
+          {%- endif -%}
+
+          {%- form 'contact', id: form_id, class: 'rcq__form' -%}
+
+            {%- if form.posted_successfully? -%}
+              <div class="rcq__success" role="alert">
+                <p>{{ 'contact.form.post_success' | t }}</p>
+              </div>
+            {%- endif -%}
+
+            {%- if form.errors -%}
+              <div class="rcq__errors" role="alert">
+                <ul>
+                  {%- for field in form.errors -%}
+                    <li>
+                      {%- if field == 'form' -%}
+                        {{ form.errors.messages[field] }}
+                      {%- else -%}
+                        {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+
+            <input type="hidden" name="contact[subject]" value="Request A Custom Service Quote">
+
+            {%- comment -%} Full Name {%- endcomment -%}
+            {%- if section.settings.show_full_name -%}
+              <div class="rcq__field">
+                <label class="rcq__label" for="{{ form_id }}-full-name">Full Name</label>
+                <input
+                  class="rcq__input"
+                  type="text"
+                  id="{{ form_id }}-full-name"
+                  name="contact[full_name]"
+                  placeholder="Enter your full name"
+                  value="{{ form.full_name }}"
+                  required
+                >
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Email + Phone row {%- endcomment -%}
+            {%- if section.settings.show_email or section.settings.show_phone -%}
+              {%- if section.settings.show_email and section.settings.show_phone -%}
+                <div class="rcq__row">
+                  <div class="rcq__field">
+                    <label class="rcq__label" for="{{ form_id }}-email">Email</label>
+                    <input
+                      class="rcq__input"
+                      type="email"
+                      id="{{ form_id }}-email"
+                      name="contact[email]"
+                      placeholder="Enter your email address"
+                      value="{{ form.email }}"
+                      required
+                    >
+                  </div>
+                  <div class="rcq__field">
+                    <label class="rcq__label" for="{{ form_id }}-phone">Phone number</label>
+                    <input
+                      class="rcq__input"
+                      type="tel"
+                      id="{{ form_id }}-phone"
+                      name="contact[phone]"
+                      placeholder="Enter your phone number"
+                      value="{{ form.phone }}"
+                      required
+                    >
+                  </div>
+                </div>
+              {%- elsif section.settings.show_email -%}
+                <div class="rcq__field">
+                  <label class="rcq__label" for="{{ form_id }}-email">Email</label>
+                  <input
+                    class="rcq__input"
+                    type="email"
+                    id="{{ form_id }}-email"
+                    name="contact[email]"
+                    placeholder="Enter your email address"
+                    value="{{ form.email }}"
+                    required
+                  >
+                </div>
+              {%- else -%}
+                <div class="rcq__field">
+                  <label class="rcq__label" for="{{ form_id }}-phone">Phone number</label>
+                  <input
+                    class="rcq__input"
+                    type="tel"
+                    id="{{ form_id }}-phone"
+                    name="contact[phone]"
+                    placeholder="Enter your phone number"
+                    value="{{ form.phone }}"
+                    required
+                  >
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- comment -%} Select Services — custom multi-select dropdown {%- endcomment -%}
+            {%- if services_raw != blank -%}
+              <div class="rcq__field">
+                <label class="rcq__label">Select Services</label>
+                <div class="rcq__multiselect" id="{{ multiselect_id }}">
+                  <div class="rcq__multiselect-trigger" role="button" aria-haspopup="listbox" aria-expanded="false" tabindex="0">
+                    <span class="rcq__multiselect-trigger-text">Select..</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                      <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="rcq__multiselect-dropdown" role="listbox" aria-multiselectable="true">
+                    {%- for service in services_list -%}
+                      {%- assign service_trimmed = service | strip -%}
+                      {%- if service_trimmed != blank -%}
+                        {%- assign service_id = service_trimmed | handleize -%}
+                        <div class="rcq__multiselect-item" role="option" aria-selected="false">
+                          <input
+                            type="checkbox"
+                            id="{{ form_id }}-service-{{ service_id }}"
+                            name="contact[services][]"
+                            value="{{ service_trimmed | escape }}"
+                          >
+                          <label for="{{ form_id }}-service-{{ service_id }}">{{ service_trimmed }}</label>
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Membership tier + Assistance type row {%- endcomment -%}
+            {%- if membership_raw != blank or assistance_raw != blank -%}
+              <div class="rcq__row{% if membership_raw == blank or assistance_raw == blank %} whole{% endif %}">
+                {%- if membership_raw != blank -%}
+                  <div class="rcq__field">
+                    <label class="rcq__label" for="{{ form_id }}-membership">Membership tier (if applicable).</label>
+                    <select class="rcq__select" id="{{ form_id }}-membership" name="contact[membership_tier]">
+                      <option value="">Select..</option>
+                      {%- for tier in membership_list -%}
+                        {%- assign tier_trimmed = tier | strip -%}
+                        {%- if tier_trimmed != blank -%}
+                          <option value="{{ tier_trimmed | escape }}" {% if form.membership_tier == tier_trimmed %}selected{% endif %}>
+                            {{ tier_trimmed }}
+                          </option>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                {%- endif -%}
+
+                {%- if assistance_raw != blank -%}
+                  <div class="rcq__field">
+                    <label class="rcq__label" for="{{ form_id }}-assistance">Assistance type</label>
+                    <select class="rcq__select" id="{{ form_id }}-assistance" name="contact[assistance_type]">
+                      <option value="">Select..</option>
+                      {%- for type in assistance_list -%}
+                        {%- assign type_trimmed = type | strip -%}
+                        {%- if type_trimmed != blank -%}
+                          <option value="{{ type_trimmed | escape }}" {% if form.assistance_type == type_trimmed %}selected{% endif %}>
+                            {{ type_trimmed }}
+                          </option>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Additional Notes {%- endcomment -%}
+            {%- if section.settings.show_additional_notes -%}
+              <div class="rcq__field">
+                <label class="rcq__label" for="{{ form_id }}-notes">Additional Notes</label>
+                <textarea
+                  class="rcq__textarea"
+                  id="{{ form_id }}-notes"
+                  name="contact[body]"
+                  placeholder="Type your message..."
+                  rows="5"
+                >{{ form.body }}</textarea>
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Submit button {%- endcomment -%}
+            {%- if section.settings.button_text != blank -%}
+              <button type="submit" class="rcq__submit">{{ section.settings.button_text }}</button>
+            {%- endif -%}
+
+            {%- comment -%} Text under form {%- endcomment -%}
+            {%- if section.settings.form_note != blank -%}
+              <p class="rcq__form-note">{{ section.settings.form_note }}</p>
+            {%- endif -%}
+
+          {%- endform -%}
+        </div>
+      </div>
+
+      {%- comment -%} ── RIGHT: Blocks Column ── {%- endcomment -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="rcq__blocks-col">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'additional_info' -%}
+              <div class="rcq__block" {{ block.shopify_attributes }}>
+
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="rcq__block-heading">{{ block.settings.heading }}</h3>
+                {%- endif -%}
+
+                {%- if block.settings.description != blank -%}
+                  <div class="rcq__block-description">{{ block.settings.description }}</div>
+                {%- endif -%}
+
+                {%- if block.settings.button_text != blank -%}
+                  <a
+                    href="{{ block.settings.button_url | default: '#' }}"
+                    class="rcq__block-btn"
+                  >
+                    {{ block.settings.button_text }}
+                  </a>
+                {%- endif -%}
+
+                {%- if block.settings.block_note != blank -%}
+                  <p class="rcq__block-note">{{ block.settings.block_note }}</p>
+                {%- endif -%}
+
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var multiselects = document.querySelectorAll('.rcq__multiselect');
+
+  multiselects.forEach(function (ms) {
+    var trigger   = ms.querySelector('.rcq__multiselect-trigger');
+    var dropdown  = ms.querySelector('.rcq__multiselect-dropdown');
+    var triggerText = ms.querySelector('.rcq__multiselect-trigger-text');
+    var items     = ms.querySelectorAll('.rcq__multiselect-item');
+    var checkboxes = ms.querySelectorAll('input[type="checkbox"]');
+
+    function updateTriggerText() {
+      var selected = [];
+      checkboxes.forEach(function (cb) {
+        if (cb.checked) selected.push(cb.value);
+      });
+      if (selected.length === 0) {
+        triggerText.textContent = 'Select..';
+        trigger.classList.remove('has-selection');
+      } else {
+        triggerText.textContent = selected.join(', ');
+        trigger.classList.add('has-selection');
+      }
+    }
+
+    function toggleDropdown(open) {
+      if (open) {
+        dropdown.classList.add('open');
+        trigger.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      } else {
+        dropdown.classList.remove('open');
+        trigger.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    trigger.addEventListener('click', function () {
+      var isOpen = dropdown.classList.contains('open');
+      toggleDropdown(!isOpen);
+    });
+
+    trigger.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        var isOpen = dropdown.classList.contains('open');
+        toggleDropdown(!isOpen);
+      }
+    });
+
+    items.forEach(function (item) {
+      var cb = item.querySelector('input[type="checkbox"]');
+
+      item.addEventListener('click', function (e) {
+        if (e.target !== cb) {
+          cb.checked = !cb.checked;
+        }
+        if (cb.checked) {
+          item.classList.add('checked');
+          item.setAttribute('aria-selected', 'true');
+        } else {
+          item.classList.remove('checked');
+          item.setAttribute('aria-selected', 'false');
+        }
+        updateTriggerText();
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!ms.contains(e.target)) {
+        toggleDropdown(false);
+      }
+    });
+
+    updateTriggerText();
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Request A Custom Quote",
+  "tag": "section",
+  "class": "section-emp-req-custom-quote",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Request A Custom Service Quote"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Need assistance, or just want to enlist our capable service reps to build your quote? No problem — we're here to help!</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "SEND REQUEST"
+    },
+    {
+      "type": "text",
+      "id": "form_note",
+      "label": "Text under form",
+      "default": "This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply."
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class"
+    },
+    {
+      "type": "header",
+      "content": "Form settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_full_name",
+      "label": "Show Full Name",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_email",
+      "label": "Show Email",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show Phone Number",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "select_services",
+      "label": "Select Services",
+      "info": "Enter services separated by commas. Example: Roof Cleaning, Gutter Cleaning, Window Cleaning"
+    },
+    {
+      "type": "textarea",
+      "id": "membership_tier",
+      "label": "Membership tier (if applicable)",
+      "info": "Enter options separated by commas. Example: Bronze, Silver, Gold, Platinum"
+    },
+    {
+      "type": "textarea",
+      "id": "assistance_type",
+      "label": "Assistance type",
+      "info": "Enter options separated by commas. Example: Technical Support, Billing Inquiry, General Question"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_additional_notes",
+      "label": "Show Additional Notes",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "additional_info",
+      "name": "Additional Info",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Looking For Recurring Services?"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Start by getting a quote (above) to establish your base service pricing, then complete our 1-minute assessment.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "REQUEST RECURRING SERVICES"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "text",
+          "id": "block_note",
+          "label": "Text under button"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Request A Custom Quote",
+      "blocks": [
+        {
+          "type": "additional_info",
+          "settings": {
+            "heading": "Looking For Recurring Services?",
+            "description": "<p>Start by getting a quote (above) to establish your base service pricing, then complete our 1-minute assessment. One of our estimators will contact you to answer any of your questions and help design a plan to fit your needs.</p>",
+            "button_text": "REQUEST RECURRING SERVICES"
+          }
+        },
+        {
+          "type": "additional_info",
+          "settings": {
+            "heading": "Want something more?",
+            "description": "<p>Automation is impressive, yes — but it can't account for every detail, in any circumstance, all the time. That's why, in certain situations, DAPrDAN will dispatch one of our professional estimators to meet with you at your location.</p>",
+            "button_text": "REQUEST A MEETING",
+            "block_note": "or, call (425) 659-3009 to speak with us about your project."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

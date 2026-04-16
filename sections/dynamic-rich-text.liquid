@@ -1,0 +1,172 @@
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-type="dynamic-rich-text"
+>
+</script>
+
+<script type="application/pxs-animation-mapping+json">
+  {
+    "blocks": [".rich-text-block"],
+    "elements": []
+  }
+</script>
+
+<section
+  class="
+    rich-text
+    rich-text--{{ section.settings.width }}
+    {% if section.settings.custom_class != blank %}{{ section.settings.custom_class }}{% endif %}
+  "
+>
+  <div
+    class="
+      rich-text-block
+      rich-text-alignment-{{ section.settings.text_alignment }}
+    "
+    {{ section.shopify_attributes }}
+  >
+    {%- if section.settings.title != blank -%}
+      <h2
+        class="
+          rich-text-heading
+          rich-text-heading-{{ section.settings.heading_size }}
+        "
+      >
+        {{- section.settings.title | escape -}}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.settings.text != blank -%}
+      <div class="rich-text-content rte" data-rte>
+        {{- section.settings.text -}}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="rich-text__button button-primary">
+        {{ section.settings.button_label | escape }}
+      </a>
+    {%- endif -%}
+
+    {%- if section.settings.button_label_2 != blank and section.settings.button_link_2 != blank -%}
+      <a href="{{ section.settings.button_link_2 }}" class="rich-text__button button-primary button-2" >
+        {{ section.settings.button_label_2 | escape }}
+      </a>
+    {%- endif -%}
+    {%- if section.settings.text_2 != blank -%}
+      <div class="rich-text-content rte text-2" data-rte>
+        {{- section.settings.text_2 -}}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.rich_text.name",
+  "class": "rich-text--section",
+  "settings": [
+    {
+      "id": "width",
+      "type": "select",
+      "label": "t:sections.rich_text.width.label",
+      "options": [
+        {
+          "value": "regular",
+          "label": "t:sections.rich_text.width.option_1"
+        },
+        {
+          "value": "wide",
+          "label": "t:sections.rich_text.width.option_2"
+        },
+        {
+          "value": "full-width",
+          "label": "t:sections.rich_text.width.option_3"
+        }
+      ],
+      "default": "regular"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.rich_text.title.label",
+      "default": "Rich text"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "t:sections.rich_text.text.label",
+      "default": "<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button link"
+    },
+    {
+      "type": "richtext",
+      "id": "text_2",
+      "label": "Text 2"
+    },
+    {
+      "id": "heading_size",
+      "type": "select",
+      "label": "t:sections.rich_text.heading_size.label",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.rich_text.heading_size.option_1"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.rich_text.heading_size.option_2"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.rich_text.heading_size.option_3"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "id": "text_alignment",
+      "type": "text_alignment",
+      "label": "t:sections.rich_text.text_alignment.label",
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class",
+      "info": "Add custom class for additional styling"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "category": "t:sections.rich_text.presets.rich_text.category",
+      "settings": {}
+    }
+  ],
+  "disabled_on": {
+    "groups": ["*"]
+  }
+}
+
+{% endschema %}

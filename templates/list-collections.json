@@ -1,0 +1,128 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "static-list-collections",
+      "settings": {
+        "thumbnail_columns_desktop": 4,
+        "thumbnail_columns_mobile": 3,
+        "image-crop": "original"
+      }
+    },
+    "pxs_image_with_text_overlay_weah8L": {
+      "type": "pxs-image-with-text-overlay",
+      "settings": {
+        "section_height": "small",
+        "image": "shopify://shop_images/Card.jpg",
+        "title": "",
+        "text": "",
+        "content_position": "center-center",
+        "color": "#ffffff",
+        "overlay_background": "#000000",
+        "overlay_opacity": 0,
+        "link": "",
+        "button_text": ""
+      }
+    },
+    "dynamic_rich_text_3cRkjN": {
+      "type": "dynamic-rich-text",
+      "settings": {
+        "width": "full-width",
+        "title": "Categories",
+        "text": "",
+        "heading_size": "medium",
+        "text_alignment": "left"
+      }
+    },
+    "dynamic_highlights_banner_jfgFmc": {
+      "type": "dynamic-highlights-banner",
+      "blocks": {
+        "highlight_KPAcLN": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-delivery",
+            "image": "shopify://shop_images/fi_11282286.svg",
+            "title": "Service Plans",
+            "text": "<p><a href=\"#\" title=\"#\">Whole Home (Interior & Exterior)</a></p><p>Whole Home (Exterior)</p><p>Roof & Gutters</p><p>Windows & Skylights</p><p>Hardscapes</p><p>Holiday Lighting</p><p>Stay-Clean Plans</p>",
+            "link": ""
+          }
+        },
+        "highlight_JKhA8z": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-cell-phone",
+            "image": "shopify://shop_images/Frame_71467fcb-f6c8-45e0-afd2-293673e25c85.svg",
+            "title": "Membership",
+            "text": "<p>Public Access</p><p>Guest Access</p><p>Loyalty Membership</p><p>Prime Membership</p><p>Referral Membership</p>",
+            "link": ""
+          }
+        },
+        "highlight_BDHMWR": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-chat-alternate",
+            "image": "shopify://shop_images/fi_4459102.svg",
+            "title": "Services",
+            "text": "<p>Roof Cleaning</p><p>Pressure Washing</p><p>House Washing</p><p>Window Cleaning</p><p>Gutter Cleaning</p><p>Christmas Lighting</p>",
+            "link": ""
+          }
+        },
+        "highlight_EwaeQt": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-pin",
+            "image": "shopify://shop_images/fi_5781617.svg",
+            "title": "Products",
+            "text": "<p>Hats</p><p>Shirts</p><p>Hoodies</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "highlight_KPAcLN",
+        "highlight_JKhA8z",
+        "highlight_BDHMWR",
+        "highlight_EwaeQt"
+      ],
+      "settings": {
+        "section_spacing": false,
+        "section_width": "full-width",
+        "icon_layout": "left",
+        "color": "#4d4d4d",
+        "icon_color": "#4d4d4d",
+        "background_color": "#ffffff",
+        "mobile_layout": "grid"
+      }
+    },
+    "dynamic_search_F6akbr": {
+      "type": "dynamic-search",
+      "settings": {
+        "title": "Quam euismod faucibus",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in.</p>",
+        "placeholder": "Looking for something specific",
+        "filter_search_by": "disabled",
+        "enable_live_search": false,
+        "enable_live_search_images": false,
+        "show-overlay": false,
+        "color": "#ffffff",
+        "background": "#000000",
+        "opacity": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pxs_image_with_text_overlay_weah8L",
+    "dynamic_rich_text_3cRkjN",
+    "dynamic_highlights_banner_jfgFmc",
+    "dynamic_search_F6akbr"
+  ]
+}

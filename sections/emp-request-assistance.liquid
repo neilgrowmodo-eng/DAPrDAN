@@ -1,0 +1,520 @@
+{% comment %}
+  Request Assistance Form Section
+  Provides a contact form for customers requesting assistance
+{% endcomment %}
+
+{%- liquid
+  assign section_id = 'request-assistance-' | append: section.id
+  assign form_id = 'request-assistance-form-' | append: section.id
+-%}
+<style>
+  .request-assistance-wrapper {
+    padding-top: {{ section.settings.padding_top }}px; 
+    padding-bottom: {{ section.settings.padding_bottom }}px; 
+    background-color: {{ section.settings.background_color }};
+  }
+  @media screen and (max-width: 768px) {
+    .request-assistance-wrapper {
+      padding-top: calc({{ section.settings.padding_top }}px / 2); 
+      padding-bottom: calc({{ section.settings.padding_bottom }}px / 2); 
+    }
+  }
+</style>
+<div class="request-assistance-section" id="{{ section_id }}" data-section-id="{{ section.id }}" data-section-type="request-assistance">
+  <div class="page-width">
+    <div class="request-assistance-wrapper">
+      
+      {% if section.settings.heading != blank or section.settings.description != blank %}
+        <div class="request-assistance-header">
+          {% if section.settings.heading != blank %}
+            <h2 class="request-assistance-heading">{{ section.settings.heading }}</h2>
+          {% endif %}
+          {% if section.settings.description != blank %}
+            <div class="request-assistance-description">
+              {{ section.settings.description }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="request-assistance-form-container">
+        {% form 'contact', id: form_id, class: 'request-assistance-form' %}
+          {% if form.posted_successfully? %}
+            <div class="form-success" role="alert">
+              <p>{{ 'contact.form.post_success' | t }}</p>
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="form-errors" role="alert">
+              <h3>{{ 'contact.form.error_heading' | t }}</h3>
+              <ul>
+                {% for field in form.errors %}
+                  <li>
+                    {% if field == 'form' %}
+                      {{ form.errors.messages[field] }}
+                    {% else %}
+                      {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+
+          <input type="hidden" name="contact[form_type]" value="request_assistance">
+
+          <div class="form-row">
+            <div class="form-field form-field--full">
+              <label for="{{ form_id }}-full-name" class="form-label">
+                Full Name <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="{{ form_id }}-full-name"
+                name="contact[full_name]"
+                class="form-input"
+                placeholder="Enter your full name"
+                value="{{ form.full_name }}"
+                required
+                aria-required="true"
+              >
+            </div>
+          </div>
+
+          <div class="form-row form-row--two-columns">
+            <div class="form-field">
+              <label for="{{ form_id }}-email" class="form-label">
+                Email <span class="required">*</span>
+              </label>
+              <input
+                type="email"
+                id="{{ form_id }}-email"
+                name="contact[email]"
+                class="form-input"
+                placeholder="Enter your email address"
+                value="{{ form.email }}"
+                required
+                aria-required="true"
+              >
+            </div>
+            <div class="form-field">
+              <label for="{{ form_id }}-phone" class="form-label">
+                Phone number <span class="required">*</span>
+              </label>
+              <input
+                type="tel"
+                id="{{ form_id }}-phone"
+                name="contact[phone]"
+                class="form-input"
+                placeholder="Enter your phone number"
+                value="{{ form.phone }}"
+                required
+                aria-required="true"
+              >
+            </div>
+          </div>
+
+          <div class="form-row form-row--two-columns">
+            <div class="form-field">
+              <label for="{{ form_id }}-membership-tier" class="form-label">
+                Membership tier (if applicable)
+              </label>
+              <select
+                id="{{ form_id }}-membership-tier"
+                name="contact[membership_tier]"
+                class="form-select"
+              >
+                <option value="">Select..</option>
+                <option value="Bronze" {% if form.membership_tier == 'Bronze' %}selected{% endif %}>Bronze</option>
+                <option value="Silver" {% if form.membership_tier == 'Silver' %}selected{% endif %}>Silver</option>
+                <option value="Gold" {% if form.membership_tier == 'Gold' %}selected{% endif %}>Gold</option>
+                <option value="Platinum" {% if form.membership_tier == 'Platinum' %}selected{% endif %}>Platinum</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="{{ form_id }}-assistance-type" class="form-label">
+                Assistance type <span class="required">*</span>
+              </label>
+              <select
+                id="{{ form_id }}-assistance-type"
+                name="contact[assistance_type]"
+                class="form-select"
+                required
+                aria-required="true"
+              >
+                <option value="">Select..</option>
+                <option value="Technical Support" {% if form.assistance_type == 'Technical Support' %}selected{% endif %}>Technical Support</option>
+                <option value="Account Issues" {% if form.assistance_type == 'Account Issues' %}selected{% endif %}>Account Issues</option>
+                <option value="Billing Inquiry" {% if form.assistance_type == 'Billing Inquiry' %}selected{% endif %}>Billing Inquiry</option>
+                <option value="Product Information" {% if form.assistance_type == 'Product Information' %}selected{% endif %}>Product Information</option>
+                <option value="General Question" {% if form.assistance_type == 'General Question' %}selected{% endif %}>General Question</option>
+                <option value="Other" {% if form.assistance_type == 'Other' %}selected{% endif %}>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field form-field--full">
+              <label for="{{ form_id }}-notes" class="form-label">
+                Additional Notes
+              </label>
+              <textarea
+                id="{{ form_id }}-notes"
+                name="contact[body]"
+                class="form-textarea"
+                placeholder="Type your message..."
+                rows="5"
+              >{{ form.body }}</textarea>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <button type="submit" class="form-submit-button">
+              {{ section.settings.button_text | default: 'SUBMIT' }}
+            </button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .request-assistance-section {
+    width: 100%;
+  }
+
+  .request-assistance-section .request-assistance-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .request-assistance-section .request-assistance-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .request-assistance-section .request-assistance-heading {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
+  }
+
+  .request-assistance-section .request-assistance-description {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .request-assistance-section .request-assistance-form {
+    max-width: 100%;
+  }
+
+  .request-assistance-section .form-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  .request-assistance-section .form-errors {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  .request-assistance-section .form-errors h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+
+  .request-assistance-section .form-errors ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .request-assistance-section .form-row {
+    margin-bottom: 20px;
+  }
+
+  .request-assistance-section .form-row--two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .request-assistance-section .form-field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .request-assistance-section .form-field--full {
+    width: 100%;
+  }
+
+  .request-assistance-section .form-label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+  }
+
+  .request-assistance-section .required {
+    color: #e74c3c;
+  }
+
+  .request-assistance-section .form-input,
+  .request-assistance-section .form-select,
+  .request-assistance-section .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: inherit;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .request-assistance-section .form-input:focus,
+  .request-assistance-section .form-select:focus,
+  .request-assistance-section .form-textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+
+  .request-assistance-section .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .request-assistance-section .form-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  .request-assistance-section .form-submit-button {
+    width: 100%;
+    background-color: #00A1E0;
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .request-assistance-section .form-submit-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+  }
+
+  .request-assistance-section .form-submit-button:active {
+    transform: translateY(0);
+  }
+
+  /* Mobile Responsiveness */
+  @media screen and (max-width: 768px) {
+    .request-assistance-section .request-assistance-wrapper {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .request-assistance-section .request-assistance-heading {
+      font-size: 2rem;
+    }
+
+    .request-assistance-section .form-row--two-columns {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .request-assistance-section .form-row {
+      margin-bottom: 15px;
+    }
+
+    .request-assistance-section .form-input,
+    .request-assistance-section .form-select,
+    .request-assistance-section .form-textarea {
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .request-assistance-section .request-assistance-heading {
+      font-size: 1.75rem;
+    }
+
+    .request-assistance-section .request-assistance-description {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('{{ form_id }}');
+    
+    if (form) {
+      // Add real-time validation
+      const requiredFields = form.querySelectorAll('[required]');
+      
+      requiredFields.forEach(field => {
+        field.addEventListener('blur', function() {
+          validateField(this);
+        });
+        
+        field.addEventListener('input', function() {
+          // Clear error styling when user starts typing
+          this.classList.remove('error');
+        });
+      });
+      
+      form.addEventListener('submit', function(e) {
+        let isValid = true;
+        
+        requiredFields.forEach(field => {
+          if (!validateField(field)) {
+            isValid = false;
+          }
+        });
+        
+        if (!isValid) {
+          e.preventDefault();
+          // Focus on first error field
+          const firstError = form.querySelector('.form-input.error, .form-select.error');
+          if (firstError) {
+            firstError.focus();
+          }
+        }
+      });
+    }
+    
+    function validateField(field) {
+      const value = field.value.trim();
+      let isValid = true;
+      
+      if (field.hasAttribute('required') && !value) {
+        isValid = false;
+      }
+      
+      if (field.type === 'email' && value && !isValidEmail(value)) {
+        isValid = false;
+      }
+      
+      if (isValid) {
+        field.classList.remove('error');
+      } else {
+        field.classList.add('error');
+      }
+      
+      return isValid;
+    }
+    
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+  });
+</script>
+
+<style>
+  .request-assistance-section .form-input.error,
+  .request-assistance-section .form-select.error,
+  .request-assistance-section .form-textarea.error {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.25);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Request Assistance Form",
+  "tag": "section",
+  "class": "section-request-assistance",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Request Assistance"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Need help? Fill out the form below and our team will get back to you as soon as possible.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "SUBMIT"
+    },
+    {
+      "type": "header",
+      "content": "Design"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Request Assistance Form"
+    }
+  ]
+}
+{% endschema %}

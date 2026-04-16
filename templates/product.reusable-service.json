@@ -1,0 +1,343 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "static-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "disabled": true,
+          "settings": {}
+        },
+        "inventory_status_Jaxctz": {
+          "type": "inventory_status",
+          "settings": {
+            "inventory_display": "hidden",
+            "inventory_transfer_notice": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "form": {
+          "type": "form",
+          "settings": {
+            "enable_local_pickup": true,
+            "show_gift_card_recipient_form": false
+          }
+        },
+        "key_details_XfXU8i": {
+          "type": "key_details",
+          "settings": {
+            "icon": "icon-delivery-package",
+            "image": "shopify://shop_images/icon_7f42ff8a-825e-4d4d-a0a1-5570191adb74.svg",
+            "title": "Duis aute irure dolor",
+            "text": "<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa</p>",
+            "text_color": "#0a2b39",
+            "icon_color": "#1d1d1d",
+            "background_color": "#f8f8fe"
+          }
+        },
+        "collapsible_tab_dkP4Xx": {
+          "type": "collapsible-tab",
+          "settings": {
+            "collapsible_tab_heading": "Product Details",
+            "collapsible_tab_text": "<p>Use this text to share information about your product.</p>"
+          }
+        },
+        "collapsible_tab_464wkY": {
+          "type": "collapsible-tab",
+          "settings": {
+            "collapsible_tab_heading": "Benefits of Planned Maintenance",
+            "collapsible_tab_text": "<p>Use this text to share information about your product.</p>"
+          }
+        },
+        "complementary_products_tGfnyw": {
+          "type": "complementary_products",
+          "disabled": true,
+          "settings": {
+            "heading": "Pairs well with",
+            "product_recommendation_limit": 5,
+            "products_per_slide": 2
+          }
+        },
+        "collapsible_tab_3xE6pW": {
+          "type": "collapsible-tab",
+          "settings": {
+            "collapsible_tab_heading": "Frequently Asked Questions",
+            "collapsible_tab_text": "<p>Use this text to share information about your product.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating",
+        "price",
+        "inventory_status_Jaxctz",
+        "description",
+        "form",
+        "key_details_XfXU8i",
+        "collapsible_tab_dkP4Xx",
+        "collapsible_tab_464wkY",
+        "complementary_products_tGfnyw",
+        "collapsible_tab_3xE6pW"
+      ],
+      "settings": {
+        "gallery_aspect_ratio": "natural",
+        "gallery_image_crop": false,
+        "gallery_thumbnail_position": "below",
+        "gallery_video_autoplay": true,
+        "gallery_video_looping": true,
+        "gallery_hover_zoom": "disabled",
+        "gallery_click_to_zoom": "always",
+        "hide_public": false
+      }
+    },
+    "service_video_section_VyDH9N": {
+      "type": "service-video-section",
+      "name": "Service Video Section",
+      "settings": {
+        "heading": "Service-Specific Video (Optional) Heading Here",
+        "text": "<p>DAPrDAN leaves no stone unturned when it comes to restoring and maintaining your home or business location. Our team handles all exterior cleaning needs from the rooftop to the driveway, leaving your property refreshed, clean, and inviting.</p>",
+        "video": "{{ product.metafields.custom.video_heading.value }}"
+      }
+    },
+    "service_guide_table_MnRqaK": {
+      "type": "service-guide-table",
+      "name": "Service Guide Table",
+      "settings": {
+        "table_title": "Service Guide For The Roof Stay-Clean Plan"
+      }
+    },
+    "frequently_bought_together_rLXgzX": {
+      "type": "frequently-bought-together",
+      "name": "Frequently Bought",
+      "settings": {
+        "show_section": true,
+        "title": "Frequently Bought Together",
+        "subtitle": "",
+        "product_description": "Vivamus ultricies ante iaculis ornare integer nec lorem varius commodo.",
+        "total_label": "Total:",
+        "add_all_text": "Add all to cart",
+        "info_text": "Vivamus ultricies ante iaculis ornare integer nec lorem varius.",
+        "show_details_text": "Show details",
+        "background_color": "#f8f9fa",
+        "title_color": "#333333",
+        "subtitle_color": "#666666",
+        "product_title_color": "#333333",
+        "product_title_hover_color": "#007bff",
+        "sale_price_color": "#dc3545",
+        "checkbox_color": "#007bff",
+        "button_color": "#007bff",
+        "button_hover_color": "#0056b3"
+      }
+    },
+    "recommendations": {
+      "type": "static-product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "You may also like"
+      }
+    },
+    "recently-viewed": {
+      "type": "static-recently-viewed",
+      "settings": {
+        "enable_recently_viewed_products": true
+      }
+    },
+    "dynamic_collection_list_HeFmqM": {
+      "type": "dynamic-collection-list",
+      "blocks": {
+        "collection_8jHzEU": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_0db9b652-047f-4b9c-ae5f-67d9a5eeacfd.png",
+            "title": "Matis tortor"
+          }
+        },
+        "collection_UzzEec": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_a5444cf2-d065-4acd-873a-812aa6a7798e.png",
+            "title": "Dignissim facilisi"
+          }
+        },
+        "collection_Tk9wyP": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_a297e9d6-aaa4-4311-9475-992cde324170.png",
+            "title": "Quisque massa"
+          }
+        },
+        "collection_HcxnL6": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_501f2232-28fd-4d53-9a98-2c98474cf27f.png",
+            "title": "Pulvinar risus"
+          }
+        },
+        "collection_Chyhqd": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_afb48f8e-c5a8-4202-b365-fbc5f20637e3.png",
+            "title": "Etiam felis"
+          }
+        },
+        "collection_h8GcB9": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Frame_127.png",
+            "title": " Risus blandit"
+          }
+        }
+      },
+      "block_order": [
+        "collection_8jHzEU",
+        "collection_UzzEec",
+        "collection_Tk9wyP",
+        "collection_HcxnL6",
+        "collection_Chyhqd",
+        "collection_h8GcB9"
+      ],
+      "settings": {
+        "title": "Plans by Featured Service",
+        "text": "<p>Select your seasonally optimized home care plan organized around your top priority.</p>",
+        "thumbnail_columns_desktop": 6,
+        "thumbnail_columns_mobile": 3,
+        "image-crop": "circle",
+        "cta_label": "",
+        "cta_link": "",
+        "cta_button_style": "secondary"
+      }
+    },
+    "dynamic_promo_grid_jQnLiA": {
+      "type": "dynamic-promo-grid",
+      "blocks": {
+        "promotion_cxkEWA": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_19ca62e4-340a-425f-ade0-15066a1ef191.png",
+            "title": "Consequat risus ullamcorper",
+            "text": "Nascetur vel himenaeos tortor sagittis mauris felis pretium commodo. Curabitur integer tempor elementum; lacinia proin adipiscing habitant.",
+            "color": "#ffffff",
+            "block_link": "#",
+            "button_text": "Explore Services",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 1
+          }
+        }
+      },
+      "block_order": [
+        "promotion_cxkEWA"
+      ],
+      "settings": {
+        "title": "",
+        "text": "",
+        "section_height": "medium",
+        "section_columns": 1,
+        "text_alignment": "top-left",
+        "custom_class": "delivery-grid"
+      }
+    },
+    "dynamic_promo_grid_7G48Nr": {
+      "type": "dynamic-promo-grid",
+      "blocks": {
+        "promotion_ngjUUD": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_9b70f1f9-052d-47fb-a63b-a66b4e384b8d.png",
+            "title": "Montes malesuada mattis",
+            "text": "Massa est est hac lobortis at magna nam pulvinar. Amet blandit maecenas nam risus orci nullam. Semper ornare taciti habitant.",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "learn more",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        },
+        "promotion_zW9bkR": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_2c6562bf-7990-42da-bb62-49253d62e0eb.png",
+            "title": "Porttitor suscipit",
+            "text": "Conubia laoreet conubia natoque dolor tincidunt. Dignissim sodales malesuada posuere suscipit dictum vehicula ut erat.",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "learn more",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "promotion_ngjUUD",
+        "promotion_zW9bkR"
+      ],
+      "settings": {
+        "title": "",
+        "text": "",
+        "section_height": "medium",
+        "section_columns": 2,
+        "text_alignment": "top-left",
+        "custom_class": "delivery-grid second"
+      }
+    },
+    "dynamic_search_KbeNbE": {
+      "type": "dynamic-search",
+      "settings": {
+        "title": "Quam euismod faucibus",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in.</p>",
+        "placeholder": "Looking for something specific",
+        "filter_search_by": "disabled",
+        "enable_live_search": false,
+        "enable_live_search_images": false,
+        "show-overlay": false,
+        "color": "#ffffff",
+        "background": "#000000",
+        "opacity": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "service_video_section_VyDH9N",
+    "service_guide_table_MnRqaK",
+    "frequently_bought_together_rLXgzX",
+    "recommendations",
+    "recently-viewed",
+    "dynamic_collection_list_HeFmqM",
+    "dynamic_promo_grid_jQnLiA",
+    "dynamic_promo_grid_7G48Nr",
+    "dynamic_search_KbeNbE"
+  ]
+}

@@ -1,0 +1,774 @@
+{% comment %}
+  Frequently Bought Together Section
+  Uses metafield custom.frequently_bought_together_products to display related products
+{% endcomment %}
+
+{%- liquid
+  assign section_id = 'frequently-bought-together-' | append: section.id
+  assign metafield_value = product.metafields.custom.frequently_bought_together_products.value
+  assign has_products = false
+  
+  comment
+    Try to access the metafield as an array
+  endcomment
+  
+  if metafield_value != blank
+    assign has_products = true
+  endif
+-%}
+
+{%- if has_products and section.settings.show_section -%}
+  <section class="frequently-bought-together section-padding" data-section-id="{{ section.id }}" data-section-type="frequently-bought-together">
+    <div class="container">
+      {%- if section.settings.title != blank -%}
+        <div class="section-header text-center">
+          <h2 class="section-title">{{ section.settings.title }}</h2>
+          {%- if section.settings.subtitle != blank -%}
+            <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="frequently-bought-products" data-fbt-container>
+        <div class="fbt-layout">
+          <div class="fbt-products-grid">
+            {%- for related_product in metafield_value -%}
+              {%- if related_product != blank -%}
+                <div class="fbt-product-wrapper" data-product-id="{{ related_product.id }}">
+                  <!-- Custom Product Card -->
+                  <div class="fbt-product-card">
+                    <!-- Product Image -->
+                    <div class="fbt-product-image-container">
+                      <a href="{{ related_product.url }}" class="fbt-product-image-link">
+                        {%- if related_product.featured_image -%}
+                          <img 
+                            src="{{ related_product.featured_image | image_url: width: 300, height: 200, crop: 'center' }}"
+                            alt="{{ related_product.featured_image.alt | default: related_product.title }}"
+                            class="fbt-product-image"
+                            loading="lazy"
+                            width="300"
+                            height="200"
+                          >
+                        {%- else -%}
+                          <div class="fbt-product-image-placeholder">
+                            {{ 'product-1' | placeholder_svg_tag: 'fbt-product-image' }}
+                          </div>
+                        {%- endif -%}
+                      </a>
+                      
+                      <!-- Sale Badge -->
+                      {%- if related_product.compare_at_price > related_product.price -%}
+                        <div class="fbt-sale-badge">
+                          Sale
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="fbt-product-info">
+                      <!-- Price -->
+                      <div class="fbt-product-price">
+                        {%- if related_product.compare_at_price > related_product.price -%}
+                          <span class="fbt-price-sale">{{ related_product.price | money }}</span>
+                          <span class="fbt-price-original">{{ related_product.compare_at_price | money }}</span>
+                        {%- else -%}
+                          <span class="fbt-price-regular">{{ related_product.price | money }}</span>
+                        {%- endif -%}
+                        <div class="fbt-product-checkbox">
+                          <input 
+                            type="checkbox" 
+                            class="fbt-checkbox-input" 
+                            id="fbt-product-{{ related_product.id }}"
+                            data-product-id="{{ related_product.id }}"
+                            data-product-price="{{ related_product.price }}"
+                            data-product-variant-id="{{ related_product.selected_or_first_available_variant.id }}"
+                            data-product-title="{{ related_product.title | escape }}"
+                            checked
+                          >
+                          <label class="fbt-checkbox-label" for="fbt-product-{{ related_product.id }}">
+                            <span class="fbt-checkbox-icon">
+                              <svg class="fbt-custom-checkbox" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="2" width="16" height="16" rx="4" fill="white" stroke="#00A1E0" stroke-width="2"/>
+                                <polyline class="fbt-checkmark" points="5,11 9,15 15,7" fill="none" stroke="#00A1E0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0; transition: opacity 0.2s;"/>
+                              </svg>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+
+                      <!-- Product Title -->
+                      <h3 class="fbt-product-title">
+                        <a href="{{ related_product.url }}">{{ related_product.title }}</a>
+                      </h3>
+
+                      <!-- Description -->
+                      {% comment %} <p class="fbt-product-description">
+                        {{ section.settings.product_description }}
+                      </p> {% endcomment %}
+
+                      {% comment %} <div class="fbt-product-buttons">
+                        <div class="fbt-button-wrapper">
+                          <button type="button" class="fbt-button fbt-button-secondary">
+                            QUICK SHOP
+                          </button>
+                        </div>
+                        <div class="fbt-button-wrapper">
+                          <button type="button" class="fbt-button fbt-button-primary">
+                            CHOOSE OPTIONS
+                          </button>
+                        </div>
+                      </div> {% endcomment %}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          
+          <div class="fbt-summary">
+            <div class="fbt-total">
+              <span class="fbt-total-label">{{ section.settings.total_label | default: 'Total:' }}</span>
+              <span class="fbt-total-price" data-fbt-total-price>{{ product.price | money }}</span>
+            </div>
+            
+            <button 
+              type="button" 
+              class="button-primary" 
+              style="width: 100%;"
+              data-fbt-add-all
+            >
+              {{ section.settings.add_all_text | default: 'ADD ALL 3 TO CART' }}
+            </button>
+            
+            <div class="fbt-info">
+              <div class="fbt-info-icon">i</div>
+              <p class="fbt-info-text">{{ section.settings.info_text | default: 'Vivamus ultricies ante iaculis ornare integer nec lorem varius.' }}</p>
+            </div>
+            
+            <a href="#" class="fbt-show-details">{{ section.settings.show_details_text | default: 'Show details' }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .frequently-bought-together {
+      padding: 112px 0;
+    }
+
+    .frequently-bought-together .container {
+      max-width: 1440px;
+      padding: 0 64px;
+      margin: 0 auto;
+    }
+    
+    .section-header {
+      margin-bottom: 40px;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: {{ section.settings.title_color | default: '#000000' }};
+    }
+    
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: {{ section.settings.subtitle_color | default: '#666' }};
+      margin: 0;
+    }
+    
+    .fbt-layout {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+    }
+    
+    .fbt-products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: 1;
+    }
+    
+    .fbt-product-wrapper {
+      position: relative;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .fbt-product-wrapper:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    /* Custom Product Card Styles */
+    .fbt-product-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .fbt-product-image-container {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .fbt-product-image-link {
+      display: block;
+      text-decoration: none;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .fbt-product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .fbt-product-image-link:hover .fbt-product-image {
+      transform: scale(1.05);
+    }
+    
+    .fbt-product-image-placeholder {
+      width: 100%;
+      height: 100%;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .fbt-sale-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #333;
+      color: white;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 4px;
+      z-index: 10;
+    }
+    
+    .fbt-product-info {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .fbt-product-price {
+      display: flex;
+      color: var(--text-text-heading, #0A2B39);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 150%; /* 30px */
+    }
+    
+    .fbt-price-sale {
+      color: #dc3545;
+    }
+    
+    .fbt-price-original {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+    
+    .fbt-price-regular {
+      color: #333;
+    }
+    
+    .fbt-product-title {
+      color: var(--text-text-accent, #00A1E0);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 120%; /* 24px */
+      margin-bottom: 0px;
+      margin-top: 23px;
+    }
+    
+    .fbt-product-title a {
+      color: #00A1E0;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .fbt-product-title a:hover {
+      color: #00A1E0;
+    }
+    
+    .fbt-product-description {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.4;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
+    .fbt-product-checkbox {
+      margin-left: auto;
+    }
+    
+    .fbt-checkbox-input {
+      position: absolute;
+      opacity: 0;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      cursor: pointer;
+    }
+    
+    .fbt-checkbox-label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      height: 20px;
+      width: 20px;
+    }
+    
+    .fbt-checkbox-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+    }
+    .fbt-custom-checkbox {
+      display: block;
+    }
+    .fbt-checkbox-input:checked + .fbt-checkbox-label .fbt-checkmark {
+      opacity: 1 !important;
+    }
+    .fbt-checkbox-input + .fbt-checkbox-label .fbt-checkmark {
+      opacity: 0;
+    }
+    
+    .fbt-product-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0 20px 20px 20px;
+      opacity: 0;
+      margin-top: -40%;
+      transition: all 0.3s ease;
+    }
+    
+    {% comment %} .fbt-product-wrapper:hover .fbt-product-buttons {
+      opacity: 1;
+      margin-top: 0;
+    } {% endcomment %}
+    
+    .fbt-button-wrapper {
+      width: 100%;
+    }
+    
+    .fbt-button {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .fbt-button-secondary {
+      background-color: #ffb366;
+      color: white;
+    }
+    
+    .fbt-button-secondary:hover {
+      background-color: #ffa64d;
+      transform: translateY(-1px);
+    }
+    
+    .fbt-button-primary {
+      background-color: #ff6600;
+      color: white;
+    }
+    
+    {% comment %} .fbt-button-primary:hover {
+      background-color: #e55a00;
+      transform: translateY(-1px);
+    } {% endcomment %}
+    
+    .fbt-summary {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 300px;
+      flex-shrink: 0;
+      margin: auto 0px;
+    }
+    
+    .fbt-total {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .fbt-total-label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #000000;
+    }
+    
+    .fbt-total-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #000000;
+    }
+    
+    .fbt-add-all-btn {
+      width: 100%;
+      padding: 15px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background-color: {{ section.settings.button_color | default: '#ff6600' }};
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .fbt-add-all-btn:hover {
+      background-color: {{ section.settings.button_hover_color | default: '#e55a00' }};
+      transform: translateY(-1px);
+    }
+    
+    .fbt-info {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .fbt-info-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #0066cc;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    
+    .fbt-info-text {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+      line-height: 1.4;
+    }
+    
+    .fbt-show-details {
+      color: #0066cc;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    
+    .fbt-show-details:hover {
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 1024px) {
+      .fbt-layout {
+        flex-direction: column;
+      }
+      
+      .fbt-summary {
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .fbt-products-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-title {
+        font-size: 1.5rem;
+      }
+      
+      .fbt-product-info {
+        padding: 15px;
+      }
+      
+      .fbt-product-buttons {
+        padding: 0 15px 15px 15px;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const fbtContainer = document.querySelector('[data-fbt-container]');
+      if (!fbtContainer) return;
+      
+      const checkboxes = fbtContainer.querySelectorAll('.fbt-checkbox-input');
+      const totalPriceElement = fbtContainer.querySelector('[data-fbt-total-price]');
+      const addAllBtn = fbtContainer.querySelector('[data-fbt-add-all]');
+      
+      let basePrice = {{ product.price }};
+      let selectedProducts = [];
+      
+      // Initialize with all products selected
+      checkboxes.forEach(checkbox => {
+        const productId = checkbox.dataset.productId;
+        const productPrice = parseInt(checkbox.dataset.productPrice);
+        const productVariantId = checkbox.dataset.productVariantId;
+        const productTitle = checkbox.dataset.productTitle;
+        
+        selectedProducts.push({
+          id: productId,
+          variantId: productVariantId,
+          price: productPrice,
+          title: productTitle
+        });
+      });
+      
+      function updateTotal() {
+        let total = basePrice;
+        selectedProducts.forEach(product => {
+          total += product.price;
+        });
+        
+        // Format the total price (you might need to adjust this based on your theme's money format)
+        const formattedTotal = (total / 100).toFixed(2);
+        totalPriceElement.textContent = '$' + formattedTotal;
+      }
+      
+      function handleCheckboxChange(event) {
+        const checkbox = event.target;
+        const productId = checkbox.dataset.productId;
+        const productPrice = parseInt(checkbox.dataset.productPrice);
+        const productVariantId = checkbox.dataset.productVariantId;
+        const productTitle = checkbox.dataset.productTitle;
+        
+        if (checkbox.checked) {
+          selectedProducts.push({
+            id: productId,
+            variantId: productVariantId,
+            price: productPrice,
+            title: productTitle
+          });
+        } else {
+          selectedProducts = selectedProducts.filter(p => p.id !== productId);
+        }
+        
+        updateTotal();
+      }
+      
+      function addAllToCart() {
+        if (selectedProducts.length === 0) return;
+        
+        const items = selectedProducts.map(product => ({
+          id: product.variantId,
+          quantity: 1
+        }));
+        
+        // Add the main product
+        items.unshift({
+          id: {{ product.selected_or_first_available_variant.id }},
+          quantity: 1
+        });
+        
+        // Use Shopify's cart API to add items
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ items: items })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status) {
+            // Error occurred
+            console.error('Error adding to cart:', data.description);
+            alert('Error adding items to cart. Please try again.');
+          } else {
+            // Success
+            console.log('Items added to cart successfully');
+            // Refresh cart drawer/page
+            if (typeof window.refreshCart === 'function') {
+              window.refreshCart();
+            } else {
+              window.location.reload();
+            }
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error adding items to cart. Please try again.');
+        });
+      }
+      
+      // Event listeners
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', handleCheckboxChange);
+      });
+      
+      addAllBtn.addEventListener('click', addAllToCart);
+      
+      // Initialize total
+      updateTotal();
+    });
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Frequently Bought",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Frequently Bought Together"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Complete your look with these popular combinations"
+    },
+    {
+      "type": "text",
+      "id": "product_description",
+      "label": "Product description",
+      "default": "Vivamus ultricies ante iaculis ornare integer nec lorem varius commodo."
+    },
+    {
+      "type": "text",
+      "id": "total_label",
+      "label": "Total label",
+      "default": "Total:"
+    },
+    {
+      "type": "text",
+      "id": "add_all_text",
+      "label": "Add all button text",
+      "default": "ADD ALL 3 TO CART"
+    },
+    {
+      "type": "text",
+      "id": "info_text",
+      "label": "Information text",
+      "default": "Vivamus ultricies ante iaculis ornare integer nec lorem varius."
+    },
+    {
+      "type": "text",
+      "id": "show_details_text",
+      "label": "Show details link text",
+      "default": "Show details"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Product title color",
+      "default": "#0066cc"
+    },
+    {
+      "type": "color",
+      "id": "product_title_hover_color",
+      "label": "Product title hover color",
+      "default": "#0052a3"
+    },
+    {
+      "type": "color",
+      "id": "sale_price_color",
+      "label": "Sale price color",
+      "default": "#dc3545"
+    },
+    {
+      "type": "color",
+      "id": "checkbox_color",
+      "label": "Checkbox color",
+      "default": "#0066cc"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#ff6600"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#e55a00"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Frequently Bought",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

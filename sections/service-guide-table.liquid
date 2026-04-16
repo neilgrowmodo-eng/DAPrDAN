@@ -1,0 +1,151 @@
+{% schema %}
+{
+  "name": "Service Guide Table",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The data in this table will be updated from the product metafield named 'Service Guide'."
+    },
+    {
+      "type": "text",
+      "id": "table_title",
+      "label": "Table Title",
+      "default": "Service Guide For The Roof Stay-Clean Plan"
+    },
+
+  ],
+  "presets": [
+    {
+      "name": "Service Guide Table"
+    }
+  ]
+}
+{% endschema %}
+
+
+{% style %}
+.service-guide-table-section {
+  padding: 80px 64px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.service-guide-table-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+.service-guide-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.service-guide-table th, .service-guide-table td {
+  padding: 1.25rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+.service-guide-table th {
+  background: #0ea5e9;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+.service-guide-table tr:last-child td {
+  border-bottom: none;
+}
+.service-guide-table td {
+  background: #fff;
+}
+.service-guide-table tr:nth-child(even) td {
+  background: #F5FCFF;
+}
+.service-guide-table td:first-child {
+  font-weight: 600;
+  background: #fff;
+  text-align: left;
+}
+.service-guide-table .label-column {
+  min-width: 205px;
+}
+@media (max-width: 900px) {
+  .service-guide-table, .service-guide-table thead, .service-guide-table tbody, .service-guide-table th, .service-guide-table td, .service-guide-table tr {
+    display: block;
+  }
+  .service-guide-table thead {
+    display: none;
+  }
+  .service-guide-table tr {
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: #fff;
+  }
+  .service-guide-table td {
+    padding: 1rem;
+    border: none;
+    background: #f9fbfc;
+    position: relative;
+  }
+  .service-guide-table td:before {
+    content: attr(data-label);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #0ea5e9;
+  }
+  .service-guide-table td:first-child {
+    background: #fff;
+    color: #222;
+    font-size: 1.1rem;
+    border-radius: 10px 10px 0 0;
+  }
+}
+{% endstyle %}
+
+<div class="service-guide-table-section">
+  <h2>{{ section.settings.table_title }}</h2>
+  <div style="overflow-x:auto;">
+    <table class="service-guide-table">
+      <thead>
+        <tr>
+          <th class="label-column"></th>
+          <th>Essential</th>
+          <th>Standard</th>
+          <th>MAX</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr>
+          <td>Basic</td>
+          <td data-label="Essential">{{ product.metafields.custom.service_guide.value.basic_essential }}</td>
+          <td data-label="Standard">{{ product.metafields.custom.service_guide.value.basic_standard }}</td>
+          <td data-label="MAX">{{ product.metafields.custom.service_guide.value.basic_max }}</td>
+        </tr>
+        <tr>
+          <td>Plus</td>
+          <td data-label="Essential">{{ product.metafields.custom.service_guide.value.plus_essential }}</td>
+          <td data-label="Standard">{{ product.metafields.custom.service_guide.value.plus_standard }}</td>
+          <td data-label="MAX">{{ product.metafields.custom.service_guide.value.plus_max }}</td>
+        </tr>
+        <tr>
+          <td>Premium</td>
+          <td data-label="Essential">{{ product.metafields.custom.service_guide.value.premium_essential }}</td>
+          <td data-label="Standard">{{ product.metafields.custom.service_guide.value.premium_standard }}</td>
+          <td data-label="MAX">{{ product.metafields.custom.service_guide.value.premium_max }}</td>
+        </tr>
+        <tr>
+          <td>Luxury</td>
+          <td data-label="Essential">{{ product.metafields.custom.service_guide.value.luxury_essential }}</td>
+          <td data-label="Standard">{{ product.metafields.custom.service_guide.value.luxury_standard }}</td>
+          <td data-label="MAX">{{ product.metafields.custom.service_guide.value.luxury_max }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

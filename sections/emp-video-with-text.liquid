@@ -1,0 +1,212 @@
+{{ 'emp-video-with-text.css' | asset_url | stylesheet_tag }}
+
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-type="emp-video-with-text"
+>
+</script>
+
+<script type="application/pxs-animation-mapping+json">
+  {
+    "blocks": [".emp-vwt__container"],
+    "elements": [".emp-vwt__heading", ".emp-vwt__text", ".emp-vwt__buttons"]
+  }
+</script>
+
+{%- liquid
+  assign video_position = section.settings.video_position | default: 'right'
+-%}
+
+<section
+  class="emp-vwt {% if section.settings.section_container %}section-container{% endif %} {{ section.settings.custom_class }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="emp-vwt__container video-{{ video_position }}">
+
+    {%- comment -%} Video Column {%- endcomment -%}
+    <div class="emp-vwt__video-wrapper">
+      {%- if section.settings.video != blank -%}
+        {{ section.settings.video | video_tag:
+          class: 'emp-vwt__video',
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          preload: 'auto'
+        }}
+      {%- elsif section.settings.video_url != blank -%}
+        <video
+          class="emp-vwt__video"
+          src="{{ section.settings.video_url }}"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto"
+        ></video>
+      {%- else -%}
+        <div class="emp-vwt__video-placeholder">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.video_badge != blank -%}
+        <span class="emp-vwt__video-badge">{{ section.settings.video_badge | escape }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Text Column {%- endcomment -%}
+    <div class="emp-vwt__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="emp-vwt__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="emp-vwt__text">{{ section.settings.text }}</div>
+      {%- endif -%}
+
+      {%- assign has_btn1 = false -%}
+      {%- assign has_btn2 = false -%}
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        {%- assign has_btn1 = true -%}
+      {%- endif -%}
+      {%- if section.settings.button_label_2 != blank and section.settings.button_link_2 != blank -%}
+        {%- assign has_btn2 = true -%}
+      {%- endif -%}
+
+      {%- if has_btn1 or has_btn2 -%}
+        <div class="emp-vwt__buttons">
+          {%- if has_btn1 -%}
+            <a href="{{ section.settings.button_link }}" class="emp-vwt__btn emp-vwt__btn--primary">
+              {{ section.settings.button_label | escape }}
+            </a>
+          {%- endif -%}
+          {%- if has_btn2 -%}
+            <a href="{{ section.settings.button_link_2 }}" class="emp-vwt__btn emp-vwt__btn--secondary">
+              {{ section.settings.button_label_2 | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video with Text 2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Heading Here"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Add a description to complement your video and engage your audience.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Button 1"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Primary Button"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Button 2"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Upload a video from Shopify files"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "External Video URL",
+      "info": "Used as fallback if no Shopify video is selected"
+    },
+    {
+      "type": "text",
+      "id": "video_badge",
+      "label": "Video Badge Text",
+      "info": "Short label displayed as an overlay on the video (e.g. BIODEGRADABLE PRODUCTS)"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "video_position",
+      "label": "Video Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_container",
+      "label": "Section Container",
+      "default": false,
+      "info": "Constrains the section to a max-width centered container"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Add a custom CSS class to this section's wrapper element"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video with Text 2"
+    }
+  ]
+}
+{% endschema %}

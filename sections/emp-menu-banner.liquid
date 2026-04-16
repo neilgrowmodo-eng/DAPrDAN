@@ -1,0 +1,120 @@
+{{ 'emp-section-menu-banner.css' | asset_url | stylesheet_tag }}
+
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-type="emp-menu-banner"
+>
+</script>
+
+<script type="application/pxs-animation-mapping+json">
+  {
+    "blocks": [".menu-banner__container"],
+    "elements": [".menu-banner__heading", ".menu-banner__menu"]
+  }
+</script>
+
+{%- liquid
+  assign has_background = false
+  if section.settings.background_image != blank
+    assign has_background = true
+  endif
+-%}
+{% if section.settings.show_breadcrumbs %}
+  {% render 'breadcrumbs' %}
+{% endif %}
+<section 
+  class="menu-banner {% if has_background %}menu-banner--has-background{% endif %} {% if section.settings.section_container %}section-container{% endif %} {{ section.settings.custom_class }}" 
+  {{ section.shopify_attributes }}
+>
+  <div class="menu-banner__content">
+    {%- if section.settings.heading != blank -%}
+      <h1 class="menu-banner__heading">{{ section.settings.heading | escape }}</h1>
+    {%- endif -%}
+  </div>
+
+  <div class="menu-banner__container"
+    {% if has_background %}
+      style="background-image: url('{{ section.settings.background_image | image_url: width: 1920 }}');"
+    {% endif %}
+  >
+    {%- if section.settings.menu != blank -%}
+      {%- assign menu_handle = section.settings.menu -%}
+      {%- assign menu = linklists[menu_handle] -%}
+      
+      {%- if menu.links.size > 0 -%}
+        <nav class="menu-banner__nav">
+          <ul class="menu-banner__menu">
+            {%- for link in menu.links -%}
+              <li class="menu-banner__menu-item">
+                <a href="{{ link.url }}" class="menu-banner__menu-link">
+                  {{ link.title | escape }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Menu Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Show Breadcrumbs",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Services"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Select a menu to display as navigation buttons"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Optional background image for the banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_container",
+      "label": "Section Container",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Menu Banner"
+    }
+  ]
+}
+{% endschema %}

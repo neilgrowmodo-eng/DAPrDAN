@@ -1,0 +1,91 @@
+/* Menu Banner Section Styles */
+.menu-banner {
+  position: relative;
+}
+
+.menu-banner__container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  border-radius: 8px;
+  background-position: 100% 29%;
+  background-size: cover;
+}
+
+.menu-banner__heading {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 110%;
+  text-transform: capitalize;
+  margin: 0 0 25px;
+  color: #0A2B39;
+}
+
+nav.menu-banner__nav {
+  padding: 24px;
+}
+
+.menu-banner__menu {
+  margin: 0;
+  padding: 24px;
+  list-style: none;
+  width: 100%;
+  max-width: fit-content;
+  border-radius: 4px;
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 43px;
+  row-gap: 26px;
+}
+
+.menu-banner__menu-item {
+  margin: 0;
+}
+
+.menu-banner__menu-link {
+  color: #414141;
+  text-decoration: unset;
+  font-size: 18px;
+}
+
+.menu-banner__menu-link:hover {
+  color: #00A1E0;
+}
+
+/* Section Container */
+section.menu-banner.section-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 1023px) {
+  section.menu-banner.section-container {
+    padding: 0 15px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .menu-banner {
+    padding: 60px 0;
+    min-height: 300px;
+  }
+
+  .menu-banner__heading {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .menu-banner__heading {
+    font-size: 1.8rem;
+  }
+  .menu-banner__menu {
+    column-gap: 20px;
+    row-gap: 15px;
+    grid-template-columns: 1fr;
+  }
+}

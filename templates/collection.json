@@ -1,0 +1,91 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "emp_menu_banner_HDrzkL": {
+      "type": "emp-menu-banner",
+      "name": "Menu Banner",
+      "settings": {
+        "show_breadcrumbs": true,
+        "heading": "Service Categories",
+        "menu": "service-categories",
+        "background_image": "shopify://shop_images/daprdan-hcp-blower-job-complete.jpg",
+        "section_container": true,
+        "custom_class": ""
+      }
+    },
+    "main": {
+      "type": "static-collection",
+      "blocks": {
+        "filter_MaiRtD": {
+          "type": "filter",
+          "settings": {
+            "filter_option": "faceted",
+            "filter_groups": "collapse_all",
+            "filter_at_top": true,
+            "show_filter_product_count": false,
+            "filter_style": "tags",
+            "filter_limit": "999",
+            "grid_categories": "",
+            "custom_ordered_categories": "",
+            "custom_ordered_tags": "",
+            "excluded_tags": "",
+            "excluded_groups": ""
+          }
+        }
+      },
+      "block_order": [
+        "filter_MaiRtD"
+      ],
+      "settings": {
+        "show_collection_image": false,
+        "show_collection_title": false,
+        "show_breadcrumbs": false,
+        "products_per_page_range": 24,
+        "products_per_row": "4",
+        "sort_by": false,
+        "grid_list": false,
+        "default_view": "grid-view",
+        "enable_subcollection": false,
+        "show_product_count": false,
+        "thumbnail_image": "product-image",
+        "image_crop": "original"
+      }
+    },
+    "dynamic_search_pagUWW": {
+      "type": "dynamic-search",
+      "settings": {
+        "title": "Quam euismod faucibus",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in.</p>",
+        "placeholder": "Looking for something specific",
+        "filter_search_by": "disabled",
+        "enable_live_search": true,
+        "enable_live_search_images": false,
+        "show-overlay": false,
+        "color": "#ffffff",
+        "background": "#000000",
+        "opacity": 50
+      }
+    },
+    "static-recently-viewed": {
+      "type": "static-recently-viewed",
+      "disabled": true,
+      "settings": {
+        "enable_recently_viewed_products": true
+      }
+    }
+  },
+  "order": [
+    "emp_menu_banner_HDrzkL",
+    "main",
+    "dynamic_search_pagUWW",
+    "static-recently-viewed"
+  ]
+}

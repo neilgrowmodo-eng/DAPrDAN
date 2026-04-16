@@ -1,0 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "static-faq",
+      "settings": {}
+    },
+    "dynamic-faq": {
+      "type": "dynamic-faq",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "heading": "Category 1"
+          }
+        },
+        "question_1": {
+          "type": "question",
+          "settings": {}
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {}
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {}
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "heading": "Category 2"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {}
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {}
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {}
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "heading": "Category 3"
+          }
+        },
+        "question_7": {
+          "type": "question",
+          "settings": {}
+        },
+        "question_8": {
+          "type": "question",
+          "settings": {}
+        },
+        "question_9": {
+          "type": "question",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "category_1",
+        "question_1",
+        "question_2",
+        "question_3",
+        "category_2",
+        "question_4",
+        "question_5",
+        "question_6",
+        "category_3",
+        "question_7",
+        "question_8",
+        "question_9"
+      ],
+      "settings": {
+        "heading": "",
+        "enable_category_cards": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "dynamic-faq"
+  ]
+}

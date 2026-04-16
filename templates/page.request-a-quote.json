@@ -1,0 +1,157 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {}
+    },
+    "emp_raq_eiM7nU": {
+      "type": "emp-raq",
+      "name": "Request a Quote",
+      "settings": {
+        "title": "Request A Quote",
+        "body_text": "Volutpat eget taciti nostra ligula potenti phasellus. Vestibulum nisl aliquet cras diam lacinia laoreet congue. Magna lacinia consequat inceptos tortor sociosqu ultricies quam mauris. Gravida velit neque, dis in taciti ornare? Dui sed varius praesent leo volutpat. Litora non rutrum nisl tortor ante fringilla parturient nullam.",
+        "button_text": "SHOW ME THE QUOTE"
+      }
+    },
+    "dynamic_rich_text_ajW8JX": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "wide",
+        "title": "Looking for recurring services?",
+        "text": "<p>Start by getting a quote (above) to establish your base service pricing, then complete our <a href=\"#\" title=\"#\">1-minute assessment</a>. One of our estimators will contact you to answer any of your questions and help design a plan to fit your needs.<br/><br/></p>",
+        "button_label": "Request Recurring Services",
+        "button_link": "#",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "medium",
+        "text_alignment": "center",
+        "custom_class": "richtext-1 hp-rt-1 bg-gray btn-blue section-space-top section-border-btm"
+      }
+    },
+    "dynamic_rich_text_tNWiHL": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "wide",
+        "title": "Want something more?",
+        "text": "<p>Automation is impressive, yes — but it can’t account for every detail, in any circumstance, all the time. That’s why, in certain situations, DAPrDAN will dispatch one of our professional estimators to meet with you at your location.</p><p>Is your home constructed with a unique architecture, or rare materials that require special attention? Does your lifestyle require elevated discretion with service personnel? Do you place a high value on customized services? Would you simply prefer a more personal touch?<br/><br/></p>",
+        "button_label": "Request a meeting",
+        "button_link": "#",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "<p>or, call  (425) 659-3009 to speak with us about your project.</p>",
+        "heading_size": "medium",
+        "text_alignment": "center",
+        "custom_class": "richtext-1 hp-rt-1 bg-gray btn-blue section-space-btm"
+      }
+    },
+    "dynamic_rich_text_i6j8aQ": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "wide",
+        "title": "Warranty details",
+        "text": "<p><strong>Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet pellentesque aenean hac vestibulum turpis mi bibendum diam. Tempor integer aliquam in vitae malesuada fringilla.</strong></p><p>Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "medium",
+        "text_alignment": "left",
+        "custom_class": "heading-h2"
+      }
+    },
+    "dynamic_rich_text_VMRVPW": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "wide",
+        "title": "I. Warranty Overview",
+        "text": "<p>Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat.<br/><br/>Tristique odio senectus nam posuere ornare leo metus, ultricies. Blandit duis ultricies vulputate morbi feugiat cras placerat elit. Aliquam tellus lorem sed ac. Montes, sed mattis pellentesque suscipit accumsan. Cursus viverra aenean magna risus elementum faucibus molestie pellentesque. Arcu ultricies sed mauris vestibulum.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "medium",
+        "text_alignment": "left",
+        "custom_class": "heading-h3 warranty"
+      }
+    },
+    "dynamic_rich_text_mrCNwq": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "wide",
+        "title": "II. Warranty Coverage",
+        "text": "<p>Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat.<br/><br/>Tristique odio senectus nam posuere ornare leo metus, ultricies. Blandit duis ultricies vulputate morbi feugiat cras placerat elit. Aliquam tellus lorem sed ac. Montes, sed mattis pellentesque suscipit accumsan. Cursus viverra aenean magna risus elementum faucibus molestie pellentesque. Arcu ultricies sed mauris vestibulum.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "medium",
+        "text_alignment": "left",
+        "custom_class": "heading-h3 warranty"
+      }
+    },
+    "dynamic_rich_text_bGDJkJ": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "wide",
+        "title": "What Is Covered?",
+        "text": "<p>Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "medium",
+        "text_alignment": "left",
+        "custom_class": "heading-h4 warranty"
+      }
+    },
+    "dynamic_rich_text_BUz8iM": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "wide",
+        "title": "What Is Covered?",
+        "text": "<p>Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat.<br/><br/></p>",
+        "button_label": "Download Warranty",
+        "button_link": "#",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "medium",
+        "text_alignment": "left",
+        "custom_class": "heading-h4 warranty btn-blue btn-width-auto"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "emp_raq_eiM7nU",
+    "dynamic_rich_text_ajW8JX",
+    "dynamic_rich_text_tNWiHL",
+    "dynamic_rich_text_i6j8aQ",
+    "dynamic_rich_text_VMRVPW",
+    "dynamic_rich_text_mrCNwq",
+    "dynamic_rich_text_bGDJkJ",
+    "dynamic_rich_text_BUz8iM"
+  ]
+}

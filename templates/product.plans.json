@@ -1,0 +1,330 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "static-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "form": {
+          "type": "form",
+          "settings": {
+            "enable_local_pickup": true,
+            "show_gift_card_recipient_form": false
+          }
+        },
+        "key_details_XfXU8i": {
+          "type": "key_details",
+          "settings": {
+            "icon": "icon-delivery-package",
+            "image": "shopify://shop_images/icon_7f42ff8a-825e-4d4d-a0a1-5570191adb74.svg",
+            "title": "Duis aute irure dolor",
+            "text": "<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa</p>",
+            "text_color": "#0a2b39",
+            "icon_color": "#1d1d1d",
+            "background_color": "#f8f8fe"
+          }
+        },
+        "collapsible_tab_dkP4Xx": {
+          "type": "collapsible-tab",
+          "settings": {
+            "collapsible_tab_heading": "Plans Details",
+            "collapsible_tab_text": "<p>Use this text to share information about your product.</p>"
+          }
+        },
+        "collapsible_tab_464wkY": {
+          "type": "collapsible-tab",
+          "settings": {
+            "collapsible_tab_heading": "Benefits of Planned Maintenance",
+            "collapsible_tab_text": "<p>Use this text to share information about your product.</p>"
+          }
+        },
+        "collapsible_tab_3xE6pW": {
+          "type": "collapsible-tab",
+          "settings": {
+            "collapsible_tab_heading": "Frequently Asked Questions",
+            "collapsible_tab_text": "<p>Use this text to share information about your product.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating",
+        "price",
+        "description",
+        "form",
+        "key_details_XfXU8i",
+        "collapsible_tab_dkP4Xx",
+        "collapsible_tab_464wkY",
+        "collapsible_tab_3xE6pW"
+      ],
+      "settings": {
+        "gallery_aspect_ratio": "natural",
+        "gallery_image_crop": false,
+        "gallery_thumbnail_position": "below",
+        "gallery_video_autoplay": true,
+        "gallery_video_looping": true,
+        "gallery_hover_zoom": "disabled",
+        "gallery_click_to_zoom": "always"
+      }
+    },
+    "table_plan_AC9MgG": {
+      "type": "table-plan",
+      "blocks": {
+        "item_AD7UxK": {
+          "type": "item",
+          "settings": {
+            "title": "Basic",
+            "essential": "No trees above the roofline within 100-ft of your property; Direct daylight from sunrise to sundown (Not in the shadow of a large building, or hilly landscape)",
+            "standard": "Potenti eu ridiculus aptent volutpat ligula lacus ad nam. Pellentesque quam porta pharetra rhoncus tempor metus turpis felis. Proin lobortis accumsan curae tortor justo porta tincidunt.",
+            "max": "Taciti efficitur volutpat justo facilisis hac. Mattis quis vel non duis turpis egestas at placerat. Risus dictumst viverra montes felis fermentum elit etiam fames. Porttitor commodo fames dolor ultrices diam.",
+            "tooltip": "This is a tooltip. Potenti eu ridiculus aptent volutpat ligula lacus ad nam."
+          }
+        },
+        "item_7jFBMP": {
+          "type": "item",
+          "settings": {
+            "title": "Plus",
+            "essential": "Vulputate dolor habitasse ullamcorper justo dignissim ad duis. Fermentum platea semper augue donec cursus vehicula. Vehicula viverra eu ligula etiam cubilia lobortis netus ac. ",
+            "standard": "Pellentesque quam porta pharetra rhoncus tempor metus turpis felis. Proin lobortis accumsan curae tortor justo porta tincidunt.",
+            "max": "No trees above the roofline within 100-ft of your property; Direct daylight from sunrise to sundown (Not in the shadow of a large building, or hilly landscape)",
+            "tooltip": "This is a tooltip. Potenti eu ridiculus aptent volutpat ligula lacus ad nam."
+          }
+        },
+        "item_c9aabe": {
+          "type": "item",
+          "settings": {
+            "title": "Premium",
+            "essential": "Direct daylight from sunrise to sundown (Not in the shadow of a large building, or hilly landscape); Generally few birds or rodents around home",
+            "standard": "Potenti eu ridiculus aptent volutpat ligula lacus ad nam. Pellentesque quam porta pharetra rhoncus tempor metus turpis felis. Proin lobortis accumsan curae tortor justo porta tincidunt.",
+            "max": "Risus dictumst viverra montes felis fermentum elit etiam fames. Porttitor commodo fames dolor ultrices diam.",
+            "tooltip": "This is a tooltip. Potenti eu ridiculus aptent volutpat ligula lacus ad nam."
+          }
+        },
+        "item_ViwFBe": {
+          "type": "item",
+          "settings": {
+            "title": "Luxury",
+            "essential": "No trees above the roofline within 100-ft of your property; Direct daylight from sunrise to sundown (Not in the shadow of a large building, or hilly landscape)",
+            "standard": "Taciti efficitur volutpat justo facilisis hac. Mattis quis vel non duis turpis egestas at placerat. Risus dictumst viverra montes felis fermentum elit etiam fames. Porttitor commodo fames dolor ultrices diam.",
+            "max": "Potenti eu ridiculus aptent volutpat ligula lacus ad nam. Pellentesque quam porta pharetra rhoncus tempor metus turpis felis. Proin lobortis accumsan curae tortor justo porta tincidunt.",
+            "tooltip": "This is a tooltip. Potenti eu ridiculus aptent volutpat ligula lacus ad nam."
+          }
+        }
+      },
+      "block_order": [
+        "item_AD7UxK",
+        "item_7jFBMP",
+        "item_c9aabe",
+        "item_ViwFBe"
+      ],
+      "settings": {
+        "heading": "Service Guide for the Roof Stay-Clean Plan"
+      }
+    },
+    "recommendations": {
+      "type": "static-product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "You may also like"
+      }
+    },
+    "recently-viewed": {
+      "type": "static-recently-viewed",
+      "settings": {
+        "enable_recently_viewed_products": true
+      }
+    },
+    "dynamic_collection_list_8FRKwX": {
+      "type": "dynamic-collection-list",
+      "blocks": {
+        "collection_3yyG3d": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection_jy6aCr": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection_GqBVq9": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection_rNyAb3": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection_hyp7NR": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection_JMPkQw": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_3yyG3d",
+        "collection_jy6aCr",
+        "collection_GqBVq9",
+        "collection_rNyAb3",
+        "collection_hyp7NR",
+        "collection_JMPkQw"
+      ],
+      "settings": {
+        "title": "Plans by Featured Service",
+        "text": "<p>Select your seasonally optimized home care plan organized around your top priority.</p>",
+        "thumbnail_columns_desktop": 6,
+        "thumbnail_columns_mobile": 3,
+        "image-crop": "circle",
+        "cta_label": "",
+        "cta_link": "",
+        "cta_button_style": "secondary"
+      }
+    },
+    "dynamic_promo_grid_jQnLiA": {
+      "type": "dynamic-promo-grid",
+      "blocks": {
+        "promotion_cxkEWA": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_19ca62e4-340a-425f-ade0-15066a1ef191.png",
+            "title": "Consequat risus ullamcorper",
+            "text": "Nascetur vel himenaeos tortor sagittis mauris felis pretium commodo. Curabitur integer tempor elementum; lacinia proin adipiscing habitant.",
+            "color": "#ffffff",
+            "block_link": "#",
+            "button_text": "Explore Services",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 1
+          }
+        }
+      },
+      "block_order": [
+        "promotion_cxkEWA"
+      ],
+      "settings": {
+        "title": "",
+        "text": "",
+        "section_height": "medium",
+        "section_columns": 1,
+        "text_alignment": "top-left",
+        "custom_class": "delivery-grid"
+      }
+    },
+    "dynamic_promo_grid_7G48Nr": {
+      "type": "dynamic-promo-grid",
+      "blocks": {
+        "promotion_ngjUUD": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_9b70f1f9-052d-47fb-a63b-a66b4e384b8d.png",
+            "title": "Montes malesuada mattis",
+            "text": "Massa est est hac lobortis at magna nam pulvinar. Amet blandit maecenas nam risus orci nullam. Semper ornare taciti habitant.",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "learn more",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        },
+        "promotion_zW9bkR": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_2c6562bf-7990-42da-bb62-49253d62e0eb.png",
+            "title": "Porttitor suscipit",
+            "text": "Conubia laoreet conubia natoque dolor tincidunt. Dignissim sodales malesuada posuere suscipit dictum vehicula ut erat.",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "learn more",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "promotion_ngjUUD",
+        "promotion_zW9bkR"
+      ],
+      "settings": {
+        "title": "",
+        "text": "",
+        "section_height": "medium",
+        "section_columns": 2,
+        "text_alignment": "top-left",
+        "custom_class": "delivery-grid second"
+      }
+    },
+    "dynamic_search_KbeNbE": {
+      "type": "dynamic-search",
+      "settings": {
+        "title": "Quam euismod faucibus",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in.</p>",
+        "placeholder": "Looking for something specific",
+        "filter_search_by": "disabled",
+        "enable_live_search": false,
+        "enable_live_search_images": false,
+        "show-overlay": false,
+        "color": "#ffffff",
+        "background": "#000000",
+        "opacity": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "table_plan_AC9MgG",
+    "recommendations",
+    "recently-viewed",
+    "dynamic_collection_list_8FRKwX",
+    "dynamic_promo_grid_jQnLiA",
+    "dynamic_promo_grid_7G48Nr",
+    "dynamic_search_KbeNbE"
+  ]
+}

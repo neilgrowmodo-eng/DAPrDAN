@@ -1,0 +1,1038 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {}
+    },
+    "custom_dynamic_slideshow_cktKPf": {
+      "type": "custom-dynamic-slideshow",
+      "blocks": {
+        "slide_hKNbfP": {
+          "type": "slide",
+          "settings": {
+            "video": "shopify://files/videos/videoplayback_b315a7d2-ebc4-40ff-ba30-a7980ebeb4e9.mp4",
+            "subheading": "Roof Cleaning in Bellevue WA",
+            "title": "The Greater Puget Sound's Top Rated Roof Cleaning",
+            "text": "Over 800+ Five Star Reviews on Google, FB & BBB!",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "Get An Instant Quote",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1": "shopify://files/videos/videoplayback_b315a7d2-ebc4-40ff-ba30-a7980ebeb4e9.mp4",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "Explore Roof Cleaning",
+            "button_two_link": "#",
+            "button_two_style": "secondary",
+            "show_overlay": true,
+            "overlay_color": "#0a2b39",
+            "overlay_opacity": 59
+          }
+        }
+      },
+      "block_order": [
+        "slide_hKNbfP"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_autoplay": true,
+        "autoplay_duration": 8,
+        "slideshow_width": "content",
+        "slideshow_height": "medium",
+        "slideshow_height_mobile": "x-large",
+        "slideshow_text_below_image": false,
+        "custom_class": ""
+      }
+    },
+    "emp_video_with_text_CWLAtx": {
+      "type": "emp-video-with-text",
+      "name": "Video with Text 2",
+      "settings": {
+        "heading": "The Greater Puget Sound's  Top Rated Roof Cleaning",
+        "text": "<p>Ensure a strong, clean, and efficient roof with our expert cleaning services. We safely eliminate moss, algae, and debris to protect your investment and enhance your home's appeal. Schedule your roof cleaning today!</p>",
+        "button_label": "Browse roof services",
+        "button_link": "shopify://collections/roof-services",
+        "button_label_2": "Explore Roof Services",
+        "button_link_2": "#shopify-section-template--24995785343262__dynamic_image_with_text_L6Ut6T",
+        "video": "shopify://files/videos/videoplayback_b315a7d2-ebc4-40ff-ba30-a7980ebeb4e9.mp4",
+        "video_url": "",
+        "video_badge": "",
+        "video_position": "right",
+        "section_container": true,
+        "custom_class": "padding-112"
+      }
+    },
+    "dynamic_image_with_text_L6Ut6T": {
+      "type": "dynamic-image-with-text",
+      "settings": {
+        "section_heading": "",
+        "image": "shopify://shop_images/Frame_128.png",
+        "desktop_height": "natural",
+        "mobile_height": "natural",
+        "desktop_image_alignment": "left",
+        "mobile_image_alignment": "top",
+        "heading": "DAPrDAN - Best Roof Cleaning in Bellevue WA",
+        "subheading": "<p>DAPrDAN is an experienced company with deep local awareness and expertise in and around Bellevue. Over the years, we have successfully serviced numerous clients in this vibrant community, earning a solid reputation for our commitment to quality and customer satisfaction. <br/><br/>With a proven track record and a strong connection to the Bellevue community, DAPrDAN is dedicated to delivering exceptional rooftop cleaning service and fostering lasting relationships.<br/><br/>Our prices are reasonable and our dedication is top-notch. There may be many rood cleaning services operating in Bellevue but we are rated among the top for a reason!  </p>",
+        "checklist": "<ul><li>Simple Pricing</li><li>Second-To-None Quality Of Work</li><li>Unbeatable Service</li></ul>",
+        "text_alignment": "left",
+        "button_label": "Get An Instant Quote",
+        "button_link": "#",
+        "custom_class": "padding-112"
+      }
+    },
+    "dynamic_promo_mosaic_U7yhHh": {
+      "type": "dynamic-promo-mosaic",
+      "blocks": {
+        "promotion_Qg8npy": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_bd4307cd-c9ea-4e35-9c7f-d484cefd7f59.png",
+            "title": "Metal Roof Cleaning",
+            "text": "Despite their durability, metal roofs can accumulate debris and residues that may cause corrosion. Our gentle, non-abrasive cleaning solutions ensure longevity, durability and sustained energy efficiency.",
+            "color": "#0a2b39",
+            "block_link": "",
+            "button_text": "",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        },
+        "promotion_XNYnkK": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_d69cdf88-af1b-4082-8ba8-4c430498a68e.png",
+            "title": "Shingle Roof Cleaning",
+            "text": "Cedar shingles are particularly prone to accumulating dirt, moss and algae, which can degrade the material and lead to leaks or structural damage. Regular cleaning is crucial for maintaining their functionality and aesthetic appeal.",
+            "color": "#0a2b39",
+            "block_link": "",
+            "button_text": "",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        },
+        "promotion_DhkpXJ": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_3b216347-e20e-450d-afa9-0d63ce6f2dfd.png",
+            "title": "Asphalt Roof Cleaning",
+            "text": "Improper cleaning of asphalt roofs can lead to significant damage. Using harsh chemicals or high-pressure washing techniques can strip away the granules that protect asphalt shingles from UV and weather exposure, making it susceptible to leaks and structural weakness.",
+            "color": "#0a2b39",
+            "block_link": "",
+            "button_text": "",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        },
+        "promotion_kNgj3h": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_4b275fdf-ac9a-4133-b86a-09249f3ede44.png",
+            "title": "Tile Roof Cleaning",
+            "text": "Cleaning tile roofs is a delicate process that requires specific techniques to avoid damage, while effectively cleaning. Roof tiles, often made from clay or concrete, are durable but can be porous, making them vulnerable to staining and moisture retention.",
+            "color": "#0a2b39",
+            "block_link": "",
+            "button_text": "",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "promotion_Qg8npy",
+        "promotion_XNYnkK",
+        "promotion_DhkpXJ",
+        "promotion_kNgj3h"
+      ],
+      "settings": {
+        "title": "",
+        "section_height": "small",
+        "text_alignment": "top-left",
+        "maintain_aspect_ratio": true,
+        "compress_blocks": false,
+        "custom_class": "padding-112 bg-gray"
+      }
+    },
+    "custom_tabbed_image_with_text_B6cTBa": {
+      "type": "custom-tabbed-image-with-text",
+      "blocks": {
+        "tab_kX4pre": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Bellevue Environment",
+            "image": "shopify://shop_images/315753769d78a62d115ed83223b7ac5b.jpg",
+            "heading": "Prevent Costly Repairs with Regular Maintenance",
+            "text": "<p>DAPrDAN’s expert roof cleaning service is designed to proactively prevent damage and extend the lifespan of roofs. By employing specialized techniques tailored to the specific type of roof, DAPrDAN not only effectively removes harmful elements like moss, algae, and accumulated debris but also disinfects and sanitizes the surface to slow future growth. This proactive approach not only enhances the roof’s functionality, ensuring it continues to provide optimal protection against the elements, but helps avoid costly repairs, making regular roof maintenance a wise investment for preserving the value and safety of the property.</p>",
+            "checklist": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "tab_bk4tDr": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Damage Prevention",
+            "image": "shopify://shop_images/315753769d78a62d115ed83223b7ac5b.jpg",
+            "heading": "Our Proactive Approach Ensures Optimum Roof Conditions",
+            "text": "<p>DAPrDAN’s expert roof cleaning service is designed to proactively prevent damage and extend the lifespan of roofs. By employing specialized techniques tailored to the specific type of roof, DAPrDAN not only effectively removes harmful elements like moss, algae, and accumulated debris but also disinfects and sanitizes the surface to slow future growth. This proactive approach not only enhances the roof’s functionality, ensuring it continues to provide optimal protection against the elements, but helps avoid costly repairs, making regular roof maintenance a wise investment for preserving the value and safety of the property.</p>",
+            "checklist": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "tab_MDQNqh": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Improved Curb Appeal",
+            "image": "shopify://shop_images/315753769d78a62d115ed83223b7ac5b.jpg",
+            "heading": "Enhance Your Home's Appearance",
+            "text": "<p>DAPrDAN’s expert roof cleaning service is designed to proactively prevent damage and extend the lifespan of roofs. By employing specialized techniques tailored to the specific type of roof, DAPrDAN not only effectively removes harmful elements like moss, algae, and accumulated debris but also disinfects and sanitizes the surface to slow future growth. This proactive approach not only enhances the roof’s functionality, ensuring it continues to provide optimal protection against the elements, but helps avoid costly repairs, making regular roof maintenance a wise investment for preserving the value and safety of the property.</p>",
+            "checklist": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_kX4pre",
+        "tab_bk4tDr",
+        "tab_MDQNqh"
+      ],
+      "settings": {
+        "section_heading": "Benefits Of Our Bellevue Roof Cleaning Services",
+        "image_position": "left",
+        "custom_class": ""
+      }
+    },
+    "dynamic_faq_VQrceX": {
+      "type": "dynamic-faq",
+      "blocks": {
+        "question_xQ8ATL": {
+          "type": "question",
+          "settings": {
+            "question": "Unique Bellevue Environment",
+            "answer": "<p>Bellevue is known for its picturesque landscapes, but with these natural beauties come specific challenges. The weather here can vary from heavy rain to the occasional snow, leading to the growth of moss, algae, and lichen on roofs.</p><p>The area’s humid climate, combined with its lush greenery, creates an ideal environment for moss and algae growth. Homeowners in neighborhoods such as West Bellevue, Downtown Bellevue, Amherst, Belvedere, Cougar Mountain,  Enatai, Lake Bellevue, Lakemont and Lake Hills, among others, often find themselves dealing with these challenges.</p>",
+            "icon": "none"
+          }
+        },
+        "question_NLUcKR": {
+          "type": "question",
+          "settings": {
+            "question": "Beautiful Bellevue Areas",
+            "answer": "<p>Bellevue is known for its picturesque landscapes, but with these natural beauties come specific challenges. The weather here can vary from heavy rain to the occasional snow, leading to the growth of moss, algae, and lichen on roofs.<br/><br/>The area’s humid climate, combined with its lush greenery, creates an ideal environment for moss and algae growth. Homeowners in neighborhoods such as West Bellevue, Downtown Bellevue, Amherst, Belvedere, Cougar Mountain,  Enatai, Lake Bellevue, Lakemont and Lake Hills, among others, often find themselves dealing with these challenges.</p>",
+            "icon": "none"
+          }
+        },
+        "question_6nX49q": {
+          "type": "question",
+          "settings": {
+            "question": "Essential Roof Maintenance",
+            "answer": "<p>Bellevue is known for its picturesque landscapes, but with these natural beauties come specific challenges. The weather here can vary from heavy rain to the occasional snow, leading to the growth of moss, algae, and lichen on roofs.<br/><br/>The area’s humid climate, combined with its lush greenery, creates an ideal environment for moss and algae growth. Homeowners in neighborhoods such as West Bellevue, Downtown Bellevue, Amherst, Belvedere, Cougar Mountain,  Enatai, Lake Bellevue, Lakemont and Lake Hills, among others, often find themselves dealing with these challenges.</p>",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "question_xQ8ATL",
+        "question_NLUcKR",
+        "question_6nX49q"
+      ],
+      "settings": {
+        "custom_class": "faq1",
+        "section_width": "full-width",
+        "heading": "",
+        "text": "",
+        "enable_category_cards": false,
+        "category_card_image_crop": "square",
+        "category_heading_size": "medium",
+        "icon_color": "rgba(0,0,0,0)"
+      }
+    },
+    "custom_dynamic_slideshow_CEkbAi": {
+      "type": "custom-dynamic-slideshow",
+      "blocks": {
+        "slide_TxDGwL": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Card_38a45aec-29b8-4e36-9e6a-7502d61bf8ad.png",
+            "subheading": "",
+            "title": "Effortless | Convenient | Easy: Roof Cleaning with DAPrDAN",
+            "text": "Scheduling a roof cleaning with DAPrDAN is remarkably easy and convenient. Our website allows you to instantly request multiple bids to select a service level that fits your needs and budget. With just a few clicks, you can book a comprehensive cleaning session. Stay informed with timely updates and reminders, and get a bird’ s-eye view of your property with a prompt service report (including photos and recommendations) at the end of the day. DAPrDAN’s commitment to customer convenience makes it simple to maintain your roof—without the hassle!",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "left",
+            "button_one_label": "Get An Instant Quote",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "slide_TxDGwL"
+      ],
+      "custom_css": [
+        ".slideshow-slide__heading {font-size: 34px;}",
+        ".slideshow-slide__text {font-size: 16px; font-style: normal; font-weight: 400; line-height: 150%;}"
+      ],
+      "settings": {
+        "enable_autoplay": true,
+        "autoplay_duration": 8,
+        "slideshow_width": "content",
+        "slideshow_height": "large",
+        "slideshow_height_mobile": "fit_screen",
+        "slideshow_text_below_image": false,
+        "custom_class": ""
+      }
+    },
+    "dynamic_rich_text_CLEKEc": {
+      "type": "dynamic-rich-text",
+      "settings": {
+        "width": "full-width",
+        "title": "100% Satisfaction Or You Don't Pay!",
+        "text": "<p>DAPrDAN leaves no stone unturned when it comes to restoring and maintaining your home or business location. Our team handles all exterior cleaning needs from the rooftop to the driveway, leaving your property refreshed, clean, and inviting.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "large",
+        "text_alignment": "center",
+        "custom_class": "richtext-1"
+      }
+    },
+    "custom_dynamic_slideshow_BHVCtm": {
+      "type": "custom-dynamic-slideshow",
+      "blocks": {
+        "slide_DHcnqJ": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/vlc-record-2024-10-03-09h20m35s-Desktop_2024.10.03_-_09.02.18.02.mp4-_1_1_1.jpg",
+            "subheading": "",
+            "title": "",
+            "text": "",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "slide_CQ3QWE": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/vlc-record-2024-10-03-09h20m35s-Desktop_2024.10.03_-_09.02.18.02.mp4-_1_1_2.jpg",
+            "subheading": "",
+            "title": "",
+            "text": "",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "slide_fpfTYX": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/vlc-record-2024-10-03-09h20m35s-Desktop_2024.10.03_-_09.02.18.02.mp4-_1_1_3.jpg",
+            "subheading": "",
+            "title": "",
+            "text": "",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "slide_NmKTqz": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/vlc-record-2024-10-03-09h20m35s-Desktop_2024.10.03_-_09.02.18.02.mp4-_1_1_4.jpg",
+            "subheading": "",
+            "title": "",
+            "text": "",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "slide_DHcnqJ",
+        "slide_CQ3QWE",
+        "slide_fpfTYX",
+        "slide_NmKTqz"
+      ],
+      "settings": {
+        "enable_autoplay": true,
+        "autoplay_duration": 8,
+        "slideshow_width": "content",
+        "slideshow_height": "medium",
+        "slideshow_height_mobile": "medium",
+        "slideshow_text_below_image": true,
+        "custom_class": "services-slideshow-2"
+      }
+    },
+    "dynamic_rich_text_fPTiNX": {
+      "type": "dynamic-rich-text",
+      "settings": {
+        "width": "regular",
+        "title": "",
+        "text": "",
+        "button_label": "Get An Instant Quote",
+        "button_link": "#",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "medium",
+        "text_alignment": "center",
+        "custom_class": "richtext-2"
+      }
+    },
+    "dynamic_testimonials_dpG74a": {
+      "type": "dynamic-testimonials",
+      "blocks": {
+        "testimonial_YJ8qn8": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/Avatar_Image.png",
+            "star_rating": "5",
+            "text": "<p>“I couldn’t be happier with the excellent window cleaning Dap R Dan provided. Good communication before, during and after. Professional and personable! My windows have never looked better. I will hire them again without hesitation.”</p>",
+            "author": "<p>Chris Borys</p>"
+          }
+        },
+        "testimonial_JRgXRd": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/Avatar_Image_5921d9b7-7f18-44d9-bbac-dbd2c2cd46fd.png",
+            "star_rating": "5",
+            "text": "<p>“Job was done on time and my house looks Great! I appreciated the fact that the employees were respectful of my House and my privacy as well as doing a stellar job. Thanks guys, look forward  to next time!”</p>",
+            "author": "<p>John Brown</p>"
+          }
+        },
+        "testimonial_VAwPh9": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/Avatar_Image_ee528342-f2c0-478c-bcc2-9aa43f3c9e70.png",
+            "star_rating": "5",
+            "text": "<p>“We recently had our driveway pressure washed and sealed and our walkway pressure washed. Greg was a pleasure to deal with and did a wonderful, efficient job. We would highly recommend DAPrDAN’s for this type of work.”</p>",
+            "author": "<p>Christina</p>"
+          }
+        },
+        "testimonial_eJ4XDy": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "4.5",
+            "text": "<p>Add customer reviews and testimonials to showcase your store's happy customers.</p>",
+            "author": "<p>Author's name</p>"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_YJ8qn8",
+        "testimonial_JRgXRd",
+        "testimonial_VAwPh9",
+        "testimonial_eJ4XDy"
+      ],
+      "settings": {
+        "title": "See What Your Neighbors Have Been Saying About Our Roof Cleaning",
+        "text": "",
+        "image_crop": "circle",
+        "text_size": "large"
+      }
+    },
+    "before_after_slider_WtYyWC": {
+      "type": "before-after-slider",
+      "blocks": {
+        "comparison_k9PDzq": {
+          "type": "comparison",
+          "settings": {
+            "image_before": "shopify://shop_images/c75b6c2cc72106b803c5ab7dbe5d4a5c.jpg",
+            "image_after": "shopify://shop_images/55a3d5e9f8c054d674e7de99ba42f8e0.jpg"
+          }
+        },
+        "comparison_AewGBa": {
+          "type": "comparison",
+          "settings": {
+            "image_before": "shopify://shop_images/c75b6c2cc72106b803c5ab7dbe5d4a5c.jpg",
+            "image_after": "shopify://shop_images/55a3d5e9f8c054d674e7de99ba42f8e0.jpg"
+          }
+        },
+        "comparison_gpDAcP": {
+          "type": "comparison",
+          "settings": {
+            "image_before": "shopify://shop_images/c75b6c2cc72106b803c5ab7dbe5d4a5c.jpg",
+            "image_after": "shopify://shop_images/55a3d5e9f8c054d674e7de99ba42f8e0.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "comparison_k9PDzq",
+        "comparison_AewGBa",
+        "comparison_gpDAcP"
+      ],
+      "settings": {
+        "title": "See How We Can Transform Your Property"
+      }
+    },
+    "multi_column_PNGbLK": {
+      "type": "multi-column",
+      "blocks": {
+        "column_MdpEU4": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_bb8dd77f-a9bf-4d08-aa61-38e70bbc232a.svg",
+            "title": "1. Get Your Instant Quote",
+            "text": "<p>With DAPrDAN, it only takes a few minutes to get your instant quote online. (Of course, you can always call to speak with us about your project.)</p>",
+            "url_text": "",
+            "url": ""
+          }
+        },
+        "column_4LGCNN": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/Group.svg",
+            "title": "2. Pick Your Service Day",
+            "text": "<p>If you’re happy with your quote, simply accept the proposal and a team member will be in touch to schedule your project.</p>",
+            "url_text": "",
+            "url": ""
+          }
+        },
+        "column_YjtHp8": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/Group_d081292b-9668-4fa3-8789-920bd29ff071.svg",
+            "title": "3. Sit-back & Relax",
+            "text": "<p>Your work is done! Unless you want take a few “Before” pictures (because you might not be able to believe your eyes later…) 😉</p>",
+            "url_text": "",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_MdpEU4",
+        "column_4LGCNN",
+        "column_YjtHp8"
+      ],
+      "settings": {
+        "title": "Hiring Home Services Shouldn't Be Rocket Science",
+        "description": "<p>Working with DAPDAN couldn't be easier!</p>",
+        "custom_class": ""
+      }
+    },
+    "video_with_text_gQg36W": {
+      "type": "video-with-text",
+      "settings": {
+        "heading": "Have Complete Confidence In Your Home’s Appearance",
+        "text": "<p>Maintain your home in perfect balance year round with recurring services from DAPrDAN. Total peace of mind INCLUDED.</p>",
+        "video": "shopify://files/videos/video-cropped.mp4",
+        "image_position": "left",
+        "button_label": "SUBSCRIBE TODAY - AS LOW AS $89/M",
+        "button_link": "#"
+      }
+    },
+    "dynamic_collection_list_n9w7Eh": {
+      "type": "dynamic-collection-list",
+      "blocks": {
+        "collection_dUm4VU": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_0db9b652-047f-4b9c-ae5f-67d9a5eeacfd.png",
+            "title": "Matis tortor"
+          }
+        },
+        "collection_UAYTHq": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_a5444cf2-d065-4acd-873a-812aa6a7798e.png",
+            "title": "Dignissim facilisi"
+          }
+        },
+        "collection_CmRD77": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_a297e9d6-aaa4-4311-9475-992cde324170.png",
+            "title": "Quisque massa"
+          }
+        },
+        "collection_NExqif": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_501f2232-28fd-4d53-9a98-2c98474cf27f.png",
+            "title": "Pulvinar risus"
+          }
+        },
+        "collection_6BMECi": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Placeholder_Image_afb48f8e-c5a8-4202-b365-fbc5f20637e3.png",
+            "title": "Etiam felis"
+          }
+        },
+        "collection_gYYgPr": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/Frame_127.png",
+            "title": " Risus blandit"
+          }
+        }
+      },
+      "block_order": [
+        "collection_dUm4VU",
+        "collection_UAYTHq",
+        "collection_CmRD77",
+        "collection_NExqif",
+        "collection_6BMECi",
+        "collection_gYYgPr"
+      ],
+      "settings": {
+        "title": "Plans by Featured Service",
+        "text": "<p>Select your seasonally optimized home care plan organized around your top priority.</p>",
+        "thumbnail_columns_desktop": 6,
+        "thumbnail_columns_mobile": 3,
+        "image-crop": "circle",
+        "cta_label": "",
+        "cta_link": "",
+        "cta_button_style": "secondary"
+      }
+    },
+    "custom_tabbed_image_with_text_xBMXM9": {
+      "type": "custom-tabbed-image-with-text",
+      "blocks": {
+        "tab_KWXjeK": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Exceptional Team",
+            "image": "shopify://shop_images/Roof-Cleaning-Service-Company-Near-Me-in-Bellevue-WA-2_1.png",
+            "icon_image": "shopify://shop_images/svgexport-7_1.svg",
+            "heading": "Exceptional Team",
+            "text": "<p>We only hire exceptional people, and our people are our greatest sales proposition. All employees must pass a secret test to be hired onto DAPRDAN - the test focuses on delivering exceptional customer experience; no one who ever failed the test is hired onto our staff; no one at DAPrDAN is allowed to talk about the test to non-staff - Average length of time from application to hire date is 3 weeks.</p>",
+            "checklist": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "tab_tBFiEj": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Full Service Assurance",
+            "image": "shopify://shop_images/Roof-Cleaning-Service-Company-Near-Me-in-Bellevue-WA-2_1.png",
+            "icon_image": "shopify://shop_images/svgexport-7_1.svg",
+            "heading": "Prevent Costly Repairs with Regular Maintenance",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.</p>",
+            "checklist": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "tab_qDj9wx": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Seamless Process",
+            "image": "shopify://shop_images/Roof-Cleaning-Service-Company-Near-Me-in-Bellevue-WA-2_1.png",
+            "heading": "Enhance Your Home's Appearance",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.</p>",
+            "checklist": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "tab_nbhBb8": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Subscription Services",
+            "image": "shopify://shop_images/Roof-Cleaning-Service-Company-Near-Me-in-Bellevue-WA-2_1.png",
+            "icon_image": "shopify://shop_images/svgexport-7_1.svg",
+            "heading": "Image with text",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.</p>",
+            "checklist": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "tab_hHBApH": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Project Reports",
+            "image": "shopify://shop_images/Roof-Cleaning-Service-Company-Near-Me-in-Bellevue-WA-2_1.png",
+            "icon_image": "shopify://shop_images/svgexport-7_1.svg",
+            "heading": "Image with text",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.</p>",
+            "checklist": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_KWXjeK",
+        "tab_tBFiEj",
+        "tab_qDj9wx",
+        "tab_nbhBb8",
+        "tab_hHBApH"
+      ],
+      "custom_css": [
+        ".tabbed-image-with-text--section {background: #fbfbfb; padding: 100px 0;}"
+      ],
+      "settings": {
+        "section_heading": "Discover Why Your Neighbors Choose Us as Their Trusted Option",
+        "image_position": "right",
+        "custom_class": "tabbed-image-2"
+      }
+    },
+    "dynamic_logo_list_Mxiphk": {
+      "type": "dynamic-logo-list",
+      "blocks": {
+        "logo_8rm7XC": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Google-seattle-window-cleaning.png",
+            "link": ""
+          }
+        },
+        "logo_iGjVnq": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/nextdoor5-Stars.png",
+            "link": ""
+          }
+        },
+        "logo_f6Bizp": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/facebook-home-cleaning-subscribe-subscription-daprdan.png",
+            "link": ""
+          }
+        },
+        "logo_36c4iA": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/yelp-home-cleaning-subscribe-subscription-daprdan.png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_8rm7XC",
+        "logo_iGjVnq",
+        "logo_f6Bizp",
+        "logo_36c4iA"
+      ],
+      "settings": {
+        "title": "DAPrDAN Risk-Free Guarantee",
+        "description": "<p>In addition to full compliance with the standards of Washington state corporate governance, the thorough and recurring background checks of our employees, and the assurance you’re free of exposure to liability, there’s one more thing: If for any reason you’re just not happy with your service experience — it’s FREE.</p>",
+        "custom_class": "logo-section"
+      }
+    },
+    "custom_dynamic_shoppable_image_7NkQm8": {
+      "type": "custom-dynamic-shoppable-image",
+      "blocks": {
+        "hotspot_wtqdyj": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "Whatcom County",
+            "product": "",
+            "x_axis": 66,
+            "y_axis": 60
+          }
+        },
+        "hotspot_BryHVE": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "San Juan County",
+            "product": "",
+            "x_axis": 55,
+            "y_axis": 50
+          }
+        },
+        "hotspot_TgQVhJ": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "Sakgit County",
+            "product": "",
+            "x_axis": 75,
+            "y_axis": 47
+          }
+        },
+        "hotspot_b6Gpk3": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "Island County",
+            "product": "",
+            "x_axis": 59,
+            "y_axis": 36
+          }
+        },
+        "hotspot_9BHxdP": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "Snohomish County",
+            "product": "",
+            "x_axis": 71,
+            "y_axis": 28
+          }
+        },
+        "hotspot_PhKjrW": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "King County",
+            "product": "",
+            "x_axis": 68,
+            "y_axis": 8
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_wtqdyj",
+        "hotspot_BryHVE",
+        "hotspot_TgQVhJ",
+        "hotspot_b6Gpk3",
+        "hotspot_9BHxdP",
+        "hotspot_PhKjrW"
+      ],
+      "settings": {
+        "title": "",
+        "image": "shopify://shop_images/Frame_133.png",
+        "image_width": "full",
+        "link_text": "View product",
+        "textbox_title": "Our Greater Puget Sound Area",
+        "textbox_subheading": "<p>DAPrDAN services the entire Puget Sound area including Whatcom County, Skagit County, San Juan County, Island County, Snohomish County and King County.</p>",
+        "textbox_button_label": "Get An Instant Quote",
+        "textbox_button_link": "",
+        "textbox_button_style": "primary",
+        "textbox_text_alignment": "left",
+        "textbox_text_position": "right"
+      }
+    },
+    "dynamic_rich_text_aFaxcL": {
+      "type": "dynamic-rich-text",
+      "settings": {
+        "width": "wide",
+        "title": "Frequently Asked Roof Cleaning Questions",
+        "text": "<p>Preserve the integrity of your roof with our specialized roof cleaning services. Eliminate harmful moss, algae, and debris to extend your roof’s lifespan and maintain your home’s aesthetic.</p>",
+        "button_label": "Get An Instant Quote",
+        "button_link": "#",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "large",
+        "text_alignment": "center",
+        "custom_class": "richtext-3"
+      }
+    },
+    "dynamic_faq_NLgKgB": {
+      "type": "dynamic-faq",
+      "blocks": {
+        "question_g8piDK": {
+          "type": "question",
+          "settings": {
+            "question": "Why is it essential to choose a local roof cleaning company in Bellevue?",
+            "answer": "<p>When selecting a roof cleaning service, it’s important to consider local expertise. Companies that have experience servicing the Bellevue area will understand the specific challenges posed by the local climate and vegetation.</p>",
+            "icon": "none"
+          }
+        },
+        "question_tyLxMp": {
+          "type": "question",
+          "settings": {
+            "question": "Why is DAPrDAN the local roof cleaning expert in Bellevue?",
+            "answer": "<p>Use this text to provide answers for your most commonly asked questions.</p>",
+            "icon": "none"
+          }
+        },
+        "question_AQpAP9": {
+          "type": "question",
+          "settings": {
+            "question": "How often should I schedule roof cleaning in Bellevue?",
+            "answer": "<p>Use this text to provide answers for your most commonly asked questions.</p>",
+            "icon": "none"
+          }
+        },
+        "question_UA3fff": {
+          "type": "question",
+          "settings": {
+            "question": "When is frequent roof cleaning recommended for Bellevue homes?",
+            "answer": "<p>Use this text to provide answers for your most commonly asked questions.</p>",
+            "icon": "none"
+          }
+        },
+        "question_DfGzXd": {
+          "type": "question",
+          "settings": {
+            "question": "What methods do you use for roof cleaning in Bellevue?",
+            "answer": "<p>Use this text to provide answers for your most commonly asked questions.</p>",
+            "icon": "none"
+          }
+        },
+        "question_bUdxna": {
+          "type": "question",
+          "settings": {
+            "question": "Will DAPrDAN suggest the most appropriate roof cleaning method for my home in Bellevue?",
+            "answer": "<p>Use this text to provide answers for your most commonly asked questions.</p>",
+            "icon": "none"
+          }
+        },
+        "question_a9TRTg": {
+          "type": "question",
+          "settings": {
+            "question": "Where can I check DAPrDAN’s customer reviews?",
+            "answer": "<p>Use this text to provide answers for your most commonly asked questions.</p>",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "question_g8piDK",
+        "question_tyLxMp",
+        "question_AQpAP9",
+        "question_UA3fff",
+        "question_DfGzXd",
+        "question_bUdxna",
+        "question_a9TRTg"
+      ],
+      "settings": {
+        "custom_class": "",
+        "section_width": "wide",
+        "heading": "",
+        "text": "",
+        "enable_category_cards": false,
+        "category_card_image_crop": "original",
+        "category_heading_size": "medium",
+        "icon_color": "rgba(0,0,0,0)"
+      }
+    },
+    "dynamic_search_Xf4zax": {
+      "type": "dynamic-search",
+      "settings": {
+        "title": "Quam euismod faucibus",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in.</p>",
+        "placeholder": "What are you looking for?",
+        "filter_search_by": "disabled",
+        "enable_live_search": true,
+        "enable_live_search_images": false,
+        "show-overlay": false,
+        "color": "#ffffff",
+        "background": "#000000",
+        "opacity": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_dynamic_slideshow_cktKPf",
+    "emp_video_with_text_CWLAtx",
+    "dynamic_image_with_text_L6Ut6T",
+    "dynamic_promo_mosaic_U7yhHh",
+    "custom_tabbed_image_with_text_B6cTBa",
+    "dynamic_faq_VQrceX",
+    "custom_dynamic_slideshow_CEkbAi",
+    "dynamic_rich_text_CLEKEc",
+    "custom_dynamic_slideshow_BHVCtm",
+    "dynamic_rich_text_fPTiNX",
+    "dynamic_testimonials_dpG74a",
+    "before_after_slider_WtYyWC",
+    "multi_column_PNGbLK",
+    "video_with_text_gQg36W",
+    "dynamic_collection_list_n9w7Eh",
+    "custom_tabbed_image_with_text_xBMXM9",
+    "dynamic_logo_list_Mxiphk",
+    "custom_dynamic_shoppable_image_7NkQm8",
+    "dynamic_rich_text_aFaxcL",
+    "dynamic_faq_NLgKgB",
+    "dynamic_search_Xf4zax"
+  ]
+}

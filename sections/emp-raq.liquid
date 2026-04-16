@@ -1,0 +1,582 @@
+<style>
+  .emp-raq-section {
+    max-width: 956px;
+    margin: 0 auto;
+    padding: 48px 20px 100px;
+  }
+
+  .emp-raq-header {
+    margin-bottom: 40px;
+  }
+
+  .emp-raq-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0A2B39;
+    margin-bottom: 16px;
+  }
+
+  .emp-raq-body {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 auto;
+  }
+
+  .form-step {
+    background: #0A2B39;
+    color: white;
+    padding: 16px 24px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .form-step.active {
+    background: #0A2B39;
+  }
+
+  .form-step-content {
+    display: none;
+    padding: 24px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .form-step-content.active {
+    display: block;
+  }
+
+  .form-step-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .form-step.active .form-step-arrow {
+    transform: rotate(180deg);
+  }
+
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .checkbox-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #2c5f5f;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #2c5f5f;
+  }
+
+  .form-group input.error,
+  .form-group select.error,
+  .form-group textarea.error {
+    border-color: #e74c3c;
+  }
+
+  .helper-text {
+    font-size: 0.9rem;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .radio-item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #2c5f5f;
+  }
+
+  .site-visit-description {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .additional-notes {
+    margin: 40px 0;
+  }
+
+  .additional-notes h3 {
+    text-align: center;
+    color: #0A2B39;
+    margin-bottom: 20px;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    text-transform: capitalize;
+  }
+
+  .additional-notes textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+
+  .submit-button {
+    background: #00A1E0;
+    color: white;
+    padding: 16px 32px;
+    border: solid 1px #00A1E0;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-button:hover {
+    background: #00000000 !important;
+    color: #00A1E0;
+    border: solid 1px #00A1E0 !important;
+  }
+
+  .submit-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .emp-raq-title {
+      font-size: 2rem;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .checkbox-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .radio-group {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .emp-raq-section {
+      padding: 20px 10px 50px;
+    }
+  }
+</style>
+
+<div class="emp-raq-section">
+  <div class="emp-raq-header">
+    <h1 class="emp-raq-title">{{ section.settings.title }}</h1>
+    <div class="emp-raq-body">{{ section.settings.body_text }}</div>
+  </div>
+
+  <form id="raq-form" method="post" action="/contact" accept-charset="UTF-8">
+    <input type="hidden" name="form_type" value="contact">
+    <input type="hidden" name="utf8" value="✓">
+    <input type="hidden" name="contact[subject]" value="Request a Quote">
+
+    <!-- Step 1: Select Services -->
+    <div class="form-step" data-step="1">
+      <span>STEP 1: Select Services</span>
+      <span class="form-step-arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="11" viewBox="0 0 18 11" fill="none">
+          <mask id="path-1-inside-1_82234_4235" fill="white">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.53026 9.88389C9.23736 10.1768 8.76256 10.1768 8.46966 9.88389L0.823183 2.23739C0.530293 1.94449 0.530293 1.46969 0.823183 1.17679L1.17674 0.823191C1.46963 0.530291 1.9445 0.530291 2.2374 0.823191L8.99996 7.58579L15.7626 0.823191C16.0555 0.530291 16.5303 0.530291 16.8232 0.823191L17.1768 1.17679C17.4697 1.46969 17.4697 1.94449 17.1768 2.23739L9.53026 9.88389Z"/>
+          </mask>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.53026 9.88389C9.23736 10.1768 8.76256 10.1768 8.46966 9.88389L0.823183 2.23739C0.530293 1.94449 0.530293 1.46969 0.823183 1.17679L1.17674 0.823191C1.46963 0.530291 1.9445 0.530291 2.2374 0.823191L8.99996 7.58579L15.7626 0.823191C16.0555 0.530291 16.5303 0.530291 16.8232 0.823191L17.1768 1.17679C17.4697 1.46969 17.4697 1.94449 17.1768 2.23739L9.53026 9.88389Z" fill="#24322E"/>
+          <path d="M9.53026 9.88389L10.9445 11.2981L9.53026 9.88389ZM8.46966 9.88389L7.05545 11.2981L7.05545 11.2981L8.46966 9.88389ZM0.823183 2.23739L-0.591055 3.65158L-0.591032 3.6516L0.823183 2.23739ZM0.823183 1.17679L2.23742 2.59098L2.23748 2.59092L0.823183 1.17679ZM1.17674 0.823191L-0.237495 -0.590999L-0.23755 -0.590944L1.17674 0.823191ZM2.2374 0.823191L3.65162 -0.591019L3.65162 -0.591023L2.2374 0.823191ZM8.99996 7.58579L7.58575 9L8.99996 10.4142L10.4142 9L8.99996 7.58579ZM15.7626 0.823191L14.3484 -0.591023L15.7626 0.823191ZM17.1768 2.23739L15.7626 0.823177L17.1768 2.23739ZM9.53026 9.88389L8.11605 8.46968C8.6042 7.98153 9.39573 7.98153 9.88388 8.46968L8.46966 9.88389L7.05545 11.2981C8.1294 12.3721 9.87053 12.3721 10.9445 11.2981L9.53026 9.88389ZM8.46966 9.88389L9.88388 8.46968L2.2374 0.823179L0.823183 2.23739L-0.591032 3.6516L7.05545 11.2981L8.46966 9.88389ZM0.823183 2.23739L2.23742 0.823201C2.72555 1.31134 2.72555 2.10284 2.23742 2.59098L0.823183 1.17679L-0.591055 -0.237399C-1.66496 0.836544 -1.66496 2.57764 -0.591055 3.65158L0.823183 2.23739ZM0.823183 1.17679L2.23748 2.59092L2.59104 2.23732L1.17674 0.823191L-0.23755 -0.590944L-0.59111 -0.237344L0.823183 1.17679ZM1.17674 0.823191L2.59098 2.23738C2.1028 2.72557 1.31133 2.72554 0.82319 2.2374L2.2374 0.823191L3.65162 -0.591023C2.57768 -1.66496 0.836463 -1.66499 -0.237495 -0.590999L1.17674 0.823191ZM2.2374 0.823191L0.823186 2.2374L7.58575 9L8.99996 7.58579L10.4142 6.17158L3.65162 -0.591019L2.2374 0.823191ZM8.99996 7.58579L10.4142 9L17.1768 2.2374L15.7626 0.823191L14.3484 -0.591023L7.58575 6.17158L8.99996 7.58579ZM15.7626 0.823191L17.1768 2.2374C16.6886 2.72555 15.8971 2.72555 15.409 2.2374L16.8232 0.823191L18.2374 -0.591023C17.1634 -1.66497 15.4223 -1.66497 14.3484 -0.591023L15.7626 0.823191ZM16.8232 0.823191L15.409 2.2374L15.7626 2.591L17.1768 1.17679L18.591 -0.237423L18.2374 -0.591023L16.8232 0.823191ZM17.1768 1.17679L15.7626 2.591C15.2744 2.10286 15.2744 1.31133 15.7626 0.823177L17.1768 2.23739L18.591 3.6516C19.6649 2.57766 19.6649 0.836525 18.591 -0.237423L17.1768 1.17679ZM17.1768 2.23739L15.7626 0.823177L8.11605 8.46968L9.53026 9.88389L10.9445 11.2981L18.591 3.6516L17.1768 2.23739Z" fill="white" mask="url(#path-1-inside-1_82234_4235)"/>
+        </svg>
+      </span>
+    </div>
+    <div class="form-step-content" data-step="1">
+      <div class="checkbox-grid">
+        <div class="checkbox-item">
+          <input type="checkbox" id="roof-cleaning" name="contact[services][]" value="Roof Cleaning" required>
+          <label for="roof-cleaning">Roof Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="gutter-cleaning" name="contact[services][]" value="Gutter Cleaning">
+          <label for="gutter-cleaning">Gutter Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="siding-cleaning" name="contact[services][]" value="Siding Cleaning">
+          <label for="siding-cleaning">Siding Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="window-cleaning" name="contact[services][]" value="Window Cleaning">
+          <label for="window-cleaning">Window Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="skylight-cleaning" name="contact[services][]" value="Skylight Cleaning">
+          <label for="skylight-cleaning">Skylight Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="screen-cleaning" name="contact[services][]" value="Screen Cleaning">
+          <label for="screen-cleaning">Screen Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="deck-porch-cleaning" name="contact[services][]" value="Deck & Porch Cleaning">
+          <label for="deck-porch-cleaning">Deck & Porch Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="patio-walkway-cleaning" name="contact[services][]" value="Patio & Walkway Cleaning">
+          <label for="patio-walkway-cleaning">Patio & Walkway Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="driveway-cleaning" name="contact[services][]" value="Driveway Cleaning">
+          <label for="driveway-cleaning">Driveway Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="fence-cleaning" name="contact[services][]" value="Fence Cleaning">
+          <label for="fence-cleaning">Fence Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="dryer-vent-cleaning" name="contact[services][]" value="Dryer Vent Cleaning">
+          <label for="dryer-vent-cleaning">Dryer Vent Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="solar-panel-cleaning" name="contact[services][]" value="Solar Panel Cleaning">
+          <label for="solar-panel-cleaning">Solar Panel Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="trash-bin-cleaning" name="contact[services][]" value="Trash Bin Cleaning">
+          <label for="trash-bin-cleaning">Trash Bin Cleaning</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="holiday-lighting" name="contact[services][]" value="Holiday Lighting">
+          <label for="holiday-lighting">Holiday Lighting</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="total-home-care" name="contact[services][]" value="Request a Total Home Care Plan Proposal">
+          <label for="total-home-care">Request a Total Home Care Plan Proposal</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Property Information -->
+    <div class="form-step" data-step="2">
+      <span>STEP 2: Property Information</span>
+      <span class="form-step-arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="11" viewBox="0 0 18 11" fill="none">
+          <mask id="path-1-inside-1_82234_4235" fill="white">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.53026 9.88389C9.23736 10.1768 8.76256 10.1768 8.46966 9.88389L0.823183 2.23739C0.530293 1.94449 0.530293 1.46969 0.823183 1.17679L1.17674 0.823191C1.46963 0.530291 1.9445 0.530291 2.2374 0.823191L8.99996 7.58579L15.7626 0.823191C16.0555 0.530291 16.5303 0.530291 16.8232 0.823191L17.1768 1.17679C17.4697 1.46969 17.4697 1.94449 17.1768 2.23739L9.53026 9.88389Z"/>
+          </mask>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.53026 9.88389C9.23736 10.1768 8.76256 10.1768 8.46966 9.88389L0.823183 2.23739C0.530293 1.94449 0.530293 1.46969 0.823183 1.17679L1.17674 0.823191C1.46963 0.530291 1.9445 0.530291 2.2374 0.823191L8.99996 7.58579L15.7626 0.823191C16.0555 0.530291 16.5303 0.530291 16.8232 0.823191L17.1768 1.17679C17.4697 1.46969 17.4697 1.94449 17.1768 2.23739L9.53026 9.88389Z" fill="#24322E"/>
+          <path d="M9.53026 9.88389L10.9445 11.2981L9.53026 9.88389ZM8.46966 9.88389L7.05545 11.2981L7.05545 11.2981L8.46966 9.88389ZM0.823183 2.23739L-0.591055 3.65158L-0.591032 3.6516L0.823183 2.23739ZM0.823183 1.17679L2.23742 2.59098L2.23748 2.59092L0.823183 1.17679ZM1.17674 0.823191L-0.237495 -0.590999L-0.23755 -0.590944L1.17674 0.823191ZM2.2374 0.823191L3.65162 -0.591019L3.65162 -0.591023L2.2374 0.823191ZM8.99996 7.58579L7.58575 9L8.99996 10.4142L10.4142 9L8.99996 7.58579ZM15.7626 0.823191L14.3484 -0.591023L15.7626 0.823191ZM17.1768 2.23739L15.7626 0.823177L17.1768 2.23739ZM9.53026 9.88389L8.11605 8.46968C8.6042 7.98153 9.39573 7.98153 9.88388 8.46968L8.46966 9.88389L7.05545 11.2981C8.1294 12.3721 9.87053 12.3721 10.9445 11.2981L9.53026 9.88389ZM8.46966 9.88389L9.88388 8.46968L2.2374 0.823179L0.823183 2.23739L-0.591032 3.6516L7.05545 11.2981L8.46966 9.88389ZM0.823183 2.23739L2.23742 0.823201C2.72555 1.31134 2.72555 2.10284 2.23742 2.59098L0.823183 1.17679L-0.591055 -0.237399C-1.66496 0.836544 -1.66496 2.57764 -0.591055 3.65158L0.823183 2.23739ZM0.823183 1.17679L2.23748 2.59092L2.59104 2.23732L1.17674 0.823191L-0.23755 -0.590944L-0.59111 -0.237344L0.823183 1.17679ZM1.17674 0.823191L2.59098 2.23738C2.1028 2.72557 1.31133 2.72554 0.82319 2.2374L2.2374 0.823191L3.65162 -0.591023C2.57768 -1.66496 0.836463 -1.66499 -0.237495 -0.590999L1.17674 0.823191ZM2.2374 0.823191L0.823186 2.2374L7.58575 9L8.99996 7.58579L10.4142 6.17158L3.65162 -0.591019L2.2374 0.823191ZM8.99996 7.58579L10.4142 9L17.1768 2.2374L15.7626 0.823191L14.3484 -0.591023L7.58575 6.17158L8.99996 7.58579ZM15.7626 0.823191L17.1768 2.2374C16.6886 2.72555 15.8971 2.72555 15.409 2.2374L16.8232 0.823191L18.2374 -0.591023C17.1634 -1.66497 15.4223 -1.66497 14.3484 -0.591023L15.7626 0.823191ZM16.8232 0.823191L15.409 2.2374L15.7626 2.591L17.1768 1.17679L18.591 -0.237423L18.2374 -0.591023L16.8232 0.823191ZM17.1768 1.17679L15.7626 2.591C15.2744 2.10286 15.2744 1.31133 15.7626 0.823177L17.1768 2.23739L18.591 3.6516C19.6649 2.57766 19.6649 0.836525 18.591 -0.237423L17.1768 1.17679ZM17.1768 2.23739L15.7626 0.823177L8.11605 8.46968L9.53026 9.88389L10.9445 11.2981L18.591 3.6516L17.1768 2.23739Z" fill="white" mask="url(#path-1-inside-1_82234_4235)"/>
+        </svg>
+      </span>
+    </div>
+    <div class="form-step-content" data-step="2">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="floors">Number of floors (above ground)?</label>
+          <select id="floors" name="contact[floors]" required>
+            <option value="">1 Story</option>
+            <option value="1">1 Story</option>
+            <option value="2">2 Story</option>
+            <option value="3">3+ Story</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="hear-about">Where did you hear about us?</label>
+          <select id="hear-about" name="contact[hear_about]" required>
+            <option value="">Please Select...</option>
+            <option value="Google">Google</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Referral">Referral</option>
+            <option value="Nextdoor">Nextdoor</option>
+            <option value="Flyer">Flyer</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="house-size">House Size</label>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <input type="text" id="house-size" name="contact[house_size]" placeholder="Input Size" required>
+          <span class="helper-text">Provided a range ℹ️</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Contact Information -->
+    <div class="form-step" data-step="3">
+      <span>STEP 3: Contact Information</span>
+      <span class="form-step-arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="11" viewBox="0 0 18 11" fill="none">
+          <mask id="path-1-inside-1_82234_4235" fill="white">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.53026 9.88389C9.23736 10.1768 8.76256 10.1768 8.46966 9.88389L0.823183 2.23739C0.530293 1.94449 0.530293 1.46969 0.823183 1.17679L1.17674 0.823191C1.46963 0.530291 1.9445 0.530291 2.2374 0.823191L8.99996 7.58579L15.7626 0.823191C16.0555 0.530291 16.5303 0.530291 16.8232 0.823191L17.1768 1.17679C17.4697 1.46969 17.4697 1.94449 17.1768 2.23739L9.53026 9.88389Z"/>
+          </mask>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.53026 9.88389C9.23736 10.1768 8.76256 10.1768 8.46966 9.88389L0.823183 2.23739C0.530293 1.94449 0.530293 1.46969 0.823183 1.17679L1.17674 0.823191C1.46963 0.530291 1.9445 0.530291 2.2374 0.823191L8.99996 7.58579L15.7626 0.823191C16.0555 0.530291 16.5303 0.530291 16.8232 0.823191L17.1768 1.17679C17.4697 1.46969 17.4697 1.94449 17.1768 2.23739L9.53026 9.88389Z" fill="#24322E"/>
+          <path d="M9.53026 9.88389L10.9445 11.2981L9.53026 9.88389ZM8.46966 9.88389L7.05545 11.2981L7.05545 11.2981L8.46966 9.88389ZM0.823183 2.23739L-0.591055 3.65158L-0.591032 3.6516L0.823183 2.23739ZM0.823183 1.17679L2.23742 2.59098L2.23748 2.59092L0.823183 1.17679ZM1.17674 0.823191L-0.237495 -0.590999L-0.23755 -0.590944L1.17674 0.823191ZM2.2374 0.823191L3.65162 -0.591019L3.65162 -0.591023L2.2374 0.823191ZM8.99996 7.58579L7.58575 9L8.99996 10.4142L10.4142 9L8.99996 7.58579ZM15.7626 0.823191L14.3484 -0.591023L15.7626 0.823191ZM17.1768 2.23739L15.7626 0.823177L17.1768 2.23739ZM9.53026 9.88389L8.11605 8.46968C8.6042 7.98153 9.39573 7.98153 9.88388 8.46968L8.46966 9.88389L7.05545 11.2981C8.1294 12.3721 9.87053 12.3721 10.9445 11.2981L9.53026 9.88389ZM8.46966 9.88389L9.88388 8.46968L2.2374 0.823179L0.823183 2.23739L-0.591032 3.6516L7.05545 11.2981L8.46966 9.88389ZM0.823183 2.23739L2.23742 0.823201C2.72555 1.31134 2.72555 2.10284 2.23742 2.59098L0.823183 1.17679L-0.591055 -0.237399C-1.66496 0.836544 -1.66496 2.57764 -0.591055 3.65158L0.823183 2.23739ZM0.823183 1.17679L2.23748 2.59092L2.59104 2.23732L1.17674 0.823191L-0.23755 -0.590944L-0.59111 -0.237344L0.823183 1.17679ZM1.17674 0.823191L2.59098 2.23738C2.1028 2.72557 1.31133 2.72554 0.82319 2.2374L2.2374 0.823191L3.65162 -0.591023C2.57768 -1.66496 0.836463 -1.66499 -0.237495 -0.590999L1.17674 0.823191ZM2.2374 0.823191L0.823186 2.2374L7.58575 9L8.99996 7.58579L10.4142 6.17158L3.65162 -0.591019L2.2374 0.823191ZM8.99996 7.58579L10.4142 9L17.1768 2.2374L15.7626 0.823191L14.3484 -0.591023L7.58575 6.17158L8.99996 7.58579ZM15.7626 0.823191L17.1768 2.2374C16.6886 2.72555 15.8971 2.72555 15.409 2.2374L16.8232 0.823191L18.2374 -0.591023C17.1634 -1.66497 15.4223 -1.66497 14.3484 -0.591023L15.7626 0.823191ZM16.8232 0.823191L15.409 2.2374L15.7626 2.591L17.1768 1.17679L18.591 -0.237423L18.2374 -0.591023L16.8232 0.823191ZM17.1768 1.17679L15.7626 2.591C15.2744 2.10286 15.2744 1.31133 15.7626 0.823177L17.1768 2.23739L18.591 3.6516C19.6649 2.57766 19.6649 0.836525 18.591 -0.237423L17.1768 1.17679ZM17.1768 2.23739L15.7626 0.823177L8.11605 8.46968L9.53026 9.88389L10.9445 11.2981L18.591 3.6516L17.1768 2.23739Z" fill="white" mask="url(#path-1-inside-1_82234_4235)"/>
+        </svg>
+      </span>
+    </div>
+    <div class="form-step-content" data-step="3">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" name="contact[first_name]" placeholder="Enter your first name" required>
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" name="contact[last_name]" placeholder="Enter your last name" required>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="street-address">Street Address</label>
+          <input type="text" id="street-address" name="contact[street_address]" placeholder="Enter your street address" required>
+        </div>
+        <div class="form-group">
+          <label for="city-state">Town / City / State</label>
+          <select id="city-state" name="contact[city_state]" required>
+            <option value="">Select...</option>
+            <option value="New York, NY">New York, NY</option>
+            <option value="Los Angeles, CA">Los Angeles, CA</option>
+            <option value="Chicago, IL">Chicago, IL</option>
+            <option value="Houston, TX">Houston, TX</option>
+            <option value="Philadelphia, PA">Philadelphia, PA</option>
+            <option value="Phoenix, AZ">Phoenix, AZ</option>
+            <option value="San Antonio, TX">San Antonio, TX</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="zip-code">Zip Code</label>
+          <input type="number" id="zip-code" name="contact[zip_code]" placeholder="0000" required>
+        </div>
+        <div class="form-group">
+          <label for="company-name">Company Name</label>
+          <input type="text" id="company-name" name="contact[company_name]" placeholder="Enter your company name">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone-number">Phone number</label>
+        <input type="tel" id="phone-number" name="contact[phone]" placeholder="Enter your phone number" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Would it be okay for us to correspond with you via Text/SMS? (You must select one.)</label>
+        <div class="radio-group">
+          <div class="radio-item">
+            <input type="radio" id="sms-yes" name="contact[sms_consent]" value="Yes" required>
+            <label for="sms-yes">Yes</label>
+          </div>
+          <div class="radio-item">
+            <input type="radio" id="sms-no" name="contact[sms_consent]" value="No">
+            <label for="sms-no">No</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="alternate-phone">Alternate Phone</label>
+          <input type="tel" id="alternate-phone" name="contact[alternate_phone]" placeholder="Enter your phone number">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="contact[email]" placeholder="Enter your email address" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Book a Site Visit – $97</label>
+        <div class="radio-group">
+          <div class="radio-item">
+            <input type="radio" id="site-visit-yes" name="contact[site_visit]" value="Yes">
+            <label for="site-visit-yes">Yes</label>
+          </div>
+          <div class="radio-item">
+            <input type="radio" id="site-visit-no" name="contact[site_visit]" value="No">
+            <label for="site-visit-no">No</label>
+          </div>
+        </div>
+        <div class="site-visit-description">
+          Schedule an in-person estimate with a DAPrDAN estimator. Includes a walkthrough of your property, service recommendations, and a personalized quote.
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Notes -->
+    <div class="additional-notes">
+      <h3>Additional Notes</h3>
+      <textarea name="contact[body]" placeholder="Type your message..."></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="submit-button">{{ section.settings.button_text }}</button>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const formSteps = document.querySelectorAll('.form-step');
+    const formStepContents = document.querySelectorAll('.form-step-content');
+    
+    // Initialize - show first step
+    formSteps[0].classList.add('active');
+    formStepContents[0].classList.add('active');
+    
+    // Handle step clicks
+    formSteps.forEach(function(step) {
+      step.addEventListener('click', function() {
+        const stepNumber = this.getAttribute('data-step');
+        const content = document.querySelector('.form-step-content[data-step="' + stepNumber + '"]');
+        
+        // Toggle active class
+        this.classList.toggle('active');
+        content.classList.toggle('active');
+      });
+    });
+    
+    // Form validation
+    const form = document.getElementById('raq-form');
+    form.addEventListener('submit', function(e) {
+      let isValid = true;
+      
+      // Check if at least one service is selected
+      const checkboxes = form.querySelectorAll('input[name="contact[services][]"]');
+      const checkedBoxes = form.querySelectorAll('input[name="contact[services][]"]:checked');
+      
+      if (checkedBoxes.length === 0) {
+        isValid = false;
+        alert('Please select at least one service.');
+        e.preventDefault();
+        return;
+      }
+      
+      // Check required fields
+      const requiredFields = form.querySelectorAll('[required]');
+      requiredFields.forEach(function(field) {
+        if (!field.value.trim()) {
+          isValid = false;
+          field.classList.add('error');
+        } else {
+          field.classList.remove('error');
+        }
+      });
+      
+      // Check SMS consent radio buttons
+      const smsRadios = form.querySelectorAll('input[name="contact[sms_consent]"]');
+      const smsChecked = form.querySelector('input[name="contact[sms_consent]"]:checked');
+      
+      if (!smsChecked) {
+        isValid = false;
+        alert('Please select your SMS/Text preference.');
+      }
+      
+      if (!isValid) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Request a Quote",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Request A Quote"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body Text",
+      "default": "Volutpat eget taciti nostra ligula potenti phasellus. Vestibulum nisl aliquet cras diam lacinia laoreet congue. Magna lacinia consequat inceptos tortor sociosqu ultricies quam mauris. Gravida velit neque, dis in taciti ornare? Dui sed varius praesent leo volutpat. Litora non rutrum nisl tortor ante fringilla parturient nullam."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Submit Button Text",
+      "default": "SHOW ME THE QUOTE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Request a Quote"
+    }
+  ]
+}
+{% endschema %} 

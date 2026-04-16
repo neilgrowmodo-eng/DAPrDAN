@@ -1,0 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {}
+    },
+    "emp_req_custom_quote_RbmwzN": {
+      "type": "emp-req-custom-quote",
+      "blocks": {
+        "additional_info_WWPR7h": {
+          "type": "additional_info",
+          "settings": {
+            "heading": "Looking For Recurring Services?",
+            "description": "<p>Start by getting a quote (above) to establish your base service pricing, then complete our 1-minute assessment. One of our estimators will contact you to answer any of your questions and help design a plan to fit your needs.</p>",
+            "button_text": "REQUEST RECURRING SERVICES",
+            "button_url": "#",
+            "block_note": ""
+          }
+        },
+        "additional_info_MwTP63": {
+          "type": "additional_info",
+          "settings": {
+            "heading": "Want something more?",
+            "description": "<p>Automation is impressive, yes — but it can’t account for every detail, in any circumstance, all the time. That’s why, in certain situations, DAPrDAN will dispatch one of our professional estimators to meet with you at your location.<br/><br/>Is your home constructed with a unique architecture, or rare materials that require special attention? Does your lifestyle require elevated discretion with service personnel? Do you place a high value on customized services? Would you simply prefer a more personal touch?</p>",
+            "button_text": "REQUEST A MEETING",
+            "button_url": "#",
+            "block_note": "or, call  (425) 659-3009 to speak with us about your project."
+          }
+        }
+      },
+      "block_order": [
+        "additional_info_WWPR7h",
+        "additional_info_MwTP63"
+      ],
+      "name": "Request A Custom Quote",
+      "settings": {
+        "heading": "Request A Custom Service Quote",
+        "description": "<p>Need assistance, or just want to enlist our capable service reps to build your quote? No problem - we’re here to help! Just completed the simple form below and we will build a solution that works for you.</p>",
+        "button_text": "SEND REQUEST",
+        "form_note": "This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
+        "custom_class": "",
+        "show_full_name": true,
+        "show_email": true,
+        "show_phone": true,
+        "select_services": "Roof Cleaning, Gutter Cleaning, \nSiding Cleaning, \nWindow Cleaning, \nSkylight Cleaning, \nScreen Cleaning, \nDeck & Porch Cleaning, Patio & Walkway Cleaning, Driveway Cleaning, \nFence Cleaning, \nDryer Vent Cleaning, Solar Panel Cleaning, Trash Bin Cleaning, \nHoliday Lighting, \nRequest a Total Home Care Plan Proposal",
+        "membership_tier": "Option 1, Option 2, Option 3",
+        "assistance_type": "",
+        "show_additional_notes": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "emp_req_custom_quote_RbmwzN"
+  ]
+}

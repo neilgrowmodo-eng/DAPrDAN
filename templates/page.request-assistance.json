@@ -1,0 +1,228 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {}
+    },
+    "multi_column_ccpfem": {
+      "type": "multi-column",
+      "blocks": {
+        "column_bkDybL": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/call_us_image.png",
+            "title": "Call us",
+            "text": "<p>Volutpat eget taciti nostra ligula potenti phasellus</p>",
+            "url_text": "(425) 659-3009",
+            "url": "tel:4256593009"
+          }
+        },
+        "column_6Be6Xz": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/email_to_support_image.png",
+            "title": "Email to support",
+            "text": "<p>Volutpat eget taciti nostra ligula potenti phasellus</p>",
+            "url_text": "support@daprdan.co",
+            "url": "mailto:support@daprdan.co"
+          }
+        },
+        "column_YYemCi": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/visit_us_image.png",
+            "title": "Visit us",
+            "text": "<p>Volutpat eget taciti nostra ligula potenti phasellus</p>",
+            "url_text": "Get the direction >>",
+            "url": "#"
+          }
+        }
+      },
+      "block_order": [
+        "column_bkDybL",
+        "column_6Be6Xz",
+        "column_YYemCi"
+      ],
+      "name": "Multi Column",
+      "settings": {
+        "title": "Request Assistance",
+        "description": "<p>Volutpat eget taciti nostra ligula potenti phasellus. Vestibulum nisl aliquet cras diam lacinia laoreet congue. Magna lacinia consequat inceptos tortor sociosqu ultricies quam mauris. Gravida velit neque, dis in taciti ornare? Dui sed varius praesent leo volutpat. Litora non rutrum nisl tortor ante fringilla parturient nullam.</p>",
+        "custom_class": "content-left no-border"
+      }
+    },
+    "emp_request_assistance_34P3H4": {
+      "type": "emp-request-assistance",
+      "name": "Request Assistance Form",
+      "settings": {
+        "heading": "",
+        "description": "",
+        "button_text": "SUBMIT",
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 100
+      }
+    },
+    "dynamic_promo_grid_BmGbWz": {
+      "type": "dynamic-promo-grid",
+      "blocks": {
+        "promotion_K8RRPx": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/visit_site_image.png",
+            "title": "need a Site Visit?",
+            "text": "While most services can be easily selected and purchased online, we understand that sometimes you may need a professional on-site evaluation.",
+            "color": "#ffffff",
+            "block_link": "#",
+            "button_text": "Book a Site Visit",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 1
+          }
+        }
+      },
+      "block_order": [
+        "promotion_K8RRPx"
+      ],
+      "settings": {
+        "title": "",
+        "text": "",
+        "section_height": "medium",
+        "section_columns": 1,
+        "text_alignment": "top-left",
+        "custom_class": "delivery-grid"
+      }
+    },
+    "dynamic_process_steps_7eYwKW": {
+      "type": "dynamic-process-steps",
+      "blocks": {
+        "step_CNDRHU": {
+          "type": "step",
+          "settings": {
+            "number": "1",
+            "title": "Add Services Directly To Your Cart",
+            "description": "Browse through our available services, select what fits your project, and add them to your cart",
+            "color": "#0a2b39"
+          }
+        },
+        "step_p6mtk8": {
+          "type": "step",
+          "settings": {
+            "number": "2",
+            "title": "Check Out Instantly",
+            "description": "No need to fill out long forms or wait for someone to get back to you. Complete your order quickly and easily.",
+            "color": "#17a2b8"
+          }
+        },
+        "step_37PiUD": {
+          "type": "step",
+          "settings": {
+            "number": "1",
+            "title": "Prefer Something Custom?",
+            "description": "We've got you covered! If you need something unique or have special requirements, just scroll down to connect with us.",
+            "color": "#ff8c00"
+          }
+        }
+      },
+      "block_order": [
+        "step_CNDRHU",
+        "step_p6mtk8",
+        "step_37PiUD"
+      ],
+      "name": "Process Steps",
+      "settings": {
+        "title": "You Don't Need To Wait For A Quote — Start Right Away",
+        "custom_class": "content-left"
+      }
+    },
+    "dynamic_faq_Kdf7CV": {
+      "type": "dynamic-faq",
+      "blocks": {
+        "question_fyD4hL": {
+          "type": "question",
+          "settings": {
+            "question": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore?",
+            "answer": "<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+            "icon": "none"
+          }
+        },
+        "question_w6DhmK": {
+          "type": "question",
+          "settings": {
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing?",
+            "answer": "<p>Use this text to provide answers for your most commonly asked questions.</p>",
+            "icon": "none"
+          }
+        },
+        "question_nezDwW": {
+          "type": "question",
+          "settings": {
+            "question": "Excepteur sint occaecat cupidatat non proident?",
+            "answer": "<p>Use this text to provide answers for your most commonly asked questions.</p>",
+            "icon": "none"
+          }
+        },
+        "question_XgyYd3": {
+          "type": "question",
+          "settings": {
+            "question": "Ut enim ad minim veniam, quis nostrud exercitation?",
+            "answer": "<p>Use this text to provide answers for your most commonly asked questions.</p>",
+            "icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "question_fyD4hL",
+        "question_w6DhmK",
+        "question_nezDwW",
+        "question_XgyYd3"
+      ],
+      "custom_css": [],
+      "name": "t:sections.faq.presets.name",
+      "settings": {
+        "custom_class": "heading-left heading-h2",
+        "section_width": "full-width",
+        "heading": "Frequently Asked Questions",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
+        "enable_category_cards": false,
+        "category_card_image_crop": "original",
+        "category_heading_size": "medium",
+        "icon_color": "rgba(0,0,0,0)"
+      }
+    },
+    "dynamic_search_W93kMw": {
+      "type": "dynamic-search",
+      "settings": {
+        "title": "Quam euismod faucibus",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in.</p>",
+        "placeholder": "Looking for something specific",
+        "filter_search_by": "disabled",
+        "enable_live_search": true,
+        "enable_live_search_images": false,
+        "show-overlay": false,
+        "color": "#ffffff",
+        "background": "#000000",
+        "opacity": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "multi_column_ccpfem",
+    "emp_request_assistance_34P3H4",
+    "dynamic_promo_grid_BmGbWz",
+    "dynamic_process_steps_7eYwKW",
+    "dynamic_faq_Kdf7CV",
+    "dynamic_search_W93kMw"
+  ]
+}

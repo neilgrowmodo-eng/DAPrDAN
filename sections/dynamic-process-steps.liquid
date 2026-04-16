@@ -1,0 +1,264 @@
+<style>
+  .process-steps {
+    padding: 100px 0;
+    background: #fff;
+  }
+
+  .process-steps__header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+  }
+
+  .process-steps__title {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #0A2B39;
+  }
+
+  .process-steps__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  .process-steps__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    position: relative;
+  }
+  .process-steps__step:before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 0;
+      width: calc(100% + 40px);
+      height: 2px;
+      background-color: var(--step-color);
+  }
+  .process-steps__step:last-child:before {
+      width: calc(100%);
+  }
+  .process-steps__step {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .process-steps__badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 40px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    position: relative;
+    z-index: 3;
+  }
+
+  .process-steps__title-step {
+    margin: 0 0 15px;
+    font-weight: 700;
+  }
+
+  .process-steps__description {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  /* Connecting lines */
+
+  /* Mobile Styles */
+  @media screen and (max-width: 768px) {
+    .process-steps {
+      padding: 40px 0;
+    }
+
+    .process-steps__header {
+      margin-bottom: 40px;
+    }
+
+    .process-steps__title {
+      font-size: 2rem;
+    }
+
+    .process-steps__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .process-steps__step:before {
+        width: calc(100%);
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .process-steps__title {
+      font-size: 1.75rem;
+    }
+
+    .process-steps__badge {
+      width: 32px;
+      height: 32px;
+      font-size: 1.25rem;
+    }
+
+    .process-steps__title-step {
+      font-size: 1.25rem;
+    }
+
+    .process-steps__description {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-type="dynamic-process-steps"
+>
+</script>
+
+<script type="application/pxs-animation-mapping+json">
+  {
+    "blocks": [".process-steps__step"],
+    "elements": []
+  }
+</script>
+
+<section class="process-steps {{ section.settings.custom_class }}" {{ section.shopify_attributes }}>
+  {%- if section.settings.title != blank -%}
+    <div class="process-steps__header">
+      <h2 class="process-steps__title">{{ section.settings.title | escape }}</h2>
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="process-steps__container">
+      <div class="process-steps__grid">
+        {%- for block in section.blocks -%}
+          {%- assign step_color = block.settings.color | default: '#0A2B39' -%}
+          <div 
+            class="process-steps__step" 
+            {{ block.shopify_attributes }}
+            style="--step-color: {{ step_color }};"
+          >
+            {%- if block.settings.number != blank -%}
+              <div 
+                class="process-steps__badge" 
+                style="background-color: {{ step_color }};-webkit-box-shadow: 0px 0px 0px 5px {{ step_color }}52;box-shadow: 0px 0px 0px 5px {{ step_color }}52;"
+              >
+                {{ block.settings.number | escape }}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="process-steps__title-step">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.description != blank -%}
+              <p class="process-steps__description">{{ block.settings.description | escape }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Process Steps",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "You Don't Need To Wait For A Quote — Start Right Away"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Step Number",
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Step Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Add your step description here"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Badge Color",
+          "default": "#0A2B39"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Process Steps",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "number": "1",
+            "title": "Add Services Directly To Your Cart",
+            "description": "Browse through our available services, select what fits your project, and add them to your cart",
+            "color": "#0A2B39"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "2",
+            "title": "Check Out Instantly",
+            "description": "No need to fill out long forms or wait for someone to get back to you. Complete your order quickly and easily.",
+            "color": "#17A2B8"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "3",
+            "title": "Prefer Something Custom?",
+            "description": "We've got you covered! If you need something unique or have special requirements, just scroll down to connect with us.",
+            "color": "#FF8C00"
+          }
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3
+}
+{% endschema %}

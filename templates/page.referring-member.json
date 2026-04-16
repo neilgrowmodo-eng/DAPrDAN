@@ -1,0 +1,73 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {}
+    },
+    "emp_referral_membership_DYw4nC": {
+      "type": "emp-referral-membership",
+      "blocks": {
+        "benefit_XmfUfV": {
+          "type": "benefit",
+          "settings": {
+            "text": "Existing Prime Member refers a New Prime Member"
+          }
+        },
+        "benefit_j7jL9U": {
+          "type": "benefit",
+          "settings": {
+            "text": "Existing Member gets $100 credit towards their total annual spend"
+          }
+        },
+        "benefit_Q8BNAf": {
+          "type": "benefit",
+          "settings": {
+            "text": "New Prime Member gets $100 discount towards their initial order"
+          }
+        },
+        "benefit_Vpdh8Q": {
+          "type": "benefit",
+          "settings": {
+            "text": "Existing Prime Members can stack recurring rewards and never pay for home maintenance again!"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_XmfUfV",
+        "benefit_j7jL9U",
+        "benefit_Q8BNAf",
+        "benefit_Vpdh8Q"
+      ],
+      "name": "Referral Membership",
+      "settings": {
+        "background_image": "shopify://shop_images/referral_bg_image.png",
+        "section_container": true,
+        "label": "Referral Membership",
+        "title": "Invite Friends, Earn Rewards Together!",
+        "description": "Make the most of your membership by sharing the benefits with your friends. With our Shared Reward Program, everyone wins! When you refer someone, both you and your friend will receive exciting rewards.",
+        "button_text": "Refer Now and Start Earning",
+        "button_link": "",
+        "card_title": "Share Your Referral Link",
+        "card_description": "Once your friend places their first order, you earn $100 credit toward your annual membership spend.",
+        "referrer_name": "John Doe Smith",
+        "referral_code": "JDS-48291-DAP-QX73KZ",
+        "copy_button_text": "Copy Referral Link",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "emp_referral_membership_DYw4nC"
+  ]
+}

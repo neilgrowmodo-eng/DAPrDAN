@@ -1,0 +1,212 @@
+{% style %}
+  .table-plan-section {
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 25px;
+  }
+
+  .responsive-table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Allows horizontal scrolling if screen < 800px */
+    border-radius: 8px 8px 0 0;
+  }
+
+  /* 
+    Table layout is fixed so columns respect the exact widths in <colgroup>
+    Each column is 200px wide, giving total width of 800px
+  */
+  .responsive-table {
+    width: 100%;
+    min-width: 800px;      /* Ensures the table can't shrink below 800px total */
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .responsive-table col {
+    width: 200px;          /* Fix each column to 200px */
+  }
+
+  .responsive-table thead th {
+    background-color: #00A1E0;
+    color: #fff;
+    text-align: center;
+    padding: 23px 16px;
+    border: 1px solid #E7E7E7;
+    vertical-align: top;
+  }
+
+  .responsive-table th,
+  .responsive-table td {
+    text-align: left;
+    border: 1px solid #E7E7E7;
+    vertical-align: top;  /* Align table cell content at the top */
+  }
+
+  .responsive-table td {
+    padding: 32px 42px;
+    color: #414141;
+    line-height: 150%;
+  }
+
+  /* First column (row title) styles */
+  .responsive-table td:first-child {
+    padding: 32px 16px 16px;
+    color: #0A2B39;
+    font-weight: 700;
+    position: relative;
+  }
+
+  /* Even row background color */
+  .responsive-table tbody tr:nth-child(even) {
+    background-color: #F5FCFF;
+  }
+
+  /* Mobile adjustments: smaller padding */
+  @media (max-width: 767px) {
+    .responsive-table td,
+    .responsive-table td:first-child{
+      padding: 15px;
+    }
+  }
+
+  .tooltip {
+    position: relative;
+    cursor: pointer; 
+    position: absolute;
+    right: 16px;
+  }
+
+  /* Tooltip text on hover */
+  .tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #00A1E0;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    z-index: 1000;
+    min-width: 250px;
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: left;
+  }
+
+  /* Tooltip arrow */
+  .tooltip:hover::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #00A1E0 transparent transparent transparent;
+    z-index: 999;
+  }
+{% endstyle %}
+
+<div class="table-plan-section">
+  {% if section.settings.heading != '' %}
+    <h2 class="home-section--title">{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  <div class="responsive-table-wrapper">
+    <table class="responsive-table">
+      <colgroup>
+        <col> <!-- 1st col: 200px -->
+        <col> <!-- 2nd col: 200px -->
+        <col> <!-- 3rd col: 200px -->
+        <col> <!-- 4th col: 200px -->
+      </colgroup>
+      <thead>
+        <tr>
+          <!-- First column has no heading -->
+          <th scope="col"></th>
+          <th scope="col">Essential</th>
+          <th scope="col">Standard</th>
+          <th scope="col">MAX</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            <tr>
+              <td>
+                {{ block.settings.title }}
+
+                {% if block.settings.tooltip != '' %}
+                  <!-- Wrap the rendered icon in a .tooltip span -->
+                  <span 
+                    class="tooltip" 
+                    data-tooltip="{{ block.settings.tooltip | escape }}"
+                  >
+                    {% render 'icon-tooltip' %}
+                  </span>
+                {% endif %}
+              </td>
+              <td>{{ block.settings.essential }}</td>
+              <td>{{ block.settings.standard }}</td>
+              <td>{{ block.settings.max }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Table plan",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "essential",
+          "label": "Essential"
+        },
+        {
+          "type": "text",
+          "id": "standard",
+          "label": "Standard"
+        },
+        {
+          "type": "text",
+          "id": "max",
+          "label": "Max"
+        },
+        {
+          "type": "text",
+          "id": "tooltip",
+          "label": "Tooltip"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Table plan"
+    }
+  ]
+}
+{% endschema %}

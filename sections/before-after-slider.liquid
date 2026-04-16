@@ -1,0 +1,422 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<style>
+  .before-after-slider-section {
+    padding: 60px 0;
+    overflow: hidden;
+  }
+
+  .before-after-slider__heading {
+    text-align: center;
+    margin: 0 auto 40px;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%; /* 37.4px */
+    text-transform: capitalize;
+  }
+
+  .before-after-slider-container {
+    max-width: 865px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  .swiper-container {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 50px; /* Space for pagination */
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Important for before/after */
+  }
+
+  .before-after-comparison {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Adjust as needed */
+    margin: 0 auto;
+    overflow: hidden;
+    aspect-ratio: 16 / 9; /* Adjust aspect ratio if needed */
+    background: #eee; /* Placeholder background */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    touch-action: pan-y; /* Allow vertical scroll, handle horizontal drag */
+  }
+
+  .before-after-comparison img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Prevent image dragging */
+  }
+
+  .before-after-comparison .before-image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%; /* Initial position */
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .before-after-comparison .before-image-wrapper img {
+    width: 100%;
+    max-width: none; /* Override potential max-width from parent */
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+
+  .before-after-slider {
+    position: absolute;
+    top: 0;
+    left: 50%; /* Initial position */
+    width: 4px; /* Revert to visible width */
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: ew-resize; /* Apply cursor here */
+    z-index: 2;
+    transform: translateX(-50%);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Restore shadow */
+  }
+
+  .before-after-slider-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #007aff; /* Example color */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 8px;
+    box-sizing: border-box;
+    color: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.4);
+    cursor: ew-resize; /* Add cursor feedback to handle too */
+  }
+
+  .before-after-slider-handle::before,
+  .before-after-slider-handle::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+  .before-after-slider-handle::before {
+    border-width: 6px 8px 6px 0;
+    border-color: transparent white transparent transparent;
+  }
+  .before-after-slider-handle::after {
+    border-width: 6px 0 6px 8px;
+    border-color: transparent transparent transparent white;
+  }
+
+  /* Swiper Navigation Buttons */
+  .swiper-button-next, .swiper-button-prev {
+    color: #007aff; /* Example color */
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    transition: background-color 0.2s;
+  }
+  .swiper-button-next:hover, .swiper-button-prev:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  .swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  /* Swiper Pagination */
+  .swiper-pagination-bullet {
+    background-color: #ccc;
+    opacity: 1;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #007aff; /* Example color */
+  }
+
+  @media screen and (max-width: 749px) {
+    .before-after-slider__heading {
+      font-size: 1.75rem;
+      padding: 0 15px;
+    }
+    .before-after-slider-section {
+      padding: 40px 0;
+    }
+    .before-after-slider-container {
+      padding: 0 10px;
+    }
+    .swiper-button-next, .swiper-button-prev {
+        display: none; /* Optionally hide arrows on mobile */
+    }
+  }
+</style>
+
+<div class="before-after-slider-section" data-section-id="{{ section.id }}">
+  {%- if section.settings.title != blank -%}
+    <h2 class="before-after-slider__heading">{{ section.settings.title | escape }}</h2>
+  {%- endif -%}
+
+  <div class="before-after-slider-container">
+    <div class="swiper-container before-after-swiper-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            {%- if block.settings.image_before != blank and block.settings.image_after != blank -%}
+              <div class="before-after-comparison" data-block-id="{{ block.id }}">
+                <div class="before-image-wrapper">
+                  {%- render 'rimg', img: block.settings.image_before, size: '1600x', class: 'before-image', lazy: true -%}
+                </div>
+                {%- render 'rimg', img: block.settings.image_after, size: '1600x', class: 'after-image', lazy: true -%}
+                <div class="before-after-slider js-no-swipe">
+                  <div class="before-after-slider-handle"></div>
+                </div>
+              </div>
+            {%- else -%}
+              <div style="padding: 50px; text-align: center; color: #888;">
+                Please select both a Before and After image.
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+
+      <!-- Add Navigation -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</div>
+
+{%- comment %} Create a string 'true' or 'false' for JS compatibility {%- endcomment %}
+{%- assign block_count = section.blocks.size -%}
+{%- if block_count > 1 -%}
+  {%- assign enable_loop_str = 'true' -%}
+{%- else -%}
+  {%- assign enable_loop_str = 'false' -%}
+{%- endif -%}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sectionElement = document.querySelector(`[data-section-id="{{ section.id }}"]`);
+  if (!sectionElement) return;
+
+  // Initialize Swiper
+  const swiper = new Swiper(`.before-after-swiper-{{ section.id }}`, {
+    loop: {{ enable_loop_str }},
+    allowTouchMove: false, // Disable swiping on touch
+    simulateTouch: false, // Disable swiping with mouse
+    noSwipingSelector: '.js-no-swipe', // Keep this for safety
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    on: {
+      // Remove initialization from Swiper events
+      // init: function () { ... },
+      // slideChangeTransitionEnd: function () { ... }
+    }
+  });
+
+  // Initialize all comparison elements right after Swiper
+  sectionElement.querySelectorAll('.before-after-comparison').forEach(comparison => {
+      initComparison(comparison);
+  });
+
+  // Before/After Comparison Logic
+  function initComparison(comparisonElement) {
+    if (comparisonElement.classList.contains('initialized')) return;
+    comparisonElement.classList.add('initialized');
+
+    const slider = comparisonElement.querySelector('.before-after-slider');
+    const beforeWrapper = comparisonElement.querySelector('.before-image-wrapper');
+    const beforeImage = comparisonElement.querySelector('.before-image');
+    const afterImage = comparisonElement.querySelector('.after-image');
+    const handle = comparisonElement.querySelector('.before-after-slider-handle'); // Get handle element
+    let isDragging = false;
+
+    // Prevent native image dragging
+    if (beforeImage) beforeImage.draggable = false;
+    if (afterImage) afterImage.draggable = false;
+
+    const moveSlider = (clientX) => {
+      const rect = comparisonElement.getBoundingClientRect();
+      let x = clientX - rect.left;
+      // Clamp position between 0 and container width
+      x = Math.max(0, Math.min(x, rect.width));
+      const percent = (x / rect.width) * 100;
+      slider.style.left = `${percent}%`;
+      beforeWrapper.style.width = `${percent}%`;
+    };
+
+    const startDrag = (e) => {
+      console.log('Before/After: Start Drag');
+      if (e.stopPropagation) e.stopPropagation();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+      isDragging = true;
+      comparisonElement.classList.add('dragging');
+      document.body.style.userSelect = 'none';
+      moveSlider(e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX);
+
+      // Attach move/end listeners only when dragging starts
+      document.addEventListener('mousemove', doDrag);
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchmove', doDrag, { passive: false });
+      document.addEventListener('touchend', stopDrag);
+    };
+
+    const doDrag = (e) => {
+      if (!isDragging) return;
+      console.log('Before/After: Do Drag');
+      // Prevent default scroll/touch behavior during drag
+      if (e.cancelable && e.type.startsWith('touch')) e.preventDefault();
+      moveSlider(e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX);
+    };
+
+    const stopDrag = () => {
+      if (!isDragging) return;
+      console.log('Before/After: Stop Drag');
+      isDragging = false;
+      comparisonElement.classList.remove('dragging');
+      document.body.style.userSelect = ''; // Re-enable text selection
+
+      // Remove move/end listeners when dragging stops
+      document.removeEventListener('mousemove', doDrag);
+      document.removeEventListener('mouseup', stopDrag);
+      document.removeEventListener('touchmove', doDrag);
+      document.removeEventListener('touchend', stopDrag);
+    };
+
+    // Attach only the start listeners initially to both slider bar and handle
+    slider.addEventListener('mousedown', startDrag);
+    slider.addEventListener('touchstart', startDrag, { passive: false });
+    if (handle) {
+        handle.addEventListener('mousedown', startDrag);
+        handle.addEventListener('touchstart', startDrag, { passive: false });
+    }
+
+    // Remove the global listeners that were previously here
+    // document.addEventListener('mousemove', doDrag);
+    // document.addEventListener('mouseup', stopDrag);
+    // document.addEventListener('touchmove', doDrag, { passive: false });
+    // document.addEventListener('touchend', stopDrag);
+    // document.addEventListener('touchcancel', stopDrag); // Touchcancel can also stop drag
+    slider.addEventListener('touchcancel', stopDrag); // Add touchcancel listener specifically
+  }
+
+  // Re-initialize comparison on Shopify theme editor events if needed
+  if (Shopify.designMode) {
+    document.addEventListener('shopify:section:load', (event) => {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        const swiperInstance = document.querySelector(`.before-after-swiper-{{ section.id }}`).swiper;
+        if (swiperInstance) swiperInstance.destroy(true, true);
+        // Re-run init code or re-query elements if necessary
+        // This might need more robust handling depending on how Swiper interacts with editor reloads
+      }
+    });
+     document.addEventListener('shopify:block:select', (event) => {
+       if (event.target.closest('.before-after-slider-section')?.dataset.sectionId === '{{ section.id }}') {
+         const swiperInstance = document.querySelector(`.before-after-swiper-{{ section.id }}`).swiper;
+         const blockId = event.detail.blockId;
+         const slideIndex = Array.from(sectionElement.querySelectorAll('[data-block-id]')).findIndex(el => el.dataset.blockId === blockId);
+         if (swiperInstance && slideIndex !== -1) {
+            swiperInstance.slideToLoop(slideIndex);
+            const comparison = swiperInstance.slides[swiperInstance.activeIndex]?.querySelector('.before-after-comparison');
+            if(comparison && !comparison.classList.contains('initialized')) initComparison(comparison);
+         }
+       }
+     });
+  }
+});
+
+</script>
+
+{% schema %}
+{
+  "name": "Before & After Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "See How We Can Transform Your Property"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison",
+      "name": "Before & After",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_before",
+          "label": "Before Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_after",
+          "label": "After Image"
+        }
+        // Optional: Add alt text fields here if needed
+        // {
+        //   "type": "text",
+        //   "id": "alt_text_before",
+        //   "label": "Before Image Alt Text"
+        // },
+        // {
+        //   "type": "text",
+        //   "id": "alt_text_after",
+        //   "label": "After Image Alt Text"
+        // }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Before & After Slider",
+      "blocks": [
+        { "type": "comparison" },
+        { "type": "comparison" },
+        { "type": "comparison" }
+      ]
+    }
+  ]
+}
+{% endschema %} 

@@ -1,0 +1,208 @@
+<style>
+  /* Basic styling for overlay */
+  .zip-popup-overlay {
+    position: fixed;
+    z-index: 999999; /* Ensure it stays on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Popup modal */
+  .zip-popup-modal {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    width: 300px;
+    max-width: 90%;
+    position: relative;
+    text-align: center;
+  }
+  
+  /* Close button */
+  .zip-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /* Input field */
+  #zipInput {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+  }
+  
+  /* Submit button */
+  #submitZip {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #007ace;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+  }
+</style>
+
+<!-- ZIP Code Validator Popup -->
+<div class="zip-popup-overlay" id="zipPopupOverlay">
+  <div class="zip-popup-modal" id="zipPopupModal">
+    <span class="zip-popup-close" id="zipPopupClose">&times;</span>
+    <h2>Check Service Availability</h2>
+    <p>Enter your ZIP Code to find the best service location for you.</p>
+    
+    <input type="text" id="zipInput" placeholder="Enter ZIP code" />
+    <button id="submitZip">Check</button>
+    
+    <p id="zipErrorMsg" style="display: none; color: red;">
+      Sorry, we don’t serve that area yet. Please try another ZIP code.
+    </p>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script>
+  // Run script when document is ready
+  $(document).ready(function() {
+
+    // 1. Define valid ZIP codes and map them to the correct location page.
+    //    Adjust the URLs to match your site’s location pages.
+    var cityPages = {
+      /* Western WA Branch */
+      "98221": "/pages/anacortes",   // Anacortes
+      "98277": "/pages/anacortes",
+      "98004": "/pages/bellevue",    // Bellevue
+      "98005": "/pages/bellevue",
+      "98006": "/pages/bellevue",
+      "98007": "/pages/bellevue",
+      "98008": "/pages/bellevue",
+      "98225": "/pages/bellingham",  // Bellingham
+      "98226": "/pages/bellingham",
+      "98229": "/pages/bellingham",
+      "98230": "/pages/bellingham",
+      "98011": "/pages/bothell",     // Bothell
+      "98012": "/pages/bothell",
+      "98021": "/pages/bothell",
+      "98028": "/pages/bothell",
+      "98282": "/pages/camano",      // Camano
+      "98239": "/pages/coupeville",  // Coupeville
+      "98201": "/pages/everett",     // Everett
+      "98203": "/pages/everett",
+      "98204": "/pages/everett",
+      "98205": "/pages/everett",
+      "98208": "/pages/everett",
+      "98213": "/pages/everett",
+      "98275": "/pages/everett",
+      "98040": "/pages/mercer-island", // Mercer Island
+      "98272": "/pages/monroe",        // Monroe
+      "98052": "/pages/redmond",       // Redmond
+      "98053": "/pages/redmond",
+      "98073": "/pages/redmond",
+      "98055": "/pages/renton",        // Renton
+      "98056": "/pages/renton",
+      "98057": "/pages/renton",
+      "98058": "/pages/renton",
+      "98059": "/pages/renton",
+      "98074": "/pages/sammamish",     // Sammamish
+      "98075": "/pages/sammamish",
+      /* San Juan, WA */
+      "98250": "/pages/san-juan",
+      "98245": "/pages/san-juan",
+      "98261": "/pages/san-juan",
+      "98279": "/pages/san-juan",
+      "98222": "/pages/san-juan",
+      "98286": "/pages/san-juan",
+      "98297": "/pages/san-juan",
+      "98280": "/pages/san-juan",
+      "98243": "/pages/san-juan",
+      /* Seattle, WA */
+      "98101": "/pages/seattle",
+      "98102": "/pages/seattle",
+      "98103": "/pages/seattle",
+      "98104": "/pages/seattle",
+      "98105": "/pages/seattle",
+      "98106": "/pages/seattle",
+      "98107": "/pages/seattle",
+      "98108": "/pages/seattle",
+      "98109": "/pages/seattle",
+      "98112": "/pages/seattle",
+      "98115": "/pages/seattle",
+      "98116": "/pages/seattle",
+      "98117": "/pages/seattle",
+      "98118": "/pages/seattle",
+      "98119": "/pages/seattle",
+      "98121": "/pages/seattle",
+      "98122": "/pages/seattle",
+      "98125": "/pages/seattle",
+      "98126": "/pages/seattle",
+      "98133": "/pages/seattle",
+      "98134": "/pages/seattle",
+      "98136": "/pages/seattle",
+      "98144": "/pages/seattle",
+      "98146": "/pages/seattle",
+      "98155": "/pages/seattle",
+      "98177": "/pages/seattle",
+      "98178": "/pages/seattle",
+      "98199": "/pages/seattle",
+      "98290": "/pages/snohomish",    // Snohomish
+      "98296": "/pages/snohomish",
+
+      /* North Central WA Branch */
+      "98816": "/pages/chelan",       // Chelan
+      "98822": "/pages/entiat",       // Entiat (also Chelan sub?)
+      "99115": "/pages/coulee-city",  // Coulee City
+      "98926": "/pages/ellensburg",   // Ellensburg
+      "98922": "/pages/ellensburg",
+      "98826": "/pages/leavenworth",  // Leavenworth
+      "98831": "/pages/manson",       // Manson
+      "98837": "/pages/moses-lake",   // Moses Lake
+      "98841": "/pages/moses-lake",
+      "98846": "/pages/pateros",      // Pateros
+      "98801": "/pages/wenatchee",    // Wenatchee
+      "98802": "/pages/wenatchee"
+    };
+
+    // 2. Show the popup on page load (can also wrap in logic to show only once, if desired).
+    $('#zipPopupOverlay').fadeIn();
+
+    // 3. Close popup if user clicks the close button (optional).
+    $('#zipPopupClose').on('click', function() {
+      $('#zipPopupOverlay').fadeOut();
+    });
+
+    // 4. On "Check" button click, validate ZIP code.
+    $('#submitZip').on('click', function(e) {
+      e.preventDefault();
+      var enteredZip = $('#zipInput').val().trim();
+
+      // If the ZIP code is in our mapping, redirect. Otherwise, show error.
+      if (cityPages.hasOwnProperty(enteredZip)) {
+        window.location.href = cityPages[enteredZip];
+      } else {
+        // Show error message if invalid
+        $('#zipErrorMsg').fadeIn();
+      }
+    });
+  });
+</script>
+
+
+{% schema %}
+  {
+    "name": "Zip Code Validator",
+    "settings": [],
+    "presets": [
+      {
+        "name": "Zip Code Validator"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {}
+    },
+    "dynamic_rich_text_VmkAdf": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "regular",
+        "title": "My Account",
+        "text": "<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "medium",
+        "text_alignment": "left",
+        "custom_class": ""
+      }
+    },
+    "1775545729791f7ca2": {
+      "type": "apps",
+      "blocks": {
+        "helium_customer_fields_app_block_dRHDFU": {
+          "type": "shopify://apps/helium-customer-fields/blocks/app-block/bab58598-3e6a-4377-aaaa-97189b15f131",
+          "settings": {
+            "form_id": "dGt4LG",
+            "width": 600,
+            "vertical_spacing": 60,
+            "horizontal_spacing": 0
+          }
+        }
+      },
+      "block_order": [
+        "helium_customer_fields_app_block_dRHDFU"
+      ],
+      "settings": {
+        "include_padding": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "dynamic_rich_text_VmkAdf",
+    "1775545729791f7ca2"
+  ]
+}

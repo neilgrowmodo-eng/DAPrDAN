@@ -1,0 +1,905 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "dynamic_custom_liquid_KE6Nwf": {
+      "type": "dynamic-custom-liquid",
+      "name": "t:sections.custom_liquid.presets.custom_liquid.name",
+      "settings": {
+        "custom_liquid": "{% if customer and customer.default_address %}\n  <div class=\"location-banner\">\n    Delivering to {{ customer.default_address.city }}, {{ customer.default_address.province }} {{ customer.default_address.zip }}\n  </div>\n\n<style>\n.location-banner {\n    background-color: #00a1e0;\n    color: white;\n    padding: 25px 50px;\n    width: 100%;\n}\n</style>\n{% endif %}"
+      }
+    },
+    "custom_dynamic_slideshow_8CYVaY": {
+      "type": "custom-dynamic-slideshow",
+      "blocks": {
+        "slide_biqiay": {
+          "type": "slide",
+          "settings": {
+            "video": "shopify://files/videos/video-cropped.mp4",
+            "subheading": "",
+            "title": "Welcome To The Future Of Home Care Service",
+            "text": "DAPrDAN is now serving members only. Discover the advantages of membership and register to create your ideal home care plan.",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "Discover DAPrDAN",
+            "button_one_action": "popup",
+            "button_one_link": "#",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1": "shopify://files/videos/softwash_siding (540p).mp4",
+            "popup_video_1_text": "Start Video Quizzes",
+            "popup_video_2": "shopify://files/videos/gutter_cleaning (540p).mp4",
+            "popup_video_2_text": "Start Video Quizzes",
+            "popup_video_3": "shopify://files/videos/subscriptions (540p).mp4",
+            "popup_video_3_text": "Start Video Quizzes",
+            "button_two_label": "",
+            "button_two_link": "#",
+            "button_two_style": "secondary",
+            "show_overlay": true,
+            "overlay_color": "#061b23",
+            "overlay_opacity": 60
+          }
+        }
+      },
+      "block_order": [
+        "slide_biqiay"
+      ],
+      "settings": {
+        "enable_autoplay": false,
+        "autoplay_duration": 8,
+        "slideshow_width": "full",
+        "slideshow_height": "medium",
+        "slideshow_height_mobile": "x-large",
+        "slideshow_text_below_image": false,
+        "custom_class": ""
+      }
+    },
+    "dynamic_highlights_banner": {
+      "type": "dynamic-highlights-banner",
+      "blocks": {
+        "highlight-1": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-delivery",
+            "image": "shopify://shop_images/Frame.png",
+            "title": "Parturient dui",
+            "text": "<p>Curabitur integer tempor elementum lacinia</p>",
+            "link": ""
+          }
+        },
+        "highlight-2": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-cell-phone",
+            "image": "shopify://shop_images/icon.svg",
+            "title": "Nascetur vel",
+            "text": "<p>Curabitur integer tempor elementum lacinia</p>",
+            "link": ""
+          }
+        },
+        "highlight-3": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-chat-alternate",
+            "image": "shopify://shop_images/icon_44645efe-b114-4f5e-99ff-210e4600de06.svg",
+            "title": "Ligula condimentum",
+            "text": "<p>Curabitur integer tempor elementum lacinia</p>",
+            "link": ""
+          }
+        },
+        "highlight-4": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-pin",
+            "image": "shopify://shop_images/icon_7f42ff8a-825e-4d4d-a0a1-5570191adb74.svg",
+            "title": "Dignissim sodales",
+            "text": "<p>Curabitur integer tempor elementum lacinia</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "highlight-1",
+        "highlight-2",
+        "highlight-3",
+        "highlight-4"
+      ],
+      "custom_css": [
+        "p {color: #0a2b39;}"
+      ],
+      "settings": {
+        "section_spacing": false,
+        "section_width": "content-width",
+        "icon_layout": "center",
+        "color": "#0a2b39",
+        "icon_color": "#046e82",
+        "background_color": "#ffffff",
+        "mobile_layout": "grid"
+      }
+    },
+    "dynamic_rich_text_zWGhiE": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "full-width",
+        "title": "Why Membership?",
+        "text": "<p>DAPrDAN leaves no stone unturned when it comes to restoring and maintaining your home or business location. Our team handles all exterior cleaning needs from the rooftop to the driveway, leaving your property refreshed, clean, and inviting.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": "",
+        "text_2": "",
+        "heading_size": "large",
+        "text_alignment": "center",
+        "custom_class": "richtext-1 hp-rt-1"
+      }
+    },
+    "custom_dynamic_slideshow_pgkixY": {
+      "type": "custom-dynamic-slideshow",
+      "blocks": {
+        "slide_bELWfP": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/vlc-record-2024-10-03-09h20m35s-Desktop_2024.10.03_-_09.02.18.02.mp4-_1_1_1.jpg",
+            "subheading": "",
+            "title": "",
+            "text": "",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "slide_tjtyJt": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/vlc-record-2024-10-03-09h20m35s-Desktop_2024.10.03_-_09.02.18.02.mp4-_1_1_2.jpg",
+            "subheading": "",
+            "title": "",
+            "text": "",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "slide_eDbVjg": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/vlc-record-2024-10-03-09h20m35s-Desktop_2024.10.03_-_09.02.18.02.mp4-_1_1_3.jpg",
+            "subheading": "",
+            "title": "",
+            "text": "",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        },
+        "slide_XyHAFV": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/vlc-record-2024-10-03-09h20m35s-Desktop_2024.10.03_-_09.02.18.02.mp4-_1_1_4.jpg",
+            "subheading": "",
+            "title": "",
+            "text": "",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "",
+            "button_one_action": "link",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1_text": "",
+            "popup_video_2_text": "",
+            "popup_video_3_text": "",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "slide_bELWfP",
+        "slide_tjtyJt",
+        "slide_eDbVjg",
+        "slide_XyHAFV"
+      ],
+      "name": "Custom: Slideshow",
+      "settings": {
+        "enable_autoplay": true,
+        "autoplay_duration": 8,
+        "slideshow_width": "content",
+        "slideshow_height": "medium",
+        "slideshow_height_mobile": "medium",
+        "slideshow_text_below_image": true,
+        "custom_class": "services-slideshow-2"
+      }
+    },
+    "dynamic_rich_text_b3gLDw": {
+      "type": "dynamic-rich-text",
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "width": "regular",
+        "title": "",
+        "text": "",
+        "button_label": "Apply for membership",
+        "button_link": "#",
+        "button_label_2": "CONTACT US",
+        "button_link_2": "#",
+        "text_2": "",
+        "heading_size": "medium",
+        "text_alignment": "center",
+        "custom_class": "hp-rt-buttons"
+      }
+    },
+    "dynamic_promo_mosaic": {
+      "type": "dynamic-promo-mosaic",
+      "blocks": {
+        "promotion-1": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/0fb6ee421a1afea5d250e894d64c098a.png",
+            "title": "Membership Exclusivity",
+            "text": "Nascetur vel himenaeos tortor sagittis mauris felis pretium commodo. Curabitur integer tempor elementum; lacinia proin adipiscing habitant.",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "Apply membership",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "rgba(0,0,0,0)",
+            "opacity": 50
+          }
+        },
+        "promotion-2": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_5c7bd2bc-82ee-4f32-8f32-990643a9afb2.png",
+            "title": "Recurring Service Plans as Products",
+            "text": "Consequat vulputate sodales blandit commodo congue justo condimentum commodo Parturient dui ipsum viverra.",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "Learn More",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "#000000",
+            "opacity": 1
+          }
+        },
+        "promotion-3": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_9f39d420-5feb-473e-a700-72d211e1117e.png",
+            "title": "Commitment to Safety, Quality and Service",
+            "text": "Luctus nec fermentum quis arcu volutpat. Malesuada amet hac habitant placerat vestibulum.",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "Learn more",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "#000000",
+            "opacity": 3
+          }
+        },
+        "promotion-4": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_74d4c0a6-2388-4aa6-b64d-0e7cc0c85dbc.png",
+            "title": "Delivering Value to the Homeowner",
+            "text": "Conubia laoreet conubia natoque dolor tincidunt. Dignissim sodales malesuada posuere suscipit dictum vehicula ut erat. Ad ultricies netus primis sollicitudin; curae nullam est at",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "Learn more",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "promotion-1",
+        "promotion-2",
+        "promotion-3",
+        "promotion-4"
+      ],
+      "settings": {
+        "title": "",
+        "section_height": "small",
+        "text_alignment": "top-left",
+        "maintain_aspect_ratio": true,
+        "compress_blocks": false,
+        "custom_class": ""
+      }
+    },
+    "custom_featured_collection_LEhhHJ": {
+      "type": "custom-featured-collection",
+      "blocks": {
+        "title_card_wQTMgY": {
+          "type": "title_card",
+          "settings": {
+            "image": "shopify://shop_images/Image.png",
+            "text_alignment": "top-center",
+            "pre_heading": "",
+            "heading": "Aenean commodo quam varius",
+            "paragraph": "<p>Vel a sapien sit eu integer penatibus maecenas fames. Bibendum velit accumsan torquent feugiat sapien commodo volutpat. Iaculis eleifend ut justo, enim convallis enim. Ornare donec augue ad aliquet; magna nam adipiscing.</p>",
+            "text_color": "#0a2b39",
+            "show_on_mobile": true,
+            "horizontal_size": "3",
+            "vertical_size": "2",
+            "enable_full_width_on_mobile": false,
+            "cta_label": "Learn more",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "title_card_wQTMgY"
+      ],
+      "settings": {
+        "title": "Fall & Winter Specials, Spring & Summer Specials, Back to School Specials, Holiday Specials, etc.",
+        "layout": "grid",
+        "mobile_layout": "grid",
+        "collection": "frontpage",
+        "product_count": 4,
+        "cta_label": "",
+        "cta_button_style": "primary"
+      }
+    },
+    "dynamic_featured_product": {
+      "type": "dynamic-featured-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "form_rLa7mw": {
+          "type": "form",
+          "settings": {
+            "enable_local_pickup": true
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "form_rLa7mw"
+      ],
+      "settings": {
+        "product": "daprdan-classic-flat-bill-cap-black-blue",
+        "gallery_aspect_ratio": "square",
+        "gallery_image_crop": false,
+        "gallery_thumbnail_position": "left",
+        "gallery_video_autoplay": false,
+        "gallery_video_looping": true,
+        "gallery_hover_zoom": "replace"
+      }
+    },
+    "dynamic_collection_list": {
+      "type": "dynamic-collection-list",
+      "blocks": {
+        "collection-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection-4": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection-5": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "collection-6": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection-1",
+        "collection-2",
+        "collection-3",
+        "collection-4",
+        "collection-5",
+        "collection-6"
+      ],
+      "settings": {
+        "title": "Plans by Featured Service",
+        "text": "<p>Select your seasonally optimized home care plan organized around your top priority.</p>",
+        "thumbnail_columns_desktop": 6,
+        "thumbnail_columns_mobile": 3,
+        "image-crop": "circle",
+        "cta_label": "",
+        "cta_link": "",
+        "cta_button_style": "secondary"
+      }
+    },
+    "dynamic_shoppable_image": {
+      "type": "dynamic-shoppable-image",
+      "settings": {
+        "title": "",
+        "image": "shopify://shop_images/Placeholder_Image.png",
+        "image_width": "two-thirds",
+        "link_text": "View product",
+        "textbox_title": "Trusted Network of Expert Contractors",
+        "textbox_subheading": "<p>Proin fringilla class odio accumsan nisl platea varius, congue eleifend! Tincidunt penatibus ullamcorper faucibus eleifend varius. Vehicula nunc orci ipsum eleifend mollis malesuada pulvinar. Eu pulvinar nisi eget dis imperdiet per. Venenatis vulputate viverra molestie sem fringilla taciti dis.</p>",
+        "textbox_button_label": "Learn More About Our Network",
+        "textbox_button_link": "",
+        "textbox_button_style": "primary",
+        "textbox_text_alignment": "center",
+        "textbox_text_position": "left"
+      }
+    },
+    "dynamic_promo_grid": {
+      "type": "dynamic-promo-grid",
+      "blocks": {
+        "promotion-1": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/content.png",
+            "title": "Tempor odio faucibus parturient",
+            "text": "",
+            "color": "#0a2b39",
+            "block_link": "",
+            "button_text": "",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        },
+        "promotion-2": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/content_41060a02-41a6-42e0-9ce5-4ba6ee3183a7.png",
+            "title": "Lorem vitae finibus faucibus",
+            "text": "",
+            "color": "#0a2b39",
+            "block_link": "",
+            "button_text": "",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        },
+        "promotion-3": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/content_ded31381-7b32-4a12-9d2c-d564f410e19f.png",
+            "title": "Mattis tortor tortor faucibus",
+            "text": "",
+            "color": "#0a2b39",
+            "block_link": "",
+            "button_text": "",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        },
+        "promotion-4": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/content_921c4032-5075-4318-8027-32d650e031b5.png",
+            "title": "Etiam felis maximus facilisis",
+            "text": "",
+            "color": "#0a2b39",
+            "block_link": "",
+            "button_text": "",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "promotion-1",
+        "promotion-2",
+        "promotion-3",
+        "promotion-4"
+      ],
+      "settings": {
+        "title": "Our Commitment to Safety, Quality, and Service",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.</p>",
+        "section_height": "natural",
+        "section_columns": 4,
+        "text_alignment": "top-left",
+        "custom_class": ""
+      }
+    },
+    "dynamic_featured_collection": {
+      "type": "dynamic-featured-collection",
+      "blocks": {
+        "view-all-card": {
+          "type": "view_all_card",
+          "disabled": true,
+          "settings": {
+            "text_alignment": "center-center",
+            "pre_heading": "View all",
+            "heading": "Collection",
+            "text_color": "#ffffff",
+            "show_on_mobile": true,
+            "enable_full_width_on_mobile": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "view-all-card"
+      ],
+      "settings": {
+        "title": "Explore DAPrDAN Style",
+        "layout": "slideshow",
+        "mobile_layout": "slideshow",
+        "collection": "frontpage",
+        "product_count": 9,
+        "cta_label": "",
+        "cta_button_style": "primary"
+      }
+    },
+    "dynamic_shoppable_image_eYecBB": {
+      "type": "dynamic-shoppable-image",
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "image": "shopify://shop_images/Placeholder_Image_d298acce-49f3-47c4-93d6-1d19e3ce37d5.png",
+        "image_width": "two-thirds",
+        "link_text": "View product",
+        "textbox_title": "Better Information, Better Decisions",
+        "textbox_subheading": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.</p>",
+        "textbox_button_label": "Explore Your Portal",
+        "textbox_button_link": "",
+        "textbox_button_style": "primary",
+        "textbox_text_alignment": "center",
+        "textbox_text_position": "right"
+      }
+    },
+    "dynamic_promo_grid_zx7q7N": {
+      "type": "dynamic-promo-grid",
+      "blocks": {
+        "promotion_dNcrKh": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_19ca62e4-340a-425f-ade0-15066a1ef191.png",
+            "title": "Consequat risus ullamcorper",
+            "text": "Nascetur vel himenaeos tortor sagittis mauris felis pretium commodo. Curabitur integer tempor elementum; lacinia proin adipiscing habitant.",
+            "color": "#ffffff",
+            "block_link": "#",
+            "button_text": "Explore Services",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 1
+          }
+        }
+      },
+      "block_order": [
+        "promotion_dNcrKh"
+      ],
+      "settings": {
+        "title": "Delivering Value to Homeowners",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.</p>",
+        "section_height": "medium",
+        "section_columns": 1,
+        "text_alignment": "top-left",
+        "custom_class": "delivery-grid"
+      }
+    },
+    "dynamic_promo_grid_kMmKpB": {
+      "type": "dynamic-promo-grid",
+      "blocks": {
+        "promotion_7ih7fN": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_9b70f1f9-052d-47fb-a63b-a66b4e384b8d.png",
+            "title": "Montes malesuada mattis",
+            "text": "Massa est est hac lobortis at magna nam pulvinar. Amet blandit maecenas nam risus orci nullam. Semper ornare taciti habitant.",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "learn more",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        },
+        "promotion_W3B3Uk": {
+          "type": "promotion",
+          "settings": {
+            "image": "shopify://shop_images/Card_2c6562bf-7990-42da-bb62-49253d62e0eb.png",
+            "title": "Porttitor suscipit",
+            "text": "Conubia laoreet conubia natoque dolor tincidunt. Dignissim sodales malesuada posuere suscipit dictum vehicula ut erat.",
+            "color": "#0a2b39",
+            "block_link": "#",
+            "button_text": "learn more",
+            "button_style": "primary",
+            "show_overlay": false,
+            "background": "",
+            "opacity": 50
+          }
+        }
+      },
+      "block_order": [
+        "promotion_7ih7fN",
+        "promotion_W3B3Uk"
+      ],
+      "settings": {
+        "title": "",
+        "text": "",
+        "section_height": "medium",
+        "section_columns": 2,
+        "text_alignment": "top-left",
+        "custom_class": "delivery-grid second"
+      }
+    },
+    "dynamic_testimonials": {
+      "type": "dynamic-testimonials",
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/Avatar_Image.png",
+            "star_rating": "5",
+            "text": "<p>“I couldn’t be happier with the excellent window cleaning Dap R Dan provided. Good communication before, during and after. Professional and personable! My windows have never looked better. I will hire them again without hesitation.”</p>",
+            "author": "<p>Chris Borys</p>"
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/Avatar_Image_5921d9b7-7f18-44d9-bbac-dbd2c2cd46fd.png",
+            "star_rating": "5",
+            "text": "<p>“Job was done on time and my house looks Great! I appreciated the fact that the employees were respectful of my House and my privacy as well as doing a stellar job. Thanks guys, look forward  to next time!”</p>",
+            "author": "<p>John Brown</p>"
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/Avatar_Image_ee528342-f2c0-478c-bcc2-9aa43f3c9e70.png",
+            "star_rating": "5",
+            "text": "<p>“We recently had our driveway pressure washed and sealed and our walkway pressure washed. Greg was a pleasure to deal with and did a wonderful, efficient job. We would highly recommend DAPrDAN’s for this type of work.”</p>",
+            "author": "<p>Christina</p>"
+          }
+        },
+        "testimonial-4": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "4.5",
+            "text": "<p>“I couldn’t be happier with the excellent window cleaning Dap R Dan provided. Good communication before, during and after. Professional and personable! My windows have never looked better. I will hire them again without hesitation.”</p>",
+            "author": "<p>Author's name</p>"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial-1",
+        "testimonial-2",
+        "testimonial-3",
+        "testimonial-4"
+      ],
+      "settings": {
+        "title": "Elevated Customer Service",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.</p>",
+        "image_crop": "circle",
+        "text_size": "large"
+      }
+    },
+    "dynamic_blog_posts": {
+      "type": "dynamic-blog-posts",
+      "settings": {
+        "title": "Blog posts",
+        "blog": "news",
+        "show_date": true,
+        "show_author": false,
+        "show_excerpt": true
+      }
+    },
+    "custom_dynamic_shoppable_image_fRmi6R": {
+      "type": "custom-dynamic-shoppable-image",
+      "blocks": {
+        "hotspot_FG6HxX": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "Whatcom County",
+            "product": "",
+            "x_axis": 66,
+            "y_axis": 60
+          }
+        },
+        "hotspot_bHDipt": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "San Juan County",
+            "product": "",
+            "x_axis": 55,
+            "y_axis": 50
+          }
+        },
+        "hotspot_jiXfCi": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "Sakgit County",
+            "product": "",
+            "x_axis": 75,
+            "y_axis": 47
+          }
+        },
+        "hotspot_eKbEaJ": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "Island County",
+            "product": "",
+            "x_axis": 59,
+            "y_axis": 36
+          }
+        },
+        "hotspot_gqUg7y": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "Snohomish County",
+            "product": "",
+            "x_axis": 71,
+            "y_axis": 28
+          }
+        },
+        "hotspot_EgadUN": {
+          "type": "hotspot",
+          "settings": {
+            "hotspot_heading": "King County",
+            "product": "",
+            "x_axis": 68,
+            "y_axis": 8
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_FG6HxX",
+        "hotspot_bHDipt",
+        "hotspot_jiXfCi",
+        "hotspot_eKbEaJ",
+        "hotspot_gqUg7y",
+        "hotspot_EgadUN"
+      ],
+      "settings": {
+        "title": "",
+        "image": "shopify://shop_images/Frame_133.png",
+        "image_width": "full",
+        "link_text": "View product",
+        "textbox_title": "Our Greater Puget Sound Area",
+        "textbox_subheading": "<p>DAPrDAN services the entire Puget Sound area including Whatcom County, Skagit County, San Juan County, Island County, Snohomish County and King County.</p>",
+        "textbox_button_label": "Get An Instant Quote",
+        "textbox_button_link": "",
+        "textbox_button_style": "primary",
+        "textbox_text_alignment": "left",
+        "textbox_text_position": "right"
+      }
+    },
+    "dynamic_search": {
+      "type": "dynamic-search",
+      "settings": {
+        "title": "Quam euismod faucibus",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in.</p>",
+        "placeholder": "Looking for something specific",
+        "filter_search_by": "disabled",
+        "enable_live_search": true,
+        "enable_live_search_images": false,
+        "show-overlay": false,
+        "color": "#ffffff",
+        "background": "#000000",
+        "opacity": 50
+      }
+    }
+  },
+  "order": [
+    "dynamic_custom_liquid_KE6Nwf",
+    "custom_dynamic_slideshow_8CYVaY",
+    "dynamic_highlights_banner",
+    "dynamic_rich_text_zWGhiE",
+    "custom_dynamic_slideshow_pgkixY",
+    "dynamic_rich_text_b3gLDw",
+    "dynamic_promo_mosaic",
+    "custom_featured_collection_LEhhHJ",
+    "dynamic_featured_product",
+    "dynamic_collection_list",
+    "dynamic_shoppable_image",
+    "dynamic_promo_grid",
+    "dynamic_featured_collection",
+    "dynamic_shoppable_image_eYecBB",
+    "dynamic_promo_grid_zx7q7N",
+    "dynamic_promo_grid_kMmKpB",
+    "dynamic_testimonials",
+    "dynamic_blog_posts",
+    "custom_dynamic_shoppable_image_fRmi6R",
+    "dynamic_search"
+  ]
+}
