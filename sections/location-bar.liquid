@@ -1,0 +1,448 @@
+<section class="announcement-bar announcement-bar--sticky" data-announcement-id="{{ section.id }}" style="display: none; background: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};">
+  <div class="announcement-bar__wrapper">
+    <div class="announcement-bar__message" aria-live="polite"></div>
+    <button type="button" class="announcement-bar__close" aria-label="Dismiss announcement">&times;</button>
+  </div>
+
+  <div class="announcement-bar__templates" hidden>
+    <div class="announcement-bar__success">{{ section.settings.announcement_success_text }}</div>
+    <div class="announcement-bar__failure">{{ section.settings.announcement_failure_text }}</div>
+  </div>
+</section>
+
+<style>
+  .announcement-bar--sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .announcement-bar__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .announcement-bar__message {
+    flex: 1 1 auto;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .announcement-bar__message a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .announcement-bar__close {
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+    padding: 0 0.5rem;
+  }
+
+  .announcement-bar__templates {
+    display: none;
+  }
+
+  .location-bar-sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+  }
+</style>
+
+<script>
+  (function () {
+    const sectionId = '{{ section.id }}';
+    const bar = document.querySelector('[data-announcement-id="{{ section.id }}"]');
+    if (!bar) return;
+
+    const messageElement = bar.querySelector('.announcement-bar__message');
+    const successTemplate = bar.querySelector('.announcement-bar__success');
+    const failureTemplate = bar.querySelector('.announcement-bar__failure');
+    const closeButton = bar.querySelector('.announcement-bar__close');
+    const dismissedKey = `announcement_bar_dismissed_${sectionId}`;
+    var allowedLocationsRaw = "{{ section.settings.allowed_locations | escape }}";
+    const allowedLocations = (function () {
+      if (!allowedLocationsRaw) {
+        return ['king','snohomish','skagit','island','whatcom','san juan','chelan','okanogan','douglas','kittitas','grant','capital'];
+      }
+      return allowedLocationsRaw.split(',').map(function (s) {
+        return s.toString().toLowerCase().replace(/\s*county\s*$/,'').trim();
+      }).filter(function (s) { return s; });
+    })();
+
+    function normalizeLocation(value) {
+      if (!value) return '';
+      return value.toString().toLowerCase().replace(/\s*county\s*$/, '').trim();
+    }
+
+    function getLocationData() {
+      try {
+        const raw = localStorage.getItem('daprdan_location_v1');
+        console.log('[location-bar] raw localStorage:', raw);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        console.log('[location-bar] parsed locationData:', parsed);
+        return parsed;
+      } catch (error) {
+        console.log('[location-bar] error parsing location data:', error);
+        return null;
+      }
+    }
+
+    function escapeHtml(str) {
+      if (str == null) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function buildCityState(locationData) {
+      if (!locationData) return '';
+      var city = locationData.city || '';
+      var province = locationData.province || '';
+      var county = locationData.county || '';
+      if (city && province) return city + ', ' + province;
+      if (city) return city;
+      if (county) return county;
+      if (province) return province;
+      return '';
+    }
+
+    function getRenderHtml(isSuccess, locationData) {
+      var template = isSuccess ? successTemplate : failureTemplate;
+      if (!template) return '';
+      var html = template.innerHTML.trim();
+      var cityState = buildCityState(locationData) || '';
+      // Replace tokens: {City, State}, {City}, {State}, {County}
+      var escaped = escapeHtml(cityState);
+      html = html.replace(/\{City,\s*State\}/g, escaped);
+      // If template uses separate tokens, try splitting city/province
+      var cityOnly = escapeHtml((locationData && locationData.city) || '');
+      var stateOnly = escapeHtml((locationData && locationData.province) || '');
+      var countyOnly = escapeHtml((locationData && locationData.county) || '');
+      html = html.replace(/\{City\}/g, cityOnly);
+      html = html.replace(/\{State\}/g, stateOnly);
+      html = html.replace(/\{County\}/g, countyOnly);
+      return html;
+    }
+
+    function shouldShowSuccess(locationData) {
+      console.log('[location-bar] shouldShowSuccess locationData:', locationData);
+      if (!locationData) return false;
+
+      const candidates = [
+        locationData.county,
+        locationData.city,
+        locationData.province,
+        locationData.country,
+        locationData.ipData && locationData.ipData.county,
+        locationData.ipData && locationData.ipData.region,
+        locationData.ipData && locationData.ipData.city
+      ];
+
+      console.log('[location-bar] candidates raw:', candidates);
+      for (var i = 0; i < candidates.length; i++) {
+        var candidate = candidates[i];
+        var normalized = normalizeLocation(candidate);
+        console.log('[location-bar] candidate:', candidate, 'normalized:', normalized);
+        if (normalized) {
+          for (var j = 0; j < allowedLocations.length; j++) {
+            var allowed = allowedLocations[j];
+            var match = normalized === allowed;
+            console.log('[location-bar] comparing', normalized, '===', allowed, '=>', match);
+            if (match) return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    function showBar(isSuccess, locationData) {
+      const html = getRenderHtml(isSuccess, locationData);
+      console.log('[location-bar] showBar isSuccess:', isSuccess, 'html length:', html ? html.length : 0, 'locationData:', locationData);
+      if (!html) return;
+      messageElement.innerHTML = html;
+      bar.style.display = 'block';
+      console.log('[location-bar] bar displayed');
+    }
+
+    if (localStorage.getItem(dismissedKey)) {
+      bar.style.display = 'none';
+      // ensure header top reset
+      var headerEl = document.querySelector('.site-header-sticky .site-header');
+      if (headerEl) { headerEl.style.removeProperty('top'); console.log('[location-bar] header top reset due to dismissed key'); }
+      return;
+    }
+
+    function getShopifyLocationFromDom() {
+      var el = document.getElementById('dynamic_location');
+      if (!el) return null;
+      var ds = el.dataset || {};
+      var city = (ds.customerCity || '').trim();
+      var province = (ds.customerProvince || '').trim();
+      var country = (ds.customerCountry || '').trim();
+      var county = (ds.customerCounty || '').trim();
+      // If data-attributes are empty but the element text has a value (not the placeholder), try to parse it: "City, State"
+      var text = (el.textContent || '').trim();
+      var placeholderTexts = ['Locating...', 'Location unavailable', ''];
+      if ((!city && !province && !county) && text && placeholderTexts.indexOf(text) === -1) {
+        var parts = text.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+        if (parts.length === 2) {
+          city = city || parts[0];
+          province = province || parts[1];
+        } else if (parts.length === 1) {
+          city = city || parts[0];
+        }
+      }
+      return { city: city, province: province, country: country, county: county };
+    }
+
+    (async function initShowBar(){
+      var locationEl = document.getElementById('dynamic_location');
+      var maxWait = 3000; // ms
+      var interval = 200; // ms
+      var waited = 0;
+
+      // Try immediate cache first
+      var cache = getLocationData();
+      var shopify = getShopifyLocationFromDom();
+
+      // If no cache yet, and there's a dynamic location element that still shows the placeholder,
+      // wait until the element updates (custom.js will update it) or until timeout.
+      var placeholderTexts = ['Locating...', 'Location unavailable', ''];
+      while (!cache && locationEl && placeholderTexts.indexOf((locationEl.textContent||'').trim()) !== -1 && waited < maxWait) {
+        console.log('[location-bar] waiting for location DOM update... waited', waited);
+        await new Promise(function(resolve){ setTimeout(resolve, interval); });
+        waited += interval;
+        cache = getLocationData();
+        if (!shopify) shopify = getShopifyLocationFromDom();
+      }
+
+      // Final re-check of cache/shopify values
+      cache = cache || getLocationData();
+      shopify = shopify || getShopifyLocationFromDom();
+
+      // Merge: prefer cache values, fall back to shopify DOM values when missing
+      var locationData = cache ? Object.assign({}, cache) : {};
+      if (shopify) {
+        locationData.city = locationData.city || shopify.city;
+        locationData.province = locationData.province || shopify.province;
+        locationData.country = locationData.country || shopify.country;
+        locationData.county = locationData.county || shopify.county;
+      }
+
+      var inAllowedArea = shouldShowSuccess(locationData);
+
+      function hasLocationInfo(data) {
+        if (!data) return false;
+        if (data.city || data.province || data.county) return true;
+        if (data.ipData && (data.ipData.city || data.ipData.region || data.ipData.county)) return true;
+        return false;
+      }
+
+      function scheduleRecheckUntilData(timeoutMs) {
+        var intervalMs = 200;
+        var elapsed = 0;
+        var iv = setInterval(function () {
+          try {
+            var merged = mergeLocationData();
+            if (hasLocationInfo(merged)) {
+              clearInterval(iv);
+              console.log('[location-bar] scheduleRecheck: detected location data, re-evaluating');
+              // Re-run the same decision logic now that data is available
+              var nowInAllowed = shouldShowSuccess(merged);
+              if (nowInAllowed) {
+                bar.style.display = 'none';
+                if (typeof setHeaderTopActive === 'function') setHeaderTopActive(false);
+                console.log('[location-bar] scheduleRecheck: customer in allowed area; announcement suppressed');
+              } else {
+                showBar(false, merged);
+                if (typeof setHeaderTopActive === 'function') setHeaderTopActive(true);
+                console.log('[location-bar] scheduleRecheck: customer outside allowed area; announcement shown');
+              }
+            }
+          } catch (e) {
+            console.error('[location-bar] scheduleRecheck error', e);
+          }
+
+          elapsed += intervalMs;
+          if (elapsed >= timeoutMs) {
+            clearInterval(iv);
+            console.log('[location-bar] scheduleRecheck: timed out without location data');
+            // As a fallback, if still no data, show failure message using whatever we have (to avoid never showing)
+            var fallback = mergeLocationData();
+            if (hasLocationInfo(fallback)) {
+              var nowAllowed = shouldShowSuccess(fallback);
+              if (!nowAllowed) {
+                showBar(false, fallback);
+                if (typeof setHeaderTopActive === 'function') setHeaderTopActive(true);
+                console.log('[location-bar] scheduleRecheck: fallback showing announcement with partial data');
+              }
+            }
+          }
+        }, intervalMs);
+      }
+
+      if (inAllowedArea) {
+        // Customer is inside allowed locations — do not show the announcement bar
+        bar.style.display = 'none';
+        if (typeof setHeaderTopActive === 'function') setHeaderTopActive(false);
+        console.log('[location-bar] customer in allowed area; announcement suppressed');
+      } else {
+        // If we don't yet have reliable location info, attempt short polling until data arrives
+        if (!hasLocationInfo(locationData)) {
+          console.log('[location-bar] no location info yet; will poll briefly for updates');
+          scheduleRecheckUntilData(5000); // poll up to 5s
+          return;
+        }
+
+        // Customer is outside allowed area — show failure message (outside service area)
+        showBar(false, locationData); // false === use failureTemplate, pass locationData for token replacement
+        if (typeof setHeaderTopActive === 'function') setHeaderTopActive(true);
+        console.log('[location-bar] customer outside allowed area; announcement shown');
+      }
+    })();
+
+    // Observe #dynamic_location DOM changes to update announcement when real location appears
+    function mergeLocationData() {
+      var cache = getLocationData() || {};
+      var shopify = getShopifyLocationFromDom() || {};
+      var out = Object.assign({}, cache);
+      out.city = out.city || shopify.city || '';
+      out.province = out.province || shopify.province || '';
+      out.country = out.country || shopify.country || '';
+      out.county = out.county || shopify.county || '';
+      // also include ipData if present in cache
+      if (cache && cache.ipData) out.ipData = cache.ipData;
+      return out;
+    }
+
+    function applyLocationFromDomChange() {
+      try {
+        var el = document.getElementById('dynamic_location');
+        if (!el) return;
+        var txt = (el.textContent || '').trim();
+        var placeholderTexts = ['Locating...', 'Location unavailable', ''];
+        if (placeholderTexts.indexOf(txt) !== -1) return; // still placeholder
+
+        // merge latest data and re-evaluate
+        var locationData = mergeLocationData();
+        var inAllowed = shouldShowSuccess(locationData);
+        if (inAllowed) {
+          bar.style.display = 'none';
+          if (typeof setHeaderTopActive === 'function') setHeaderTopActive(false);
+          console.log('[location-bar] dynamic change: in allowed area; hiding bar');
+        } else {
+          showBar(false, locationData);
+          if (typeof setHeaderTopActive === 'function') setHeaderTopActive(true);
+          console.log('[location-bar] dynamic change: outside allowed area; showing bar with location', locationData);
+        }
+      } catch (e) { console.error('[location-bar] error in applyLocationFromDomChange', e); }
+    }
+
+    var dynEl = document.getElementById('dynamic_location');
+    if (dynEl) {
+      // Listen for text changes (textContent) and child updates
+      var dynObserver = new MutationObserver(function () { applyLocationFromDomChange(); });
+      dynObserver.observe(dynEl, { characterData: true, childList: true, subtree: true });
+      // run once immediately in case content already updated after initial load
+      applyLocationFromDomChange();
+    }
+
+    // function to set header top inline !important (responsive values)
+    function setHeaderTopActive(active) {
+      var headerEl = document.querySelector('.site-header-sticky .site-header');
+      if (!headerEl) return;
+      if (active) {
+        var w = (window && window.innerWidth) ? window.innerWidth : 0;
+        var topValue = '46.88px';
+        if (w <= 1028) topValue = '68.16px';
+        else if (w <= 552) topValue = '89.44px';
+        headerEl.style.setProperty('top', topValue, 'important');
+        console.log('[location-bar] applied header top', topValue, '!important for width', w);
+      } else {
+        headerEl.style.removeProperty('top');
+        console.log('[location-bar] removed header top inline style');
+      }
+    }
+
+    // observe bar visibility changes
+    (function observeBarVisibility(){
+      function isBarVisible() { try { return bar && bar.offsetParent !== null && window.getComputedStyle(bar).display !== 'none'; } catch(e) { return false; } }
+      // initial sync
+      setHeaderTopActive(isBarVisible());
+      var mo = new MutationObserver(function(){ setHeaderTopActive(isBarVisible()); });
+      if (bar) mo.observe(bar, { attributes: true, attributeFilter: ['style','class'], childList: false, subtree: false });
+      var bodyObserver = new MutationObserver(function(){ var currentBar = document.querySelector('[data-announcement-id="{{ section.id }}"]'); setHeaderTopActive(currentBar && currentBar.offsetParent !== null && window.getComputedStyle(currentBar).display !== 'none'); });
+      bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+      // keep header offset responsive on resize while bar is visible
+      window.addEventListener('resize', function () {
+        setHeaderTopActive(isBarVisible());
+      });
+    })();
+
+    closeButton.addEventListener('click', function () {
+      bar.style.display = 'none';
+      if (typeof setHeaderTopActive === 'function') setHeaderTopActive(false);
+      try { localStorage.setItem(dismissedKey, 'true'); } catch (error) { }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Location announcement bar",
+  "class": "location-bar-sticky",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "announcement_success_text",
+      "label": "Successful location message"
+    },
+    {
+      "type": "richtext",
+      "id": "announcement_failure_text",
+      "label": "Failed location message"
+    },
+    {
+      "type": "textarea",
+      "id": "allowed_locations",
+      "label": "Allowed locations (comma-separated)",
+      "default": "king, snohomish, skagit, island, whatcom, san juan, chelan, okanogan, douglas, kittitas, grant, capital"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F4F4F5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111827"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Location announcement",
+      "category": "Header"
+    }
+  ]
+}
+{% endschema %}

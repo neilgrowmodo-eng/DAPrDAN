@@ -44,6 +44,16 @@
     ]
   },
   {
+    "name": "t:settings_schema.opencage.name",
+    "settings": [
+      {
+        "type": "text",
+        "id": "opencage_api_key",
+        "label": "t:settings_schema.opencage.settings.api_key.label"
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.performance.name",
     "settings": [
       {

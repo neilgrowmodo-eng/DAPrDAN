@@ -33,69 +33,6 @@
   .site-logo-image {
     max-height: {{ logo_height }}px;
   }
-  .site-navigation-wrapper {
-    padding: 0!important;
-    margin-right: 20px!important;
-    display: block!important;
-    width: auto!important;
-    flex-grow: 1!important;
-    margin-top: 0!important;
-  }
-  .small-promo-icon {
-    height: 20px;
-  }
-  .small-promo-content-light p {
-    font-weight: 400;
-  }
-  @media(max-width: 1440px) {
-    .site-header-menu-toggle {
-      visibility: visible!important;
-      opacity: 1!important;
-      margin-top: -23px;
-    }
-    .site-header-sticky--scrolled .site-header-main-content,
-    .site-header-main-content {
-      margin-left: 57px!important;
-    }
-    .site-header-actions~.mobile-nav-content, .site-header-actions~.mobile-nav-primary-content {
-      min-height: 0;
-    }
-  }
-  @media(max-width: 1024px) {
-    .site-header-menu-toggle,
-    .site-header-sticky--scrolled .site-header-menu-toggle {
-      margin-top: 0!important; 
-      position: static;
-    }
-    .site-header-sticky--scrolled .site-header-main-content,
-    .site-header-main-content {
-      margin-left: 20px!important;
-    }
-    .site-header-right {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-    }
-    .site-header-right .site-header-actions {
-      display: block;
-      margin: 0;
-    }
-    .site-header-right .site-header-actions .site-header-actions__account-link {
-      padding: 0;
-      margin: 0;
-    }
-    .site-header-right .site-header-cart {
-      display: block;
-      position: static;
-      margin: 0;
-    }
-  }
-  @media(min-width: 1441px) {
-    .site-header-menu-toggle {
-      display: none;
-    }
-  }
 {% endstyle %}
 
 <header
@@ -193,23 +130,7 @@
           {% endif %}
         </a>
       </div>
-      <div
-        class="site-navigation-wrapper"
-        data-site-navigation
-        id="site-header-nav"
-      >
-        <nav
-          class="site-navigation"
-          aria-label="{{ 'general.accessibility.nav_main' | t }}"
-          id="companyNav"
-        >
-          {%
-            render 'navmenu',
-            menu: section.settings.menu,
-            blocks: section.blocks,
-          %}
-        </nav>
-      </div>
+
       {%
         render 'live-search-form',
         quick_links: linklists[section.settings.quick_links],
@@ -217,6 +138,17 @@
       %}
 
       <div class="location-wrapper">
+        
+        {% comment %} {% if section.settings.location_menu != blank %}
+          <div class="location-select">
+            {% render 'icon-location' %}
+            {%
+              render 'custom-navmenu',
+              menu: section.settings.location_menu,
+              blocks: section.blocks,
+            %}
+           </div>   
+        {% endif %} {% endcomment %}
   
         {% if section.settings.small_promo_text != blank or section.settings.small_promo_heading != blank %}
           {% if section.settings.small_promo_link != blank %}
@@ -306,22 +238,6 @@
           {% endif %}
         {% endif %}
 
-        <div class="location-wrapper">
-          <div class="small-promo">
-              <span class="small-promo-icon small-promo-icon--svg">
-                <svg class="icon-store " aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" fill="none">      <path d="M39.875 23.375V39.875C39.875 40.6043 39.5853 41.3038 39.0695 41.8195C38.5538 42.3353 37.8543 42.625 37.125 42.625H6.875C6.14565 42.625 5.44618 42.3353 4.93046 41.8195C4.41473 41.3038 4.125 40.6043 4.125 39.875V23.375" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>      <path d="M38.7713 1.375H5.22867C4.91571 1.37495 4.61208 1.48151 4.3678 1.67714C4.12352 1.87276 3.95317 2.14577 3.88483 2.45117L1.375 13.75C1.375 14.844 1.8096 15.8932 2.58318 16.6668C3.35677 17.4404 4.40598 17.875 5.5 17.875C6.59402 17.875 7.64323 17.4404 8.41682 16.6668C9.1904 15.8932 9.625 14.844 9.625 13.75C9.625 14.844 10.0596 15.8932 10.8332 16.6668C11.6068 17.4404 12.656 17.875 13.75 17.875C14.844 17.875 15.8932 17.4404 16.6668 16.6668C17.4404 15.8932 17.875 14.844 17.875 13.75C17.875 14.844 18.3096 15.8932 19.0832 16.6668C19.8568 17.4404 20.906 17.875 22 17.875C23.094 17.875 24.1432 17.4404 24.9168 16.6668C25.6904 15.8932 26.125 14.844 26.125 13.75C26.125 14.844 26.5596 15.8932 27.3332 16.6668C28.1068 17.4404 29.156 17.875 30.25 17.875C31.344 17.875 32.3932 17.4404 33.1668 16.6668C33.9404 15.8932 34.375 14.844 34.375 13.75C34.375 14.844 34.8096 15.8932 35.5832 16.6668C36.3568 17.4404 37.406 17.875 38.5 17.875C39.594 17.875 40.6432 17.4404 41.4168 16.6668C42.1904 15.8932 42.625 14.844 42.625 13.75L40.1133 2.45117C40.0457 2.14576 39.8758 1.8726 39.6317 1.6769C39.3877 1.48121 39.0841 1.3747 38.7713 1.375Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>      <path d="M34.375 30.25C34.375 28.7913 33.7955 27.3924 32.7641 26.3609C31.7326 25.3295 30.3337 24.75 28.875 24.75C27.4163 24.75 26.0174 25.3295 24.9859 26.3609C23.9545 27.3924 23.375 28.7913 23.375 30.25V42.625H34.375V30.25Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>      <path d="M9.625 28.875H17.875V37.125H9.625V28.875Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>    </svg>                                                                                           
-              </span>
-            <div class="small-promo-content">
-                <span class="small-promo-content_heading">
-                    Your Location
-                </span>
-                <div class="small-promo-content--desktop small-promo-content-light">
-                  <p id="dynamic_location" data-customer-city="{{ customer.default_address.city | default: '' | escape }}" data-customer-province="{{ customer.default_address.province | default: '' | escape }}" data-customer-country="{{ customer.default_address.country | default: '' | escape }}" data-customer-county="{{ customer.default_address.county | default: '' | escape }}">Locating...</p>
-                </div>
-            </div>
-          </div>
-      </div>
-
       </div>
 
       {% comment %}
@@ -356,6 +272,169 @@
         </a>
       </div>
     </div>
+  </div>
+
+  <div
+    class="
+      site-navigation-wrapper
+      {% if shop.customer_accounts_enabled %}
+        site-navigation--has-actions
+      {% endif %}
+      {% if section.settings.full_width_header %}
+        site-header--full-width
+      {% endif %}
+    "
+    data-site-navigation
+    id="site-header-nav"
+  >
+    <div class="custom-right-navigation">
+      {% if section.settings.location_menu != blank %}
+        <div class="location-select">
+          {% render 'icon-location' %}
+          {%
+            render 'custom-navmenu',
+            menu: section.settings.location_menu,
+            blocks: section.blocks,
+          %}
+         </div>   
+      {% endif %}
+
+      {% if section.settings.secondary_menu != blank %}
+        <div class="secondary-menu-header">
+        {% for link in linklists[section.settings.secondary_menu].links %}
+          <a href="{{ link.url }}" class="utility-bar__menu-link">{{ link.title }}</a>
+        {% endfor %}
+        </div>  
+      {% endif %}
+
+
+      {% if section.settings.small_promo_text != blank or section.settings.small_promo_heading != blank %}
+        {% if section.settings.small_promo_link != blank %}
+          {% if request.page_type == 'page' %}
+            {% if page.metafields.custom.phone_number_link != blank %}
+              <a
+                class="small-promo-content--link"
+                href="tel:{{ page.metafields.custom.phone_number_link }}"
+              >
+            {% else %}
+              <a
+                class="small-promo-content--link"
+                href="{{ section.settings.small_promo_link }}"
+              >
+            {% endif %}
+            {% else %}
+              <a
+                class="small-promo-content--link"
+                href="{{ section.settings.small_promo_link }}"
+              >
+          {% endif %}
+        {% endif %}
+        <div class="small-promo">
+          {% if section.settings.small_promo_icon != 'none' or section.settings.image %}
+            <span
+              class="
+                small-promo-icon
+                {% if section.settings.image %}
+                  small-promo-icon--custom
+                {% else %}
+                  small-promo-icon--svg
+                {% endif %}
+              "
+            >
+              {% if section.settings.image == blank %}
+                {% render 'icon-library', id: section.settings.small_promo_icon %}
+              {% else %}
+                {%
+                  render 'rimg',
+                  class: 'small-promo-custom-icon',
+                  img: section.settings.image,
+                  size: '60x',
+                  focal_point: section.settings.image.presentation.focal_point,
+                %}
+              {% endif %}
+            </span>
+          {% endif %}
+
+          <div class="small-promo-content">
+            {% if section.settings.small_promo_heading != blank %}
+              <span class="small-promo-content_heading">
+                {% if request.page_type == 'page' %}
+                  {% if page.metafields.custom.operating_hours != blank %}
+                    {{ page.metafields.custom.operating_hours }}
+                  {% else %}
+                    {{ section.settings.small_promo_heading | escape }}
+                  {% endif %}
+                  {% else %}
+                    {{ section.settings.small_promo_heading | escape }}
+                {% endif %}
+              </span>
+            {% endif %}
+
+            {% if section.settings.small_promo_text_mobile != blank %}
+              <div class="small-promo-content--mobile">
+                {{ section.settings.small_promo_text_mobile }}
+              </div>
+            {% endif %}
+
+            {% if section.settings.small_promo_text != blank %}
+              <div class="small-promo-content--desktop">
+                {% if request.page_type == 'page' %}
+                  {% if page.metafields.custom.phone_number != blank %}
+                    {{ page.metafields.custom.phone_number }}
+                  {% else %}
+                    {{ section.settings.small_promo_text }}
+                  {% endif %}
+                  {% else %}
+                    {{ section.settings.small_promo_text }}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        {% if section.settings.small_promo_link != blank %}
+          </a>
+        {% endif %}
+      {% endif %}
+
+      <!--
+
+      <div class="state-zip">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+          <path d="M20.9141 8V16.2C20.9141 17.8802 20.9141 18.7202 20.5871 19.362C20.2995 19.9265 19.8405 20.3854 19.276 20.673C18.6343 21 17.7942 21 16.1141 21H8.71406C7.0339 21 6.19383 21 5.55209 20.673C4.9876 20.3854 4.52866 19.9265 4.24104 19.362C3.91406 18.7202 3.91406 17.8802 3.91406 16.2V8M4.01406 3H20.8141C21.3741 3 21.6541 3 21.8681 3.10899C22.0562 3.20487 22.2092 3.35785 22.3051 3.54601C22.4141 3.75992 22.4141 4.03995 22.4141 4.6V6.4C22.4141 6.96005 22.4141 7.24008 22.3051 7.45399C22.2092 7.64215 22.0562 7.79513 21.8681 7.89101C21.6541 8 21.3741 8 20.8141 8H4.01406C3.45401 8 3.17398 8 2.96007 7.89101C2.77191 7.79513 2.61893 7.64215 2.52306 7.45399C2.41406 7.24008 2.41406 6.96005 2.41406 6.4V4.6C2.41406 4.03995 2.41406 3.75992 2.52306 3.54601C2.61893 3.35785 2.77191 3.20487 2.96007 3.10899C3.17398 3 3.45401 3 4.01406 3ZM10.0141 11.5H14.8141C15.3741 11.5 15.6541 11.5 15.8681 11.609C16.0562 11.7049 16.2092 11.8578 16.3051 12.046C16.4141 12.2599 16.4141 12.5399 16.4141 13.1V13.9C16.4141 14.4601 16.4141 14.7401 16.3051 14.954C16.2092 15.1422 16.0562 15.2951 15.8681 15.391C15.6541 15.5 15.3741 15.5 14.8141 15.5H10.0141C9.45401 15.5 9.17398 15.5 8.96007 15.391C8.77191 15.2951 8.61893 15.1422 8.52306 14.954C8.41406 14.7401 8.41406 14.4601 8.41406 13.9V13.1C8.41406 12.5399 8.41406 12.2599 8.52306 12.046C8.61893 11.8578 8.77191 11.7049 8.96007 11.609C9.17398 11.5 9.45401 11.5 10.0141 11.5Z" stroke="#0A2B39" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        98282
+      </div> -->
+      
+      
+    </div>
+    <nav
+      class="site-navigation"
+      aria-label="{{ 'general.accessibility.nav_main' | t }}"
+    >
+      {%
+        render 'navmenu',
+        menu: section.settings.menu,
+        blocks: section.blocks,
+      %}
+
+      {% comment %}
+      {% if section.settings.secondary_menu != blank %}
+        {%
+          render 'navlist',
+          menu_list: linklists[section.settings.secondary_menu].links,
+          depth: 1,
+          max_depth: 1,
+          aria_expanded: true,
+          navmenu_classes: 'site-navigation__secondary-menu',
+        %}
+      {% endif %}
+      {% endcomment %}
+
+      {% if section.settings.custom_button_label != blank %}
+        <a href="{{ section.settings.custom_button_link }}" class="button-primary">{{ section.settings.custom_button_label }}</a>
+      {% endif %}
+    </nav>
+    
   </div>
 
   {%

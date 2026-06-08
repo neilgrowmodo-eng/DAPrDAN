@@ -267,7 +267,7 @@
               {% endunless %}
 
             {% when 'price' %}
-              {% if section.settings.hide_public %}
+              {% comment %} {% if section.settings.hide_public %}
                 {% if customer %}
                   <div
                     class="product-pricing"
@@ -309,7 +309,7 @@
                     <form data-payment-terms-target style="display: none;"></form>
                   </div>
                 {% endif %}
-              {% else %}
+              {% else %} {% endcomment %}
                 <div
                   class="product-pricing"
                   aria-live="polite"
@@ -349,7 +349,7 @@
   
                   <form data-payment-terms-target style="display: none;"></form>
                 </div>
-              {% endif %}
+              {% comment %} {% endif %} {% endcomment %}
 
             {% when 'sku' %}
               {% unless onboarding %}
@@ -371,7 +371,7 @@
               {% endif %}
 
             {% when 'form' %}
-              {% if section.settings.hide_public %}
+              {% comment %} {% if section.settings.hide_public %}
                 {% if customer or product.category and product.category.name == 'Apparel & Accessories' %}
                   <div
                     class="product-form--regular {{ customer }}-{{ product.category }}-{{ product.category.name }}"
@@ -411,7 +411,7 @@
                 {% else %}
                   <a href="/account" class="button-primary">LOGIN OR REGISTER TO VIEW PRICING</a>
                 {% endif %}
-              {% else %}
+              {% else %} {% endcomment %}
                 <div
                   class="product-form--regular {{ customer }}-{{ product.category }}-{{ product.category.name }}"
                   data-product-form-regular
@@ -446,7 +446,7 @@
                     {% endunless %}
                   </div>
                 </div>
-              {% endif %}
+              {% comment %} {% endif %} {% endcomment %}
 
             {% when 'text' %}
               <div class="product-text">

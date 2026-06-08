@@ -18,9 +18,9 @@
       "type": "dynamic-rich-text",
       "name": "t:sections.rich_text.presets.rich_text.name",
       "settings": {
-        "width": "regular",
-        "title": "My Account",
-        "text": "<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.</p>",
+        "width": "wide",
+        "title": "Profile Completion",
+        "text": "",
         "button_label": "",
         "button_link": "",
         "button_label_2": "",
@@ -28,7 +28,41 @@
         "text_2": "",
         "heading_size": "medium",
         "text_alignment": "left",
-        "custom_class": ""
+        "custom_class": "form-title"
+      }
+    },
+    "profile_form_gate_U3hXcN": {
+      "type": "profile-form-gate",
+      "blocks": {
+        "video_NNVeMX": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/videoplayback_b315a7d2-ebc4-40ff-ba30-a7980ebeb4e9.mp4"
+          }
+        },
+        "image_GWEXAP": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/daprdan-home-care-plan-subscription-prime.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "video_NNVeMX",
+        "image_GWEXAP"
+      ],
+      "name": "Profile intro gate",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Complete your home profile",
+        "subheading": "This profile is for your primary residence or main home.",
+        "text": "<p>We use this information to confirm service availability and personalize your pricing. You only need to complete this profile once. If you have additional buildings or structures, we’ll guide you through the next step later.</p>",
+        "button_label": "Get Started",
+        "target_selector": "#create_customer",
+        "hide_target_on_load": true,
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     },
     "1775545729791f7ca2": {
@@ -39,7 +73,7 @@
           "settings": {
             "form_id": "dGt4LG",
             "width": 600,
-            "vertical_spacing": 60,
+            "vertical_spacing": 0,
             "horizontal_spacing": 0
           }
         }
@@ -55,6 +89,7 @@
   "order": [
     "main",
     "dynamic_rich_text_VmkAdf",
+    "profile_form_gate_U3hXcN",
     "1775545729791f7ca2"
   ]
 }

@@ -198,9 +198,24 @@
 
   <div class="price__current {% if emphasize_price %}price__current--emphasize{% endif %} {% if on_sale %}price__current--on-sale{% endif %}" data-price-container>
     {%- capture price_html -%}
+    {% if product.tags contains 'gated-price-exempt' %}
       <span class="money" data-price>
         {{ price | money }}
       </span>
+
+    {% elsif customer and customer.tags contains 'pending' %}
+      <span class="price-gated-message">
+        Fill up form to View Price
+      </span>
+
+    {% elsif customer %}
+      <span class="money" data-price>
+        {{ price | money }}
+      </span>
+
+    {% else %}
+        Sign-In to View Price
+    {% endif %}
     {%- endcapture -%}
 
     {% capture current_price_range_html %}

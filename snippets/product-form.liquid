@@ -568,38 +568,71 @@
         {% assign variant_available = false %}
       {% endif %}
 
-      <button
-        class="
-          product-form--atc-button
+      {% capture 'atc_button' %}
+        <button
+          class="
+            product-form--atc-button
+            {% if variant_available == false or product.available == false %}
+              disabled
+            {% endif %}
+          "
+          type="submit"
           {% if variant_available == false or product.available == false %}
             disabled
           {% endif %}
-        "
-        type="submit"
-        {% if variant_available == false or product.available == false %}
-          disabled
-        {% endif %}
-        data-product-atc
-        {% if product.template_suffix contains 'pre-order' %}
-          data-product-atc-preorder
-        {% endif %}
-      >
-        <span class="atc-button--text">
-          {% unless variant_available == false or product.available == false %}
+          data-product-atc
           {% if product.template_suffix contains 'pre-order' %}
-              {{ 'product.buttons.pre_order' | t }}
+            data-product-atc-preorder
+          {% endif %}
+        >
+          <span class="atc-button--text">
+            {% unless variant_available == false or product.available == false %}
+            {% if product.template_suffix contains 'pre-order' %}
+                {{ 'product.buttons.pre_order' | t }}
+              {% else %}
+                {{ 'product.buttons.add_to_cart' | t }}
+              {% endif %}
             {% else %}
-              {{ 'product.buttons.add_to_cart' | t }}
-            {% endif %}
-          {% else %}
-            {{ 'product.buttons.sold_out' | t }}
-          {% endunless %}
-        </span>
-        <span class="atc-button--icon">
-          {%- render 'icon-spinner' -%}
-        </span>
-      </button>
+              {{ 'product.buttons.sold_out' | t }}
+            {% endunless %}
+          </span>
+          <span class="atc-button--icon">
+            {%- render 'icon-spinner' -%}
+          </span>
+        </button>
+      {% endcapture %}
+      {% if product.tags contains 'gated-price-exempt' %}
+        {{ atc_button }}
 
+      {% elsif customer and customer.tags contains 'pending' %}
+        <a
+          href="/pages/profile?view=profile"
+          class="product-form--atc-button"
+          data-product-atc
+        >
+          <span class="atc-button--text">
+            Fill up form to View Price
+          </span>
+        </a>
+
+      {% elsif customer %}
+        {{ atc_button }}
+
+      {% else %}
+        <a
+          href="{{ routes.account_login_url }}"
+          class="product-form--atc-button"
+          data-product-atc
+          target="_blank"
+        >
+          <span class="atc-button--text">
+            Sign in to view price
+          </span>
+          <span class="atc-button--icon">
+            {%- render 'icon-spinner' -%}
+          </span>
+        </a>
+      {% endif %}
       {% if show_dynamic_checkout_button %}
         {{ form | payment_button }}
       {% endif %}

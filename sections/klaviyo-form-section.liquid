@@ -1,0 +1,326 @@
+<div class="klaviyo-form-section">
+  <div class="klaviyo-form-content">
+    {% if section.settings.heading != blank %}
+      <div class="klaviyo-heading" style="text-align: {{ section.settings.heading_alignment }};">
+        <h2 style="font-size: {{ section.settings.heading_font_size_desktop }}px;">{{ section.settings.heading }}</h2>
+      </div>
+    {% endif %}
+
+    {% if section.settings.body_text != blank %}
+      <div class="klaviyo-body" style="text-align: {{ section.settings.body_alignment }};">
+        <p style="font-size: {{ section.settings.body_font_size_desktop }}px;">{{ section.settings.body_text }}</p>
+      </div>
+    {% endif %}
+
+    {% if section.settings.klaviyo_shortcode != blank %}
+      <div class="klaviyo-form-container" style="width: {{ section.settings.form_width }}%;">
+        {{ section.settings.klaviyo_shortcode }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .shopify-section.Dynamic-klaviyo-section {
+    position: absolute;
+    opacity: 0;
+    background-image: url({{ section.settings.klaviyo_background_image | img_url: 'master' }});
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+  }
+
+  .klaviyo-form-section {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .klaviyo-form-content {
+    max-width: 1350px;
+    margin: 0 auto;
+  }
+
+  .klaviyo-heading {
+    margin-bottom: 20px;
+  }
+
+  .klaviyo-heading h2 {
+    margin: 0;
+    line-height: 1.2;
+    font-family: "Outfit", sans-serif;
+    font-weight: 700;
+    color: white;
+  }
+
+  .klaviyo-body {
+    margin-bottom: 30px;
+  }
+
+  .klaviyo-body p {
+    margin: 0;
+    line-height: 1.6;
+    color: white;
+  }
+
+  .klaviyo-form-container {
+    margin: 0 auto;
+  }
+
+  /* Desktop Font Sizes */
+  @media (min-width: 769px) {
+    .klaviyo-heading h2 {
+      font-size: {{ section.settings.heading_font_size_desktop }}px !important;
+    }
+
+    .klaviyo-body p {
+      font-size: {{ section.settings.body_font_size_desktop }}px !important;
+    }
+  }
+
+  /* Mobile Responsive Font Sizes */
+  @media (max-width: 768px) {
+    .klaviyo-heading h2 {
+      font-size: {{ section.settings.heading_font_size_mobile }}px !important;
+    }
+
+    .klaviyo-body p {
+      font-size: {{ section.settings.body_font_size_mobile }}px !important;
+    }
+  }
+
+  /* Applied via JS: non-serviceable location state */
+  .shopify-section.Dynamic-klaviyo-section.non-serviceable {
+    position: relative !important;
+    opacity: 1 !important;
+  }
+
+  .homepage-slideshow.hidden-non-serviceable {
+    display: none !important;
+  }
+</style>
+
+<script>
+  (function () {
+    // Serviceable locations list (same as location-bar.liquid)
+    const SERVICEABLE_LOCATIONS = ['king','snohomish','skagit','island','whatcom','san juan','chelan','okanogan','douglas','kittitas','grant'];
+
+    function normalizeLocation(value) {
+      if (!value) return '';
+      return value.toString().toLowerCase().replace(/\s*county\s*$/, '').trim();
+    }
+
+    function getLocationData() {
+      try {
+        const raw = localStorage.getItem('daprdan_location_v1');
+        console.log('[klaviyo-form] raw localStorage:', raw);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        console.log('[klaviyo-form] parsed locationData:', parsed);
+        return parsed;
+      } catch (error) {
+        console.log('[klaviyo-form] error parsing location data:', error);
+        return null;
+      }
+    }
+
+    function isLocationServiceable(locationData) {
+      console.log('[klaviyo-form] checking serviceability for:', locationData);
+      if (!locationData) return true; // If no data, show everything (default behavior)
+
+      const candidates = [
+        locationData.county,
+        locationData.city,
+        locationData.province,
+        locationData.country
+      ];
+
+      console.log('[klaviyo-form] candidates raw:', candidates);
+
+      for (let i = 0; i < candidates.length; i++) {
+        const candidate = candidates[i];
+        const normalized = normalizeLocation(candidate);
+        console.log('[klaviyo-form] candidate:', candidate, 'normalized:', normalized);
+
+        if (normalized && SERVICEABLE_LOCATIONS.includes(normalized)) {
+          console.log('[klaviyo-form] location is SERVICEABLE:', normalized);
+          return true;
+        }
+      }
+
+      console.log('[klaviyo-form] location is NOT SERVICEABLE');
+      return false;
+    }
+
+    function applyLocationStyling() {
+      const locationData = getLocationData();
+      const isServiceable = isLocationServiceable(locationData);
+
+      const klaviyoSection = document.querySelector('.shopify-section.Dynamic-klaviyo-section');
+      const homepageSlideshow = document.querySelector('.homepage-slideshow');
+
+      if (isServiceable) {
+        console.log('[klaviyo-form] applying serviceable location styling');
+        // Remove non-serviceable classes
+        if (klaviyoSection) {
+          klaviyoSection.classList.remove('non-serviceable');
+        }
+        if (homepageSlideshow) {
+          homepageSlideshow.classList.remove('hidden-non-serviceable');
+        }
+      } else {
+        console.log('[klaviyo-form] applying non-serviceable location styling');
+        // Add non-serviceable classes
+        if (klaviyoSection) {
+          klaviyoSection.classList.add('non-serviceable');
+        }
+        if (homepageSlideshow) {
+          homepageSlideshow.classList.add('hidden-non-serviceable');
+        }
+      }
+    }
+
+    // Apply styling immediately if DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyLocationStyling);
+    } else {
+      applyLocationStyling();
+    }
+
+    // Re-apply styling when storage changes (from other tabs)
+    window.addEventListener('storage', function (e) {
+      if (e.key === 'daprdan_location_v1') {
+        console.log('[klaviyo-form] location storage changed from another tab, reapplying styling');
+        applyLocationStyling();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Klaviyo Form Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "klaviyo_background_image",
+      "label": "Background Image",
+      "info": "Optional background image for the section"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sign Up for Updates"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body Text",
+      "default": "Enter your description here"
+    },
+    {
+      "type": "select",
+      "id": "body_alignment",
+      "label": "Body Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "textarea",
+      "id": "klaviyo_shortcode",
+      "label": "Klaviyo Form Shortcode",
+      "info": "Paste your Klaviyo form embed code here"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_desktop",
+      "label": "Heading Font Size - Desktop (px)",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading Font Size - Mobile (px)",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "body_font_size_desktop",
+      "label": "Body Font Size - Desktop (px)",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "body_font_size_mobile",
+      "label": "Body Font Size - Mobile (px)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "form_width",
+      "label": "Form Width (%)",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "class": "Dynamic-klaviyo-section",
+  "presets": [
+    {
+      "name": "Klaviyo Form Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

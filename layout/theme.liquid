@@ -105,8 +105,20 @@
         "cart_clear_url": "{{ routes.cart_clear_url }}",
         "product_recommendations_url": "{{ routes.product_recommendations_url }}",
       };
+      window.global = window.global || {};
+      window.global.opencageApiKey = {{ settings.opencage_api_key | json }};
     </script>
     {% comment %}Inject theme-object end{% endcomment %}
+
+    {% comment %} {% if template.name == 'page' and template.suffix == 'profile' %}
+      {% if customer and customer.tags contains "pending" %}
+        <!-- allowed: do nothing -->
+      {% else %}
+        <script>
+          window.location.href = "/";
+        </script>
+      {% endif %}
+    {% endif %} {% endcomment %}
 
   </head>
 

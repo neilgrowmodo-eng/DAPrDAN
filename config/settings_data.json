@@ -110,33 +110,17 @@
     "quickshop_show_vendor": true,
     "content_for_index": [],
     "blocks": {
-      "17151115064775110295": {
-        "type": "shopify://apps/recharge-subscriptions/blocks/recharge-theme/371eed76-0b44-4869-9813-730372ea378e",
-        "disabled": false,
-        "settings": {
-          "color_brand": "#1773B0",
-          "contrast_color": "#FFFFFF",
-          "color_brand_secondary": "#1773B0",
-          "corners": "8px",
-          "app_background": "#f7f7f7",
-          "app_container": 1200,
-          "app_vertical_padding": 32,
-          "images_aspect_ratio": "1",
-          "cards_background": "#FFFFFF",
-          "cards_border_color": "rgba(0,0,0,0)"
-        }
-      },
-      "16798170927650018749": {
-        "type": "shopify://apps/recharge-subscriptions/blocks/storefront-experiences/371eed76-0b44-4869-9813-730372ea378e",
-        "disabled": false,
-        "settings": {}
-      },
       "15390791335168990234": {
         "type": "shopify://apps/addify-dynamic-pricing/blocks/wholesale-tiered-pricing/9ab4b5b0-20a7-4b48-8ce9-803a3d3f63ec",
         "disabled": false,
         "settings": {
           "custom_html": ""
         }
+      },
+      "6097499278999377719": {
+        "type": "shopify://apps/globo-mega-menu/blocks/app-embed/7a00835e-fe40-45a5-a615-2eb4ab697b58",
+        "disabled": false,
+        "settings": {}
       },
       "9776720720251544092": {
         "type": "shopify://apps/helium-customer-fields/blocks/app-embed/bab58598-3e6a-4377-aaaa-97189b15f131",
@@ -148,6 +132,27 @@
           "edit_account_heading": "Edit account",
           "edit_account_back_link_text": "Back to account",
           "enable_js_api": true
+        }
+      },
+      "16798170927650018749": {
+        "type": "shopify://apps/recharge-subscriptions/blocks/storefront-experiences/371eed76-0b44-4869-9813-730372ea378e",
+        "disabled": false,
+        "settings": {}
+      },
+      "17151115064775110295": {
+        "type": "shopify://apps/recharge-subscriptions/blocks/recharge-theme/371eed76-0b44-4869-9813-730372ea378e",
+        "disabled": false,
+        "settings": {
+          "color_brand": "#1773b0",
+          "contrast_color": "#ffffff",
+          "color_brand_secondary": "#1773b0",
+          "corners": "8px",
+          "app_background": "#f7f7f7",
+          "app_container": 1200,
+          "app_vertical_padding": 32,
+          "images_aspect_ratio": "1",
+          "cards_background": "#ffffff",
+          "cards_border_color": "rgba(0,0,0,0)"
         }
       }
     }

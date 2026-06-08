@@ -34991,7 +34991,11 @@ class StickyHeader {
   constructor(options, settings) {
     this.body = document.querySelector('body');
     this.header = document.querySelector('[data-site-header]');
+    this.headerMain = document.querySelector('[data-site-header-main]');
     this.menu = this.header.querySelector('[data-site-navigation]');
+    this.categoryBar = document.querySelector('.category-bar');
+    this.topPromo = document.querySelector('.promo-top');
+    this.bottomPromo = document.querySelector('.promo-bottom');
     this.menuToggle = options.menuToggle;
     this.postMessage = options.postMessage;
     this.settings = settings;
@@ -35000,21 +35004,26 @@ class StickyHeader {
     this.stickyClass = 'site-header-sticky';
     this.scrolledClass = 'site-header-sticky--scrolled';
     this.navOpenClass = 'site-header-nav--open';
-    this.events = new dist_EventHandler/* default */.Z();
+    this.lastScrollY = window.scrollY;
+    this.atTop = true;
+    this.events = new dist_EventHandler.Z();
     this._toggleStickyHeader = this._toggleStickyHeader.bind(this);
     this._toggleMenu = this._toggleMenu.bind(this);
+    this._onScroll = this._onScroll.bind(this);
+
     if (this.settings.sticky_header) {
       this.body.classList.add(this.stickyClass);
       window.requestAnimationFrame(() => {
-        // If browser doesn't support sticky, we don't want any of the sticky functionality.
         if (window.getComputedStyle(this.header).position.indexOf('sticky') > -1) {
-          this.observer = new IntersectionObserver(entries => this._toggleStickyHeader(entries));
-          this.observer.observe(document.querySelector('[data-header-intersection-target]'));
           this.toggleClick = event => {
             event.preventDefault();
             if (Layout.isGreaterThanBreakpoint('M')) this._toggleMenu();
           };
           this.menuToggle.addEventListener('click', this.toggleClick);
+          window.addEventListener('scroll', this._onScroll, { passive: true });
+
+          // Initialize state
+          this._onScroll();
         }
       });
       this._storeHeaderHeight();
@@ -35087,42 +35096,77 @@ class StickyHeader {
     if (ScrollLock.isLocked || !Layout.isGreaterThanBreakpoint('M')) {
       return;
     }
-    const shouldShrink = !entries[0].isIntersecting;
+    this.atTop = entries[0].isIntersecting;
+    console.log('%c[OBSERVER]', 'color:orange', this.atTop ? 'EXPAND (at top)' : 'SHRINK (not at top)', 'scrollY:', window.scrollY);
 
-    // Sticky header is scrolled, is and is visible -- nothing more to do!
-    if (shouldShrink && this.header.classList.contains(this.scrolledClass)) {
-      return;
-    }
-
-    // We also check to make sure the toggle hasnt activated recently to stop jerky transitions
-    if (this.lastToggle + 250 > Date.now()) {
-      return;
-    }
-    this.lastToggle = Date.now();
-    if (shouldShrink) {
-      this._shrink();
-    } else {
+    if (this.atTop) {
       this._expand();
+    } else {
+      this._shrink();
+    }
+  }
+
+  _onScroll() {
+    if (!Layout.isGreaterThanBreakpoint('M')) return;
+
+    const currentY = window.scrollY;
+    const delta = currentY - this.lastScrollY;
+
+    if (Math.abs(delta) < 5 && currentY > 0) return;
+
+    const scrollingUp = delta < 0;
+    const wasAtTop = this.atTop;
+    this.atTop = currentY <= 10; // small tolerance for sub-pixel rendering
+    this.lastScrollY = currentY <= 0 ? 0 : currentY;
+
+    // State transitions
+    if (this.atTop && !wasAtTop) {
+      this._expand();
+      return;
+    }
+
+    if (!this.atTop && wasAtTop) {
+      this._shrink();
+      return;
+    }
+
+    // Mid-page scroll direction handling for category bar
+    if (!this.atTop && this.categoryBar) {
+      if (scrollingUp) {
+        this.categoryBar.classList.remove('header-layer-hidden');
+      } else {
+        this.categoryBar.classList.add('header-layer-hidden');
+      }
     }
   }
   _shrink() {
     this.closeNavigation();
     this.header.classList.add(this.scrolledClass);
+    if (this.topPromo) this.topPromo.classList.add('header-layer-hidden');
+    if (this.bottomPromo) this.bottomPromo.classList.add('header-layer-hidden');
+    if (this.categoryBar) {
+      this.categoryBar.classList.add('category-bar--fixed');
+      this.categoryBar.classList.add('header-layer-hidden');
+    }
     this._storeHeaderHeight();
   }
+
   _expand() {
     this.openNavigation();
     this.header.classList.remove(this.scrolledClass);
     this.menuToggle.classList.remove('active');
-    this._storeHeaderHeight();
+    if (this.topPromo) this.topPromo.classList.remove('header-layer-hidden');
+    if (this.bottomPromo) this.bottomPromo.classList.remove('header-layer-hidden');
+    if (this.categoryBar) {
+      this.categoryBar.classList.remove('category-bar--fixed');
+      this.categoryBar.classList.remove('header-layer-hidden');
+    }
   }
   unload() {
     this.body.classList.remove(this.stickyClass);
     this.body.classList.remove(this.scrolledClass);
-    if (this.observer) {
-      this.observer.disconnect();
-    }
     this.menuToggle.removeEventListener('click', this.toggleClick);
+    window.removeEventListener('scroll', this._onScroll);
     this.events.unregisterAll();
   }
 }
@@ -35255,15 +35299,15 @@ class NavMobile {
     ScrollLock.unlock();
   }
   onBreakpointChange() {
-    if (cjs.min('L') && this.isOpen) {
+    if (this.isOpen) {
       this._close();
     }
   }
   _open(e) {
     e.preventDefault();
-    if (cjs.min('L')) {
-      return;
-    }
+    // if (cjs.min('L')) {
+    //   return;
+    // }
     ScrollLock.lock(this.navPanel);
     if (this.announcementBar) {
       this.announcementBar.style.setProperty('--index-announcement-bar', '1100');

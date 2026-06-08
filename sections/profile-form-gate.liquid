@@ -1,0 +1,380 @@
+{% comment %}
+  Section: Profile Intro Gate
+  Purpose:
+  - Show an introductory/welcome section before the Helium profile form.
+  - CTA hides this section and reveals the target Helium form section/container.
+{% endcomment %}
+
+<section
+  id="ProfileIntroGate-{{ section.id }}"
+  class="profile-intro-gate"
+  data-profile-intro-gate
+  data-target-selector="{{ section.settings.target_selector | escape }}"
+  data-hide-target-on-load="{{ section.settings.hide_target_on_load }}"
+>
+  <div class="profile-intro-gate__inner page-width">
+    <div class="profile-intro-gate__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="profile-intro-gate__eyebrow">
+          {{ section.settings.eyebrow }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="profile-intro-gate__heading">
+          {{ section.settings.heading }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <h2 class="profile-intro-gate__subheading">
+          {{ section.settings.subheading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="profile-intro-gate__text rte">
+          {{ section.settings.text }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <button
+          type="button"
+          class="profile-intro-gate__button button btn button-primary"
+          data-profile-intro-gate-button
+        >
+          {{ section.settings.button_label }}
+        </button>
+      {% endif %}
+    </div>
+    
+    <div class="profile-intro-gate__media" aria-label="Profile introduction media">
+      {% comment %} Debug: output block metadata (hidden by default) to assist troubleshooting in preview {% endcomment %}
+      <div class="profile-intro-gate__debug" style="display:none;">{{ section.blocks | json }}</div>
+
+      {% comment %} Render each media block directly so video isn't dependent on image presence {% endcomment %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+
+          {% when 'image' %}
+            {% if block.settings.image != blank %}
+              <div class="profile-intro-gate__image">
+                {{
+                  block.settings.image
+                  | image_url: width: 1400
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '375, 550, 750, 950, 1100, 1400',
+                    sizes: '(min-width: 990px) 50vw, 100vw',
+                    class: 'profile-intro-gate__image'
+                }}
+              </div>
+            {% endif %}
+
+          {% when 'video' %}
+            {% if block.settings.video != blank %}
+              <div class="profile-intro-gate__media-item profile-intro-gate__media-item--video" {{ block.shopify_attributes }}>
+                {{
+                  block.settings.video
+                  | video_tag:
+                    controls: true,
+                    image_size: '1200x',
+                    playsinline: true,
+                    preload: 'metadata',
+                    class: 'profile-intro-gate__video'
+                }}
+              </div>
+            {% endif %}
+
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #ProfileIntroGate-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    width: 100%;
+    max-width: 750px;
+    margin: auto;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__heading {
+    margin: 0 0 16px;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__subheading {
+    margin: 0 0 16px;
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    line-height: 1.35;
+    font-weight: 500;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__text {
+    margin-bottom: 24px;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__button {
+    cursor: pointer;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__media {
+    display: grid;
+    gap: 20px;
+    width: 100%;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__media-item {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__image,
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__video {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__video-wrapper,
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__media-item--video-only .profile-intro-gate__video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+  }
+
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__video-wrapper iframe,
+  #ProfileIntroGate-{{ section.id }} .profile-intro-gate__media-item--video-only .profile-intro-gate__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #create_customer {
+    display: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    #ProfileIntroGate-{{ section.id }} .profile-intro-gate__inner {
+      gap: 56px;
+    }
+  }
+
+  .profile-intro-gate__media {
+    display: grid;
+    gap: 20px;
+  }
+
+  .profile-intro-gate__media-item {
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  .profile-intro-gate__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .profile-intro-gate__video-wrapper,
+  .profile-intro-gate__media-item--video-only .profile-intro-gate__video-wrapper {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  .profile-intro-gate__video,
+  .profile-intro-gate__media-item--video-only .profile-intro-gate__video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media screen and (max-width: 500px) {
+    #ProfileIntroGate-{{ section.id }} {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+  
+</style>
+
+<script>
+  (function () {
+    const section = document.getElementById('ProfileIntroGate-{{ section.id }}');
+
+    if (!section) return;
+
+    const button = section.querySelector('[data-profile-intro-gate-button]');
+    const targetSelector = section.dataset.targetSelector || '#create_customer';
+
+    function getTargetElement() {
+      try {
+        return document.querySelector(targetSelector);
+      } catch (error) {
+        console.warn('Invalid Profile Intro Gate target selector:', targetSelector);
+        return null;
+      }
+    }
+
+    function showTarget() {
+      const target = getTargetElement();
+
+      if (!target) return;
+
+      target.style.setProperty('display', 'block', 'important');
+      target.removeAttribute('aria-hidden');
+      target.hidden = false;
+
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+
+    function hideIntroSection() {
+      section.style.setProperty('display', 'none', 'important');
+      section.setAttribute('aria-hidden', 'true');
+    }
+
+    if (button) {
+      button.addEventListener('click', function () {
+        hideIntroSection();
+        showTarget();
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Profile intro gate",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Profile setup"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Complete your home profile"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "This profile is for your primary residence or main home."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>We use this information to confirm service availability and personalize your pricing. You only need to complete this profile once. If you have additional buildings or structures, we’ll guide you through the next step later.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "CTA button label",
+      "default": "Get Started"
+    },
+    {
+      "type": "text",
+      "id": "target_selector",
+      "label": "Helium form target selector",
+      "default": "#helium-profile-form",
+      "info": "Add this ID or class to the section/container that holds the Helium form. Example: #helium-profile-form"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_target_on_load",
+      "label": "Hide Helium form on page load",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Shopify-hosted video"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Profile Intro Gate",
+      "blocks": [
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

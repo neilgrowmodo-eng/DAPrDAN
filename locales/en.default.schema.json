@@ -2677,6 +2677,15 @@
         "info": "Minified scripts may improve performance but pose challenges for custom code adjustments."
       }
     },
+    "opencage": {
+      "name": "OpenCage geocoder API",
+      "settings": {
+        "api_key": {
+          "label": "API key",
+          "info": "OpenCage API for geocoding"
+        }
+      }
+    },
     "colors": {
       "name": "Colors",
       "header_1": {

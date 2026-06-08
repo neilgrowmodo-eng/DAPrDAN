@@ -12,12 +12,13 @@
     </a>
 
     <div class="mobile-nav-content" data-mobile-nav-content>
-      {%
-        render 'mobile-nav-list',
-        menu: section.settings.menu,
-        blocks: blocks,
-      %}
-
+      <div id="mobile-nav-content">
+        {%
+          render 'mobile-nav-list',
+          menu: section.settings.menu,
+          blocks: blocks,
+        %}
+      </div>
       {% if section.settings.secondary_menu != blank %}
         <span class="mobile-nav-content__border"></span>
         <div class="mobile-nav-content__secondary-menu">

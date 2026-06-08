@@ -578,13 +578,7 @@
             {% endif %}
 
             {% if atc_button %}
-              <div
-                class="
-                  productitem--action
-                  atc--button
-                  {% if atc_display == 'desktop' %}productitem-action--desktop{% endif %}
-                "
-              >
+              {% capture 'quick_buy_button' %}
                 <button
                   class="{{ quick_buy_classes }}"
                   type="button"
@@ -606,6 +600,55 @@
                     {%- render 'icon-spinner' -%}
                   </span>
                 </button>
+              {% endcapture %}
+
+              {% capture 'pending_button' %}
+                <a
+                  href="/pages/profile?view=profile"
+                  class="{{ quick_buy_classes }}"
+                  aria-label="Fill up form"
+                  target="_blank"
+                >
+                  <span class="atc-button--text">
+                    Fill up form
+                  </span>
+                </a>
+              {% endcapture %}
+
+              {% capture 'signin_button' %}
+                <a
+                  href="{{ routes.account_login_url }}"
+                  class="{{ quick_buy_classes }} custom-signin-button"
+                  aria-label="Sign in to view price"
+                  target="_blank"
+                >
+                  <span class="atc-button--text">
+                    Sign in to view price
+                  </span>
+                  <span class="atc-button--icon">
+                    {%- render 'icon-spinner' -%}
+                  </span>
+                </a>
+              {% endcapture %}
+              <div
+                class="
+                  productitem--action
+                  atc--button
+                  {% if atc_display == 'desktop' %}productitem-action--desktop{% endif %}
+                "
+              >
+                {% if product.tags contains 'gated-price-exempt' %}
+                  {{ quick_buy_button }}
+
+                {% elsif customer and customer.tags contains 'pending' %}
+                  {{ pending_button }}
+
+                {% elsif customer %}
+                  {{ quick_buy_button }}
+
+                {% else %}
+                  {{ signin_button }}
+                {% endif %}
               </div>
             {% endif %}
           </div>

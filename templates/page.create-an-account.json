@@ -1,0 +1,227 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {}
+    },
+    "create_account_zLYBgK": {
+      "type": "Create-account",
+      "blocks": {
+        "content_heading_VmqyHc": {
+          "type": "content_heading",
+          "settings": {
+            "heading": "Create An Account"
+          }
+        },
+        "content_body_PXR46B": {
+          "type": "content_body",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum.</p>"
+          }
+        },
+        "content_group_m8pNUH": {
+          "type": "content_group",
+          "settings": {
+            "heading": "Quisque faucibus ex sapien vitae"
+          }
+        },
+        "bullet_item_BgDNrh": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Ad litora torquent per conubia nostra inceptos himenaeos."
+          }
+        },
+        "bullet_item_TbtihT": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Tempus leo eu aenean sed diam urna tempor"
+          }
+        },
+        "bullet_item_kqn7zt": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Ut hendrerit semper vel class aptent taciti sociosqu"
+          }
+        },
+        "bullet_item_YHazCi": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Pulvinar vivamus fringilla lacus nec metus bibendum"
+          }
+        },
+        "bullet_item_8Pp7D9": {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Tempus leo eu aenean sed diam urna tempor"
+          }
+        },
+        "content_group_wcFiAQ": {
+          "type": "content_group",
+          "settings": {
+            "heading": ""
+          }
+        },
+        "logo_image_37pmf9": {
+          "type": "logo_image",
+          "settings": {
+            "logo": "shopify://shop_images/Group_1.png",
+            "logo_label": "3Portals"
+          }
+        },
+        "logo_image_3RkjMj": {
+          "type": "logo_image",
+          "settings": {
+            "logo": "shopify://shop_images/Group_2.png",
+            "logo_label": "Acme Corp"
+          }
+        },
+        "logo_image_MNAbHA": {
+          "type": "logo_image",
+          "settings": {
+            "logo": "shopify://shop_images/altshift.png",
+            "logo_label": "Alt+Shift"
+          }
+        },
+        "logo_image_VmGEjK": {
+          "type": "logo_image",
+          "settings": {
+            "logo": "shopify://shop_images/Company_logo.png",
+            "logo_label": "Capsule"
+          }
+        },
+        "logo_image_Bwbjfh": {
+          "type": "logo_image",
+          "settings": {
+            "logo": "shopify://shop_images/Group_5.png",
+            "logo_label": ""
+          }
+        },
+        "logo_image_HnGqBU": {
+          "type": "logo_image",
+          "settings": {
+            "logo": "shopify://shop_images/Group_7.png",
+            "logo_label": "ennLabs"
+          }
+        },
+        "logo_image_3ECAFL": {
+          "type": "logo_image",
+          "settings": {
+            "logo": "shopify://shop_images/Group_9.png",
+            "logo_label": "GlobalBank"
+          }
+        },
+        "logo_image_jnaQtp": {
+          "type": "logo_image",
+          "settings": {
+            "logo": "shopify://shop_images/Group_6.png",
+            "logo_label": "EasyTax"
+          }
+        },
+        "social_button_iwgzQj": {
+          "type": "social_button",
+          "settings": {
+            "label": "Sign up with Google",
+            "button_link": ""
+          }
+        },
+        "social_button_XEJGU7": {
+          "type": "social_button",
+          "settings": {
+            "label": "Sign up with Microsoft",
+            "button_link": ""
+          }
+        },
+        "social_button_zJQjfw": {
+          "type": "social_button",
+          "settings": {
+            "label": "Sign up with Apple",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "content_heading_VmqyHc",
+        "content_body_PXR46B",
+        "content_group_m8pNUH",
+        "bullet_item_BgDNrh",
+        "bullet_item_TbtihT",
+        "bullet_item_kqn7zt",
+        "bullet_item_YHazCi",
+        "bullet_item_8Pp7D9",
+        "content_group_wcFiAQ",
+        "logo_image_37pmf9",
+        "logo_image_3RkjMj",
+        "logo_image_MNAbHA",
+        "logo_image_VmGEjK",
+        "logo_image_Bwbjfh",
+        "logo_image_HnGqBU",
+        "logo_image_3ECAFL",
+        "logo_image_jnaQtp",
+        "social_button_iwgzQj",
+        "social_button_XEJGU7",
+        "social_button_zJQjfw"
+      ],
+      "name": "Create account two column",
+      "settings": {
+        "color_scheme": "",
+        "form_column_width": 430,
+        "column_gap": 64,
+        "mobile_text_alignment": "left",
+        "form_heading": "Sign Up For Your <br> DAPrDAN Account",
+        "form_text": "<p>Duis aute irure dolor in reprehenderit in voluptate velit.</p>",
+        "email_placeholder": "Enter your email address",
+        "button_label": "Sign up",
+        "show_social_buttons": true,
+        "divider_text": "Or",
+        "helper_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+        "login_label": "Log in",
+        "card_background": "#ffffff",
+        "card_text_color": "#0b2d3a",
+        "form_heading_color": "#0a2b39",
+        "form_text_color": "#414141",
+        "button_background": "#00a9e0",
+        "button_text_color": "#ffffff",
+        "divider_text_color": "#666666",
+        "social_button_text_color": "#0b2d3a",
+        "login_link_color": "#00a9e0",
+        "form_heading_size": 34,
+        "form_text_size": 16,
+        "helper_text_size": 14,
+        "card_padding": 36,
+        "card_radius": 20,
+        "input_radius": 4,
+        "button_radius": 4,
+        "social_button_radius": 4,
+        "content_heading_color": "#0b2d3a",
+        "content_text_color": "#555555",
+        "group_heading_color": "#0b2d3a",
+        "list_text_color": "#0b2d3a",
+        "check_background": "#00a9e0",
+        "check_color": "#ffffff",
+        "content_heading_size": 42,
+        "content_body_size": 16,
+        "group_heading_size": 22,
+        "list_text_size": 16,
+        "check_radius": 4,
+        "logo_max_width": 100,
+        "logo_opacity": 100,
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "main",
+    "create_account_zLYBgK"
+  ]
+}

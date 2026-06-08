@@ -11,12 +11,13 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {}
     },
-    "17794361062520c0eb": {
+    "1779435904242b80b0": {
       "type": "apps",
       "blocks": {
-        "helium_customer_fields_app_block_x78GFw": {
+        "helium_customer_fields_app_block_Ah44ki": {
           "type": "shopify://apps/helium-customer-fields/blocks/app-block/bab58598-3e6a-4377-aaaa-97189b15f131",
           "settings": {
             "form_id": "JmtVvK",
@@ -27,7 +28,7 @@
         }
       },
       "block_order": [
-        "helium_customer_fields_app_block_x78GFw"
+        "helium_customer_fields_app_block_Ah44ki"
       ],
       "settings": {
         "include_padding": true
@@ -36,6 +37,6 @@
   },
   "order": [
     "main",
-    "17794361062520c0eb"
+    "1779435904242b80b0"
   ]
 }

@@ -11,50 +11,48 @@
   "type": "header",
   "name": "Header",
   "sections": {
+    "location_bar_hgnfMt": {
+      "type": "location-bar",
+      "name": "Location announcement",
+      "settings": {
+        "announcement_success_text": "",
+        "announcement_failure_text": "<p><strong>Viewing from {City, State}. DAPrDAN currently protects homes across the Pacific Northwest — and we're expanding. [Join the waitlist →]</strong></p>",
+        "allowed_locations": "king county, snohomish county, skagit county, island county, whatcom county, san juan county, chelan, okanogan, douglas, kittitas, grant",
+        "background_color": "#f4f4f5",
+        "text_color": "#111827"
+      }
+    },
     "announcement-bar": {
       "type": "static-announcement",
       "settings": {
         "show_announcement": true,
         "homepage_announcement": false,
-        "announcement_text": "Join DAPrDAN Today and Maintain Your Home All Year.",
+        "announcement_text": "<strong>Spring Special: Get $100 off your membership!</strong> For new members. Terms apply. <a href=\"#\" title=\"#\"><strong>Apply Now</strong></a>",
         "announcement_text_mobile": "",
-        "announcement_link": "",
         "announcement_color": "#ffffff",
-        "announcement_background": "#00a1e0"
-      }
-    },
-    "utility-bar": {
-      "type": "static-utility-bar",
-      "settings": {
-        "use_full_width": true,
-        "background_color": "#ffffff",
-        "link_color": "#414141",
-        "link_hover_color": "#00a1e0",
-        "border_color": "rgba(0,0,0,0)",
-        "menu": "secondary-menu",
-        "show_menu_mobile": true,
-        "mobile_layout": "below",
-        "show_locale_selector": true,
-        "show_currency_selector": true,
-        "show_social_icons": true
+        "announcement_background": "#313131",
+        "announcement_class": "promo-top"
       }
     },
     "header": {
       "type": "static-header",
+      "custom_css": [
+        ".site-header-main {background-color: #ffffff;}"
+      ],
       "settings": {
         "sticky_header": true,
         "full_width_header": true,
         "logo": "shopify://shop_images/daprdan-logo.png",
         "logo_height": 40,
         "logo_width": 153,
-        "filter_search_by": "product_type",
+        "filter_search_by": "disabled",
         "enable_live_search": true,
         "show_mobile_search_bar": false,
-        "enable_live_search_images": true,
+        "enable_live_search_images": false,
         "quick_links": "",
-        "menu": "menu-desktop",
+        "menu": "",
         "secondary_menu": "",
-        "location_menu": "location",
+        "location_menu": "",
         "small_promo_heading": "Call Us M-F, 8A-5P",
         "small_promo_text": "<p>(425) 659-3009</p>",
         "small_promo_text_mobile": "",
@@ -64,11 +62,41 @@
         "custom_button_label": "REGISTER",
         "custom_button_link": "#"
       }
+    },
+    "utility-bar": {
+      "type": "static-utility-bar",
+      "settings": {
+        "use_full_width": true,
+        "navigation_menu_id": "collectionNav",
+        "background_color": "#f1f3f6",
+        "link_color": "#414141",
+        "link_hover_color": "#00a1e0",
+        "border_color": "rgba(0,0,0,0)",
+        "menu": "secondary-menu",
+        "show_menu_mobile": true,
+        "mobile_layout": "below",
+        "custom_button_text": "",
+        "custom_button_url": ""
+      }
+    },
+    "static_announcement_EGhfRb": {
+      "type": "static-announcement",
+      "settings": {
+        "show_announcement": true,
+        "homepage_announcement": false,
+        "announcement_text": "Not sure which plan fits your home? <a href=\"#\" title=\"#\"><strong>Find your perfect plan in 2 minutes</strong></a>",
+        "announcement_text_mobile": "",
+        "announcement_color": "#ffffff",
+        "announcement_background": "#00a1e0",
+        "announcement_class": "promo-bottom"
+      }
     }
   },
   "order": [
+    "location_bar_hgnfMt",
     "announcement-bar",
+    "header",
     "utility-bar",
-    "header"
+    "static_announcement_EGhfRb"
   ]
 }

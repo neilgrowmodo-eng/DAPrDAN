@@ -11,9 +11,10 @@
   "sections": {
     "dynamic_custom_liquid_KE6Nwf": {
       "type": "dynamic-custom-liquid",
+      "disabled": true,
       "name": "t:sections.custom_liquid.presets.custom_liquid.name",
       "settings": {
-        "custom_liquid": "{% if customer and customer.default_address %}\n  <div class=\"location-banner\">\n    Delivering to {{ customer.default_address.city }}, {{ customer.default_address.province }} {{ customer.default_address.zip }}\n  </div>\n\n<style>\n.location-banner {\n    background-color: #00a1e0;\n    color: white;\n    padding: 25px 50px;\n    width: 100%;\n}\n</style>\n{% endif %}"
+        "custom_liquid": "<div class=\"location-banner\">\n    Unfortunately, we do not offer our services to California\n  </div>\n\n<style>\n.location-banner {\n    background-color: #00a1e0;\n    color: white;\n    padding: 25px 50px;\n    width: 100%;\n}\n</style>"
       }
     },
     "custom_dynamic_slideshow_8CYVaY": {
@@ -60,7 +61,7 @@
         "slideshow_height": "medium",
         "slideshow_height_mobile": "x-large",
         "slideshow_text_below_image": false,
-        "custom_class": ""
+        "custom_class": "homepage-slideshow"
       }
     },
     "dynamic_highlights_banner": {

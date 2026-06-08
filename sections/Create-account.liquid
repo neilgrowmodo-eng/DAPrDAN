@@ -1,0 +1,1048 @@
+{{ 'component-rte.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .create-account-section {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__grid {
+    display: flex;
+    /* grid-template-columns: minmax(280px, {{ section.settings.form_column_width }}px) minmax(0, 1fr); */
+    gap: {{ section.settings.column_gap }}px;
+    max-width: 1280px;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: 0 20px;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__card {
+    background: {{ section.settings.card_background }};
+    color: {{ section.settings.card_text_color }};
+    border-radius: {{ section.settings.card_radius }}px;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.12);
+    padding: {{ section.settings.card_padding }}px;
+    max-width: 530px;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__form-heading {
+    margin: 0 0 12px;
+    color: {{ section.settings.form_heading_color }};
+    font-size: {{ section.settings.form_heading_size }}px;
+    line-height: 1.1;
+    font-family: "Outfit", sans-serif;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__form-text {
+    margin: 0 0 18px;
+    color: {{ section.settings.form_text_color }};
+    font-size: {{ section.settings.form_text_size }}px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__field {
+    margin-bottom: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__input {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 18px;
+    border: 1px solid #D0D0D0;
+    border-radius: {{ section.settings.input_radius }}px;
+    font-size: 16px;
+    background: #fff;
+    color: #121212;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__button {
+    width: 100%;
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: {{ section.settings.button_radius }}px;
+    background: {{ section.settings.button_background }};
+    color: {{ section.settings.button_text_color }};
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Nunito Sans", sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0 6px;
+    color: {{ section.settings.divider_text_color }};
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__divider::before,
+  #shopify-section-{{ section.id }} .create-account-section__divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(var(--color-foreground), 0.14);
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__helper-text {
+    margin: 0 0 18px;
+    color: {{ section.settings.form_text_color }};
+    font-size: {{ section.settings.helper_text_size }}px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__social-link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid rgba(var(--color-foreground), 0.18);
+    border-radius: {{ section.settings.social_button_radius }}px;
+    background: #fff;
+    color: {{ section.settings.social_button_text_color }};
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__social-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__login {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    color: {{ section.settings.login_link_color }};
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__content {
+    color: {{ section.settings.content_text_color }};
+    max-width: 530px;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__heading {
+    margin: 0 0 16px;
+    color: {{ section.settings.content_heading_color }};
+    font-size: {{ section.settings.content_heading_size }}px;
+    line-height: 1.10;
+    font-family: "Outfit", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__body {
+    max-width: 650px;
+    margin: 0 0 28px;
+    color: {{ section.settings.content_text_color }};
+    font-size: {{ section.settings.content_body_size }}px;
+    line-height: 1.65;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__group {
+    margin-top: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__group-heading {
+    margin: 0 0 14px;
+    color: {{ section.settings.group_heading_color }};
+    font-size: {{ section.settings.group_heading_size }}px;
+    line-height: 1.25;
+    font-family: "Outfit", sans-serif;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__list {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: {{ section.settings.list_text_color }};
+    font-size: {{ section.settings.list_text_size }}px;
+    line-height: 1.45;
+  }
+/* 
+  #shopify-section-{{ section.id }} .create-account-section__check {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    margin-top: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ section.settings.check_radius }}px;
+    background: {{ section.settings.check_background }};
+    color: {{ section.settings.check_color }};
+    font-size: 10px;
+    line-height: 1;
+  } */
+
+  #shopify-section-{{ section.id }} .create-account-section__logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 28px;
+    margin-top: 36px;
+  }
+
+  #shopify-section-{{ section.id }} .create-account-section__logo {
+    max-width: {{ section.settings.logo_max_width }}px;
+    height: auto;
+    display: block;
+    opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
+  }
+
+  #shopify-section-{{ section.id }} h1 {
+    font-family: var(--font-heading-family);
+  }
+
+  .create-account-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin: 24px 0 16px;
+  }
+
+  .create-account-divider__line {
+    flex: 1;
+    height: 1px;
+    background-color: #e5e5e5;
+  }
+
+  .create-account-divider__text {
+    color: #5f6368;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .create-account-section__grid {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .create-account-section__card {
+      max-width: 580px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .create-account-section__content {
+      text-align: {{ section.settings.mobile_text_alignment }};
+    }
+
+    #shopify-section-{{ section.id }} .create-account-section__body {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #shopify-section-{{ section.id }} .create-account-section__list-item {
+      justify-content: {% if section.settings.mobile_text_alignment == 'center' %}center{% else %}flex-start{% endif %};
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .create-account-section__logos {
+      justify-content: {% if section.settings.mobile_text_alignment == 'center' %}center{% else %}flex-start{% endif %};
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .create-account-section {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    #shopify-section-{{ section.id }} .create-account-section__card {
+      padding: {{ section.settings.card_padding | times: 0.75 | round: 0 }}px;
+    }
+
+    #shopify-section-{{ section.id }} .create-account-section__form-heading {
+      font-size: {{ section.settings.form_heading_size | times: 0.82 | round: 0 }}px;
+    }
+
+    #shopify-section-{{ section.id }} .create-account-section__heading {
+      font-size: {{ section.settings.content_heading_size | times: 0.8 | round: 0 }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="create-account-section color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    <div class="create-account-section__grid">
+      <div class="create-account-section__card">
+        {%- if section.settings.form_heading != blank -%}
+          <h1 class="create-account-section__form-heading">
+            {{ section.settings.form_heading }}
+          </h1>
+        {%- endif -%}
+
+        {%- if section.settings.form_text != blank -%}
+          <div class="create-account-section__form-text rte">
+            {{ section.settings.form_text }}
+          </div>
+        {%- endif -%}
+
+        {%- form 'create_customer', novalidate: 'novalidate' -%}
+          {%- if form.errors -%}
+            <div class="form__message" tabindex="-1" autofocus>
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+
+          <div class="create-account-section__field">
+            <input
+              type="email"
+              name="customer[email]"
+              id="RegisterForm-email-{{ section.id }}"
+              class="create-account-section__input"
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="email"
+              aria-required="true"
+              placeholder="{{ section.settings.email_placeholder }}"
+              value="{{ form.email }}"
+              {% if form.errors contains 'email' %}
+                aria-invalid="true"
+                aria-describedby="RegisterForm-email-error-{{ section.id }}"
+              {% endif %}
+            >
+          </div>
+          
+          <button class="create-account-section__button">
+            {{ section.settings.button_label }}
+          </button>
+        {%- endform -%}
+
+        {%- if section.settings.show_social_buttons -%}
+          <div class="create-account-divider">
+            <span class="create-account-divider__line"></span>
+            <span class="create-account-divider__text">
+              {{ section.settings.divider_text }}
+            </span>
+            <span class="create-account-divider__line"></span>
+          </div>
+
+          {%- if section.settings.helper_text != blank -%}
+            <div class="create-account-section__helper-text rte">
+              {{ section.settings.helper_text }}
+            </div>
+          {%- endif -%}
+
+        {%- endif -%}
+
+        {%- if section.settings.login_label != blank -%}
+          <a class="create-account-section__login" href="{{ routes.account_login_url }}">
+            {{ section.settings.login_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="create-account-section__content">
+        {%- assign group_open = false -%}
+        {%- assign list_open = false -%}
+        {%- assign logos_open = false -%}
+
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'content_heading' -%}
+              {%- if list_open -%}
+                </ul>
+                {%- assign list_open = false -%}
+              {%- endif -%}
+
+              {%- if logos_open -%}
+                </div>
+                {%- assign logos_open = false -%}
+              {%- endif -%}
+
+              {%- if group_open -%}
+                </div>
+                {%- assign group_open = false -%}
+              {%- endif -%}
+
+              {%- if block.settings.heading != blank -%}
+                <h2 class="create-account-section__heading" {{ block.shopify_attributes }}>
+                  {{ block.settings.heading }}
+                </h2>
+              {%- endif -%}
+
+            {%- when 'content_body' -%}
+              {%- if list_open -%}
+                </ul>
+                {%- assign list_open = false -%}
+              {%- endif -%}
+
+              {%- if logos_open -%}
+                </div>
+                {%- assign logos_open = false -%}
+              {%- endif -%}
+
+              {%- if block.settings.text != blank -%}
+                <div class="create-account-section__body rte" {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </div>
+              {%- endif -%}
+
+            {%- when 'content_group' -%}
+              {%- if list_open -%}
+                </ul>
+                {%- assign list_open = false -%}
+              {%- endif -%}
+
+              {%- if logos_open -%}
+                </div>
+                {%- assign logos_open = false -%}
+              {%- endif -%}
+
+              {%- if group_open -%}
+                </div>
+              {%- endif -%}
+
+              <div class="create-account-section__group" {{ block.shopify_attributes }}>
+                {%- assign group_open = true -%}
+
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="create-account-section__group-heading">
+                    {{ block.settings.heading }}
+                  </h3>
+                {%- endif -%}
+
+            {%- when 'bullet_item' -%}
+              {%- unless group_open -%}
+                <div class="create-account-section__group">
+                  {%- assign group_open = true -%}
+              {%- endunless -%}
+
+              {%- if logos_open -%}
+                </div>
+                {%- assign logos_open = false -%}
+              {%- endif -%}
+
+              {%- unless list_open -%}
+                <ul class="create-account-section__list">
+                {%- assign list_open = true -%}
+              {%- endunless -%}
+
+              <li class="create-account-section__list-item" {{ block.shopify_attributes }}>
+                <span class="create-account-section__check" aria-hidden="true"><img src="https://cdn.shopify.com/s/files/1/0765/8304/3358/files/Checkbox_base.png?v=1779346585" alt="Checkbox"></span>
+                <span>{{ block.settings.text }}</span>
+              </li>
+
+            {%- when 'logo_image' -%}
+              {%- unless group_open -%}
+                <div class="create-account-section__group">
+                  {%- assign group_open = true -%}
+              {%- endunless -%}
+
+              {%- if list_open -%}
+                </ul>
+                {%- assign list_open = false -%}
+              {%- endif -%}
+
+              {%- unless logos_open -%}
+                <div class="create-account-section__logos">
+                {%- assign logos_open = true -%}
+              {%- endunless -%}
+
+              {%- if block.settings.logo != blank -%}
+                {{
+                  block.settings.logo
+                  | image_url: width: 300
+                  | image_tag:
+                    class: 'create-account-section__logo',
+                    loading: 'lazy',
+                    alt: block.settings.logo.alt | default: block.settings.logo_label
+                }}
+              {%- elsif block.settings.logo_label != blank -%}
+                <span class="create-account-section__logo-text" {{ block.shopify_attributes }}>
+                  {{ block.settings.logo_label }}
+                </span>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+
+        {%- if list_open -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if logos_open -%}
+          </div>
+        {%- endif -%}
+
+        {%- if group_open -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Create account two column",
+  "class": "section-create-account-two-column",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "form_column_width",
+      "min": 320,
+      "max": 560,
+      "step": 10,
+      "unit": "px",
+      "label": "Form card width",
+      "default": 430
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Column gap",
+      "default": 64
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_alignment",
+      "label": "Mobile text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Form card"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Sign Up For Your DAPrDAN Account"
+    },
+    {
+      "type": "richtext",
+      "id": "form_text",
+      "label": "Form text",
+      "default": "<p>Duis aute irure dolor in reprehenderit in voluptate velit.</p>"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Submit button label",
+      "default": "Sign up"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_buttons",
+      "label": "Show social sign up buttons",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "divider_text",
+      "label": "Divider text",
+      "default": "Or"
+    },
+    {
+      "type": "richtext",
+      "id": "helper_text",
+      "label": "Helper text",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+    },
+    {
+      "type": "text",
+      "id": "login_label",
+      "label": "Login label",
+      "default": "Log in"
+    },
+    {
+      "type": "header",
+      "content": "Form styling"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#0b2d3a"
+    },
+    {
+      "type": "color",
+      "id": "form_heading_color",
+      "label": "Form heading color",
+      "default": "#0b2d3a"
+    },
+    {
+      "type": "color",
+      "id": "form_text_color",
+      "label": "Form body text color",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#00a9e0"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "divider_text_color",
+      "label": "Divider text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "social_button_text_color",
+      "label": "Social button text color",
+      "default": "#0b2d3a"
+    },
+    {
+      "type": "color",
+      "id": "login_link_color",
+      "label": "Login link color",
+      "default": "#00a9e0"
+    },
+    {
+      "type": "range",
+      "id": "form_heading_size",
+      "min": 18,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Form heading size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "form_text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Form text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "helper_text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Helper text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 20,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Card corner radius",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "input_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Input corner radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button corner radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "social_button_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Social button corner radius",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Right content styling"
+    },
+    {
+      "type": "color",
+      "id": "content_heading_color",
+      "label": "Content heading color",
+      "default": "#0b2d3a"
+    },
+    {
+      "type": "color",
+      "id": "content_text_color",
+      "label": "Content body color",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "group_heading_color",
+      "label": "Group heading color",
+      "default": "#0b2d3a"
+    },
+    {
+      "type": "color",
+      "id": "list_text_color",
+      "label": "Bullet list text color",
+      "default": "#0b2d3a"
+    },
+    {
+      "type": "color",
+      "id": "check_background",
+      "label": "Check icon background",
+      "default": "#00a9e0"
+    },
+    {
+      "type": "color",
+      "id": "check_color",
+      "label": "Check icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "content_heading_size",
+      "min": 24,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "label": "Content heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "content_body_size",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Content body size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "group_heading_size",
+      "min": 16,
+      "max": 42,
+      "step": 1,
+      "unit": "px",
+      "label": "Group heading size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "list_text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Bullet text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "check_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Check icon radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 50,
+      "max": 180,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo max width",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "logo_opacity",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Logo opacity",
+      "default": 55
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content_heading",
+      "name": "Header",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Create An Account"
+        }
+      ]
+    },
+    {
+      "type": "content_body",
+      "name": "Body",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.</p>"
+        }
+      ]
+    },
+    {
+      "type": "content_group",
+      "name": "Group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Group heading",
+          "default": "Quisque faucibus ex sapien vitae"
+        }
+      ]
+    },
+    {
+      "type": "bullet_item",
+      "name": "Bullet item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Ad litora torquent per conubia nostra inceptos himenaeos."
+        }
+      ]
+    },
+    {
+      "type": "logo_image",
+      "name": "Logo image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "logo_label",
+          "label": "Logo label / fallback text"
+        }
+      ]
+    },
+    {
+      "type": "social_button",
+      "name": "Social sign up button",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Button label",
+          "default": "Sign up with Google"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Create account two column",
+      "blocks": [
+        {
+          "type": "content_heading"
+        },
+        {
+          "type": "content_body"
+        },
+        {
+          "type": "content_group"
+        },
+        {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Ad litora torquent per conubia nostra inceptos himenaeos."
+          }
+        },
+        {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Tempus leo eu aenean sed diam urna tempor"
+          }
+        },
+        {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Ut hendrerit semper vel class aptent taciti sociosqu"
+          }
+        },
+        {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Pulvinar vivamus fringilla lacus nec metus bibendum"
+          }
+        },
+        {
+          "type": "bullet_item",
+          "settings": {
+            "text": "Tempus leo eu aenean sed diam urna tempor"
+          }
+        },
+        {
+          "type": "logo_image",
+          "settings": {
+            "logo_label": "3Portals"
+          }
+        },
+        {
+          "type": "logo_image",
+          "settings": {
+            "logo_label": "Acme Corp"
+          }
+        },
+        {
+          "type": "logo_image",
+          "settings": {
+            "logo_label": "Alt+Shift"
+          }
+        },
+        {
+          "type": "logo_image",
+          "settings": {
+            "logo_label": "Capsule"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

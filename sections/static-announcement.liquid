@@ -31,8 +31,9 @@
       class="
         announcement-bar
         {% if section.settings.announcement_text == blank and section.settings.announcement_text_mobile != blank %}
-          only-mobile
+          only-mobile 
         {% endif %}
+        {{ section.settings.announcement_class }}
       "
       style="
         color: {{ section.settings.announcement_color }};
@@ -87,20 +88,15 @@
     },
     {
       "id": "announcement_text",
-      "type": "textarea",
+      "type": "inline_richtext",
       "label": "t:sections.announcement_bar.announcement_text.label",
       "default": "Announce something here"
     },
     {
       "id": "announcement_text_mobile",
-      "type": "textarea",
+      "type": "inline_richtext",
       "label": "t:sections.announcement_bar.announcement_text_mobile.label",
       "info": "t:sections.announcement_bar.announcement_text_mobile.info"
-    },
-    {
-      "id": "announcement_link",
-      "type": "url",
-      "label": "t:sections.announcement_bar.announcement_link.label"
     },
     {
       "id": "announcement_color",
@@ -113,6 +109,16 @@
       "type": "color",
       "label": "t:sections.announcement_bar.announcement_background.label",
       "default": "#f5f3ed"
+    },
+    {
+      "id": "announcement_class",
+      "type": "text",
+      "label": "Class",
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar"
     }
   ]
 }
