@@ -8,108 +8,330 @@ document.addEventListener("click", function (event) {
     }
 });
 
+
+let opencageApiKey = window.global && window.global.opencageApiKey ? window.global.opencageApiKey : null;
+
 (async function () {
   console.log("=== Location script started ===");
 
-  const openCageApiKey = "e758b7e5c95f4bacaa227eb019cf7ca3";
-  console.log("OpenCage API key loaded:", !!openCageApiKey);
+  // Prefer the element with ID dynamic_location and read customer data from data-attributes
+  const locationMessageElement = document.getElementById("dynamic_location");
 
-  try {
-    console.log("Step 1: Fetching IP-based location from ipapi...");
-    const ipResponse = await fetch("https://ipapi.co/json/");
+  if (!locationMessageElement) {
+    console.warn("#dynamic_location element not found.");
+    return;
+  }
 
-    console.log("ipResponse object:", ipResponse);
-    console.log("ipResponse.ok:", ipResponse.ok);
-    console.log("ipResponse.status:", ipResponse.status);
-    console.log("ipResponse.statusText:", ipResponse.statusText);
+  // When JS lives in an external asset, read Shopify-rendered values from data-attributes
+  const shopifyCustomerCity = locationMessageElement.dataset.customerCity || "";
+  const shopifyCustomerProvince = locationMessageElement.dataset.customerProvince || "";
+  const shopifyCustomerCountry = locationMessageElement.dataset.customerCountry || "";
 
-    if (!ipResponse.ok) {
-      throw new Error(`IP lookup failed with status ${ipResponse.status}`);
+  // Read optional customer county if provided via data-attribute
+  const shopifyCustomerCounty = locationMessageElement.dataset.customerCounty || "";
+
+  console.log("Customer data attributes:", {
+    city: shopifyCustomerCity,
+    province: shopifyCustomerProvince,
+    country: shopifyCustomerCountry,
+    county: shopifyCustomerCounty
+  });
+
+  function buildDisplayLocation(county, city, province, country) {
+    // Prefer county when available, then city, then province, then country
+    if (county) return county;
+    if (city) return city;
+    if (province) return province;
+    if (country) return country;
+    return "Location unavailable";
+  }
+
+  // Priority 1: prefer Shopify customer's county, then city
+  if (shopifyCustomerCounty) {
+    locationMessageElement.textContent = shopifyCustomerCounty;
+    console.log("Using Shopify customer county:", shopifyCustomerCounty);
+    return;
+  }
+
+  if (shopifyCustomerCity) {
+    locationMessageElement.textContent = shopifyCustomerCity;
+    console.log("Using Shopify customer city:", shopifyCustomerCity);
+    return;
+  }
+
+  // Priority 2: IP-based geolocation (fallback)
+  const openCageApiKey = opencageApiKey;
+  const CACHE_KEY = 'daprdan_location_v1';
+  const NEXT_FETCH_KEY = 'daprdan_location_next';
+  const FETCH_LOCK_KEY = 'daprdan_location_lock';
+  const CACHE_TTL = 30 * 60 * 1000; // 30 minutes in ms
+  const LOCK_TTL = 30 * 1000; // 30 seconds in ms
+
+  function readCache() {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) {
+      console.warn('Failed to read location cache', e);
+      return null;
+    }
+  }
+
+  function writeCache(obj) {
+    try {
+      obj._timestamp = Date.now();
+      localStorage.setItem(CACHE_KEY, JSON.stringify(obj));
+    } catch (e) {
+      console.warn('Failed to write location cache', e);
+    }
+  }
+
+  function readNextFetch() {
+    try {
+      const raw = localStorage.getItem(NEXT_FETCH_KEY);
+      if (!raw) return null;
+      const v = Number(raw);
+      return Number.isFinite(v) ? v : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeNextFetch(ts) {
+    try {
+      localStorage.setItem(NEXT_FETCH_KEY, String(ts));
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  function clearNextFetch() {
+    try { localStorage.removeItem(NEXT_FETCH_KEY); } catch (e) { }
+  }
+
+  function readLock() {
+    try {
+      const raw = localStorage.getItem(FETCH_LOCK_KEY);
+      if (!raw) return null;
+      const v = Number(raw);
+      return Number.isFinite(v) ? v : null;
+    } catch (e) { return null; }
+  }
+
+  function setLock() {
+    try {
+      const now = Date.now();
+      const current = readLock();
+      if (current && (now - current) < LOCK_TTL) {
+        return false; // someone else holds a fresh lock
+      }
+      localStorage.setItem(FETCH_LOCK_KEY, String(now));
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function clearLock() {
+    try { localStorage.removeItem(FETCH_LOCK_KEY); } catch (e) { }
+  }
+
+  function isLockActive() {
+    const current = readLock();
+    return current && (Date.now() - current) < LOCK_TTL;
+  }
+
+  async function fetchAndUpdate() {
+    // Try to acquire a lock so multiple tabs won't fetch simultaneously
+    if (!setLock()) {
+      console.log('Fetch skipped: another tab is fetching.');
+      return false;
     }
 
-    const ipData = await ipResponse.json();
-    console.log("Step 2: Parsed IP location JSON:", ipData);
+    try {
+      console.log("Step 1: Fetching IP-based location from ipapi...");
 
-    let city = ipData.city || "your area";
-    let state = ipData.region || "";
-    let country = ipData.country_name || "";
+      const ipResponse = await fetch("https://ipapi.co/json/");
+      console.log("ipResponse:", {
+        ok: ipResponse.ok,
+        status: ipResponse.status,
+        statusText: ipResponse.statusText
+      });
 
-    const lat = ipData.latitude;
-    const lon = ipData.longitude;
+      if (!ipResponse.ok) {
+        throw new Error(`IP lookup failed with status ${ipResponse.status}`);
+      }
 
-    console.log("Initial values from IP lookup:");
-    console.log("city:", city);
-    console.log("state:", state);
-    console.log("country:", country);
-    console.log("latitude:", lat);
-    console.log("longitude:", lon);
+      const ipData = await ipResponse.json();
+      console.log("ipData:", ipData);
 
-    if (lat && lon) {
-      console.log("Step 3: Lat/Lon found, preparing OpenCage reverse geocoding...");
+      let city = ipData.city || "";
+      let province = ipData.region || "";
+      let country = ipData.country_name || "";
+      let county = ipData.county || ""; // ipapi may not provide county, but include if present
 
-      const query = encodeURIComponent(`${lat},${lon}`);
-      console.log("Encoded OpenCage query:", query);
+      console.log("Initial IP values:", { city, province, country, county });
 
-      const openCageUrl = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${openCageApiKey}`;
-      console.log("OpenCage request URL:", openCageUrl);
+      const lat = ipData.latitude;
+      const lon = ipData.longitude;
+      console.log("Coordinates from IP provider:", { lat, lon });
 
-      const geoResponse = await fetch(openCageUrl);
-      console.log("geoResponse object:", geoResponse);
-      console.log("geoResponse.ok:", geoResponse.ok);
-      console.log("geoResponse.status:", geoResponse.status);
-      console.log("geoResponse.statusText:", geoResponse.statusText);
+      let geoData = null;
 
-      if (geoResponse.ok) {
-        const geoData = await geoResponse.json();
-        console.log("Step 4: OpenCage JSON response:", geoData);
+      // Use OpenCage to reverse-geocode when an API key is provided.
+      if (lat && lon && openCageApiKey && openCageApiKey !== "" && openCageApiKey !== "YOUR_OPENCAGE_API_KEY_HERE") {
+        console.log("OpenCage key present; requesting reverse geocode for coordinates.");
 
-        if (geoData.results && geoData.results.length) {
-          console.log("OpenCage results count:", geoData.results.length);
+        const query = encodeURIComponent(`${lat},${lon}`);
+        const openCageUrl = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${openCageApiKey}`;
 
-          const place = geoData.results[0].components || {};
-          console.log("OpenCage first result components:", place);
+        const geoResponse = await fetch(openCageUrl);
+        console.log("geoResponse:", { ok: geoResponse.ok, status: geoResponse.status, statusText: geoResponse.statusText });
 
-          const oldCity = city;
-          const oldState = state;
-          const oldCountry = country;
+        if (geoResponse.ok) {
+          geoData = await geoResponse.json();
+          console.log("OpenCage geoData:", geoData);
 
-          city = place.city || place.town || place.village || city;
-          state = place.state || state;
-          country = place.country || country;
+          if (geoData.results && geoData.results.length) {
+            const place = geoData.results[0].components || {};
+            console.log("OpenCage place components:", place);
 
-          console.log("Updated values after OpenCage:");
-          console.log("city:", oldCity, "->", city);
-          console.log("state:", oldState, "->", state);
-          console.log("country:", oldCountry, "->", country);
+            // Capture county when available from OpenCage
+            county = place.county || place.state_district || county || "";
+            city = place.city || place.town || place.village || city;
+            province = place.state || province;
+            country = place.country || country;
+
+            console.log("Updated values after OpenCage:", { county, city, province, country });
+          } else {
+            console.warn("OpenCage returned no usable results.");
+          }
         } else {
-          console.warn("OpenCage returned no usable results.");
+          console.warn("OpenCage request failed. Using IP-based location.");
         }
       } else {
-        console.warn("OpenCage request failed, keeping IP-based location values.");
+        console.log("Skipping OpenCage reverse geocode (missing coords or API key).");
       }
-    } else {
-      console.warn("No latitude/longitude returned from IP lookup, skipping OpenCage.");
+
+      const chosen = buildDisplayLocation(county, city, province, country);
+
+      // Write cache and update DOM
+      writeCache({ city, province, country, county, lat, lon, ipData, geoData });
+      clearNextFetch();
+      locationMessageElement.textContent = chosen;
+
+      console.log("Final chosen location to display:", chosen);
+      return true;
+    } catch (error) {
+      console.error("Location lookup failed:", error);
+
+      // On failure, schedule a retry after LOCK_TTL to avoid thundering
+      const retryAt = Date.now() + LOCK_TTL;
+      writeNextFetch(retryAt);
+      return false;
+    } finally {
+      // Release lock so other tabs can attempt
+      clearLock();
     }
-
-    const locationMessage = `We are serving customers in ${city}${state ? ", " + state : ""}${country ? ", " + country : ""}.`;
-    console.log("Step 5: Final location message:", locationMessage);
-
-    const locationMessageElement = document.getElementById("location-message");
-    console.log("locationMessageElement:", locationMessageElement);
-
-    if (locationMessageElement) {
-      console.log("Step 6: Writing message into #location-message");
-      locationMessageElement.textContent = locationMessage;
-      console.log("Message successfully written to DOM.");
-    } else {
-      console.warn("Location message element not found!");
-    }
-
-    console.log("=== Location script finished successfully ===");
-  } catch (err) {
-    console.error("=== Location script failed ===");
-    console.error("IP/VPN geolocation error:", err);
   }
+
+  function scheduleFetchAt(ts) {
+    // Ensure we don't schedule multiple timers across tabs
+    const existing = readNextFetch();
+    if (existing && existing <= ts) {
+      // Already have an earlier or equal scheduled time
+      return;
+    }
+
+    writeNextFetch(ts);
+
+    const delay = ts - Date.now();
+    if (delay <= 0) {
+      // time already passed — attempt now
+      attemptFetchIfNotLocked();
+      return;
+    }
+
+    setTimeout(() => {
+      attemptFetchIfNotLocked();
+    }, delay);
+  }
+
+  async function attemptFetchIfNotLocked() {
+    // If another tab is fetching, schedule a retry after LOCK_TTL
+    if (isLockActive()) {
+      console.log('Another tab is fetching; rescheduling after lock TTL.');
+      scheduleFetchAt(Date.now() + LOCK_TTL + 1000);
+      return;
+    }
+
+    const ok = await fetchAndUpdate();
+    if (!ok) {
+      console.log('fetchAndUpdate failed during scheduled attempt; keeping cache or retrying later.');
+    }
+  }
+
+  // Caching logic: if we have cache, use it immediately and schedule a refresh after TTL
+  try {
+    const cache = readCache();
+    if (cache && cache._timestamp) {
+      const age = Date.now() - cache._timestamp;
+      console.log('Found cached location, age(ms):', age, 'cache:', cache);
+
+      const city = cache.city || "";
+      const province = cache.province || "";
+      const country = cache.country || "";
+      const county = cache.county || "";
+
+      const display = buildDisplayLocation(county, city, province, country);
+      locationMessageElement.textContent = display;
+      console.log('Using cached location:', display);
+
+      // If cache is stale, attempt immediate fetch (only if no lock)
+      if (age >= CACHE_TTL) {
+        if (!isLockActive()) {
+          // fetch now in background
+          fetchAndUpdate().then(success => {
+            if (!success) console.log('Background fetch failed; keeping cached value.');
+          });
+        } else {
+          // Another tab is fetching — schedule a retry after lock TTL
+          scheduleFetchAt(Date.now() + LOCK_TTL + 1000);
+        }
+      } else {
+        // Fresh cache: schedule a refresh at the expiry time, unless another schedule exists
+        const remaining = CACHE_TTL - age;
+        const next = Date.now() + remaining;
+        const existingNext = readNextFetch();
+        if (!existingNext) {
+          console.log('Scheduling location refresh in ms:', remaining);
+          scheduleFetchAt(next);
+        } else {
+          console.log('A scheduled refresh already exists at', existingNext);
+        }
+      }
+
+      // Done — we've displayed cached info; do not block further
+      return;
+    }
+
+    // No cache: perform fetch and update immediately (respecting lock)
+    if (isLockActive()) {
+      console.log('Another tab is fetching; scheduling fetch after lock expires.');
+      const lockTs = readLock() || Date.now();
+      scheduleFetchAt(lockTs + LOCK_TTL + 1000);
+    } else {
+      const ok = await fetchAndUpdate();
+      if (!ok) {
+        // If fetch failed and no cache, show fallback
+        locationMessageElement.textContent = "Location unavailable";
+      }
+    }
+  } catch (err) {
+    console.error('Unexpected error in location caching flow', err);
+    locationMessageElement.textContent = "Location unavailable";
+  }
+
+  console.log("=== Location script finished ===");
 })();
 
 
