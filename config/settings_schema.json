@@ -54,6 +54,16 @@
     ]
   },
   {
+    "name": "t:settings_schema.Storefront_API.name",
+    "settings": [
+      {
+        "type": "text",
+        "id": "storefront_api_key",
+        "label": "t:settings_schema.Storefront_API.settings.api_key.label"
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.performance.name",
     "settings": [
       {

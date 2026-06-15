@@ -2686,6 +2686,15 @@
         }
       }
     },
+    "Storefront_API": {
+      "name": "Storefront API access token",
+      "settings": {
+        "api_key": {
+          "label": "Storefront API access token",
+          "info": "Storefront API"
+        }
+      }
+    },
     "colors": {
       "name": "Colors",
       "header_1": {

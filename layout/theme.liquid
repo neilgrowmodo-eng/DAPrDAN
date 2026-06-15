@@ -107,6 +107,7 @@
       };
       window.global = window.global || {};
       window.global.opencageApiKey = {{ settings.opencage_api_key | json }};
+      window.global.storefrontApiKey = {{ settings.storefront_api_key | json }};
     </script>
     {% comment %}Inject theme-object end{% endcomment %}
 

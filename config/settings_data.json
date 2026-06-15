@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "storefront_api_key": "66d9c26627d1a435e5663b3006a64d50",
     "color_background": "#ffffff",
     "color_headings": "#0a2b39",
     "color_text": "#0a2b39",
@@ -154,6 +155,11 @@
           "cards_background": "#ffffff",
           "cards_border_color": "rgba(0,0,0,0)"
         }
+      },
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
       }
     }
   },

@@ -11,7 +11,7 @@
     /* grid-template-columns: minmax(280px, {{ section.settings.form_column_width }}px) minmax(0, 1fr); */
     gap: {{ section.settings.column_gap }}px;
     max-width: 1280px;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     margin: auto;
     padding: 0 20px;
@@ -272,7 +272,7 @@
     }
 
     #shopify-section-{{ section.id }} .create-account-section__logos {
-      justify-content: {% if section.settings.mobile_text_alignment == 'center' %}center{% else %}flex-start{% endif %};
+      justify-content: {% if section.settings.mobile_logo_alignment == 'center' %}center{% else %}flex-start{% endif %};
     }
   }
 
@@ -299,7 +299,7 @@
 <section class="create-account-section color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width">
     <div class="create-account-section__grid">
-      <div class="create-account-section__card">
+      <div class="create-account-section__card" data-custom-customer-create-card>
         {%- if section.settings.form_heading != blank -%}
           <h1 class="create-account-section__form-heading">
             {{ section.settings.form_heading }}
@@ -312,37 +312,46 @@
           </div>
         {%- endif -%}
 
-        {%- form 'create_customer', novalidate: 'novalidate' -%}
-          {%- if form.errors -%}
-            <div class="form__message" tabindex="-1" autofocus>
-              {{ form.errors | default_errors }}
-            </div>
-          {%- endif -%}
-
+        <form
+          id="CustomCustomerCreateForm-{{ section.id }}"
+          class="create-account-section__form"
+          data-custom-customer-create-form
+          novalidate
+        >
+          <div
+            id="CustomCustomerCreateMessage-{{ section.id }}"
+            class="create-account-section__message"
+            data-custom-customer-create-message
+            role="status"
+            aria-live="polite"
+            hidden
+          ></div>
 
           <div class="create-account-section__field">
             <input
               type="email"
-              name="customer[email]"
-              id="RegisterForm-email-{{ section.id }}"
+              id="CustomCustomerCreateEmail-{{ section.id }}"
               class="create-account-section__input"
+              data-custom-customer-create-email
               spellcheck="false"
               autocapitalize="off"
               autocomplete="email"
               aria-required="true"
               placeholder="{{ section.settings.email_placeholder }}"
-              value="{{ form.email }}"
-              {% if form.errors contains 'email' %}
-                aria-invalid="true"
-                aria-describedby="RegisterForm-email-error-{{ section.id }}"
-              {% endif %}
+              required
             >
           </div>
-          
-          <button class="create-account-section__button">
+
+          <button
+            type="submit"
+            id="CustomCustomerCreateSubmit-{{ section.id }}"
+            class="create-account-section__button"
+            data-custom-customer-create-submit
+            data-default-text="{{ section.settings.button_label | escape }}"
+          >
             {{ section.settings.button_label }}
           </button>
-        {%- endform -%}
+        </form>
 
         {%- if section.settings.show_social_buttons -%}
           <div class="create-account-divider">
@@ -358,7 +367,6 @@
               {{ section.settings.helper_text }}
             </div>
           {%- endif -%}
-
         {%- endif -%}
 
         {%- if section.settings.login_label != blank -%}
@@ -482,7 +490,7 @@
                   | image_tag:
                     class: 'create-account-section__logo',
                     loading: 'lazy',
-                    alt: block.settings.logo.alt | default: block.settings.logo_label
+                    alt: 'logo'
                 }}
               {%- elsif block.settings.logo_label != blank -%}
                 <span class="create-account-section__logo-text" {{ block.shopify_attributes }}>
@@ -506,6 +514,223 @@
       </div>
     </div>
   </div>
+<script>
+
+  (function () {
+    let storefrontApiKey = window.global && window.global.storefrontApiKey ? window.global.storefrontApiKey : null;
+    const shopDomain = {{ shop.permanent_domain | json }};
+    const storefrontAccessToken = '';
+    const apiVersion = '2025-10';
+    const endpoint = `https://${shopDomain}/api/${apiVersion}/graphql.json`;
+
+    const customerCreateMutation = `
+      mutation customerCreate($input: CustomerCreateInput!) {
+        customerCreate(input: $input) {
+          customer {
+            firstName
+            lastName
+            email
+            acceptsMarketing
+          }
+          customerUserErrors {
+            field
+            message
+            code
+          }
+        }
+      }
+    `;
+
+    const customerRecoverMutation = `
+      mutation customerRecover($email: String!) {
+        customerRecover(email: $email) {
+          customerUserErrors {
+            field
+            message
+            code
+          }
+        }
+      }
+    `;
+
+    const cards = document.querySelectorAll('[data-custom-customer-create-card]');
+
+    if (!cards.length) return;
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function generateTemporaryPassword() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+      const array = new Uint32Array(32);
+
+      if (window.crypto && window.crypto.getRandomValues) {
+        window.crypto.getRandomValues(array);
+      } else {
+        for (let i = 0; i < array.length; i += 1) {
+          array[i] = Math.floor(Math.random() * chars.length);
+        }
+      }
+
+      let password = 'Aa1!';
+
+      for (let i = 0; i < array.length; i += 1) {
+        password += chars[array[i] % chars.length];
+      }
+
+      return password;
+    }
+
+    function setLoading(submitButton, isLoading) {
+      const defaultText = submitButton.dataset.defaultText || 'Create customer';
+
+      submitButton.disabled = isLoading;
+      submitButton.textContent = isLoading ? 'Creating account...' : defaultText;
+    }
+
+    function showMessage(messageBox, type, message) {
+      messageBox.hidden = false;
+      messageBox.textContent = message;
+      messageBox.classList.remove('is-success', 'is-error');
+      messageBox.classList.add(type === 'success' ? 'is-success' : 'is-error');
+    }
+
+    function getCustomerErrorMessage(errors) {
+      if (!errors || !errors.length) {
+        return 'Something went wrong. Please try again.';
+      }
+
+      return errors.map(function (error) {
+        return error.message;
+      }).join(' ');
+    }
+
+    function hasCustomerErrorCode(errors, code) {
+      return errors.some(function (error) {
+        return error.code === code;
+      });
+    }
+
+    async function sendGraphQLRequest(query, variables) {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': storefrontApiKey
+        },
+        body: JSON.stringify({
+          query: query,
+          variables: variables
+        })
+      });
+
+      return response.json();
+    }
+
+    async function createCustomer(email) {
+      const temporaryPassword = generateTemporaryPassword();
+
+      return sendGraphQLRequest(customerCreateMutation, {
+        input: {
+          email: email,
+          password: temporaryPassword,
+          acceptsMarketing: false
+        }
+      });
+    }
+
+    async function sendPasswordSetupEmail(email) {
+      return sendGraphQLRequest(customerRecoverMutation, {
+        email: email
+      });
+    }
+
+    cards.forEach(function (card) {
+      const form = card.querySelector('[data-custom-customer-create-form]');
+      const emailInput = card.querySelector('[data-custom-customer-create-email]');
+      const submitButton = card.querySelector('[data-custom-customer-create-submit]');
+      const messageBox = card.querySelector('[data-custom-customer-create-message]');
+
+      if (!form || !emailInput || !submitButton || !messageBox) return;
+
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const email = emailInput.value.trim();
+
+        if (!email) {
+          showMessage(messageBox, 'error', 'Please enter your email address.');
+          return;
+        }
+
+        if (!isValidEmail(email)) {
+          showMessage(messageBox, 'error', 'Please enter a valid email address.');
+          return;
+        }
+
+        setLoading(submitButton, true);
+        messageBox.hidden = true;
+
+        try {
+          const createResult = await createCustomer(email);
+
+          const graphQLErrors = createResult?.errors || [];
+          const customerCreate = createResult?.data?.customerCreate;
+          const customer = customerCreate?.customer;
+          const customerUserErrors = customerCreate?.customerUserErrors || [];
+
+          if (graphQLErrors.length) {
+            showMessage(messageBox, 'error', graphQLErrors[0].message || 'GraphQL request failed.');
+            return;
+          }
+
+          if (customerUserErrors.length) {
+            if (hasCustomerErrorCode(customerUserErrors, 'TAKEN')) {
+              showMessage(
+                messageBox,
+                'error',
+                'An account with this email already exists. Please use the login link below.'
+              );
+              return;
+            }
+
+            showMessage(messageBox, 'error', getCustomerErrorMessage(customerUserErrors));
+            return;
+          }
+
+          if (!customer) {
+            showMessage(messageBox, 'error', 'Customer could not be created. Please try again.');
+            return;
+          }
+
+          await sendPasswordSetupEmail(email);
+
+          showMessage(
+            messageBox,
+            'success',
+            'Account created successfully. Please sign in.'
+          );
+
+          form.reset();
+
+          /*
+            Optional redirect after account creation:
+
+            setTimeout(function () {
+              window.location.href = '/pages/home-profile';
+            }, 1500);
+          */
+        } catch (error) {
+          console.error('[custom customer create failed]', error);
+          showMessage(messageBox, 'error', 'Request failed. Please try again.');
+        } finally {
+          setLoading(submitButton, false);
+        }
+      });
+    });
+  })();
+</script>
 </section>
 
 {% schema %}
@@ -547,6 +772,22 @@
       "type": "select",
       "id": "mobile_text_alignment",
       "label": "Mobile text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "mobile_logo_alignment",
+      "label": "Mobile logo alignment",
       "options": [
         {
           "value": "left",
