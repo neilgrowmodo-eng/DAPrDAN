@@ -64,6 +64,77 @@
         "custom_class": "homepage-slideshow"
       }
     },
+    "klaviyo_form_2_section_FeNBNC": {
+      "type": "klaviyo-form-2-section",
+      "blocks": {
+        "klaviyo_email_marketing_sms_form_embed_block_cL6dbF": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "settings": {
+            "formId": "UKaGJp"
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_email_marketing_sms_form_embed_block_cL6dbF"
+      ],
+      "name": "Klaviyo Form Section 2",
+      "settings": {
+        "klaviyo_background_color": "#000000",
+        "klaviyo_overlay_color": "#ffffff",
+        "klaviyo_overlay_opacity": 100,
+        "klaviyo_enable_horizontal_layout": false,
+        "heading": "We're not in {City} yet — but we're on our way.",
+        "heading_alignment": "left",
+        "heading_color": "#ffffff",
+        "sub_text": "<h3>DAPrDAN was built in the Pacific Northwest, where we've spent years perfecting how to protect homes against moss, moisture, and weather that punishes exteriors. We're bringing that same standard of care to new markets across the country — and your zip code is on our map.</h3>",
+        "sub_color": "#ffffff",
+        "body_text": "Every home we service is paired with TriGuard, our proprietary line of protective treatments engineered to defend roofs, siding, gutters, and hardscapes between visits. It's not just cleaning. It's a complete protection system designed to extend the life of your home's exterior — and we're building toward making it available to homeowners nationwide.\n<br>\nJoin the waitlist and you'll be the first to know when DAPrDAN services arrive in {City}. You'll also get early access to:\n<br>\n\n<ul>\n<li>\nLaunch pricing for founding customers in your area\n</li>\n<li>\nTriGuard Roof, our flagship asphalt shingle rejuvenation treatment that can extend roof life up to 10 years\n</li>\n<li>\nPriority scheduling once we open your market\n</li>\n</ul>",
+        "body_alignment": "left",
+        "body_color": "#0a2b39",
+        "klaviyo_shortcode": "<div class=\"klaviyo-form-UKaGJp\"></div>",
+        "heading_font_size_desktop": 42,
+        "heading_font_size_mobile": 30,
+        "sub_font_size_desktop": 27,
+        "sub_font_size_mobile": 20,
+        "body_font_size_desktop": 16,
+        "body_font_size_mobile": 14,
+        "form_width": 100
+      }
+    },
+    "klaviyo_form_section_493Vf9": {
+      "type": "klaviyo-form-section",
+      "blocks": {
+        "klaviyo_email_marketing_sms_form_embed_block_k94tGP": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "settings": {
+            "formId": "XGuwQF"
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_email_marketing_sms_form_embed_block_k94tGP"
+      ],
+      "disabled": true,
+      "name": "Klaviyo Form Section",
+      "settings": {
+        "klaviyo_background_color": "#ffffff",
+        "klaviyo_overlay_color": "#000000",
+        "klaviyo_overlay_opacity": 35,
+        "klaviyo_enable_horizontal_layout": false,
+        "heading": "We're not in {City} yet — but we're on our way.",
+        "heading_alignment": "center",
+        "heading_color": "#ffffff",
+        "body_text": "<h3>\nDAPrDAN was built in the Pacific Northwest, where we've spent years perfecting how to protect homes against moss, moisture, and weather that punishes exteriors. We're bringing that same standard of care to new markets across the country — and your zip code is on our map.\n</h3>\n\n<p>\nEvery home we service is paired with TriGuard, our proprietary line of protective treatments engineered to defend roofs, siding, gutters, and hardscapes between visits. It's not just cleaning. It's a complete protection system designed to extend the life of your home's exterior — and we're building toward making it available to homeowners nationwide.\n</p>\n<ul>\nJoin the waitlist and you'll be the first to know when DAPrDAN services arrive in {City}. You'll also get early access to:\n<li>\nLaunch pricing for founding customers in your area\n</li>\n<li>\nTriGuard Roof, our flagship asphalt shingle rejuvenation treatment that can extend roof life up to 10 years\n</li>\n<li>\nPriority scheduling once we open your market\n</li>\n</ul>",
+        "body_alignment": "center",
+        "body_color": "#ffffff",
+        "klaviyo_shortcode": "<div class=\"klaviyo-form-XGuwQF\"></div>",
+        "heading_font_size_desktop": 42,
+        "heading_font_size_mobile": 30,
+        "body_font_size_desktop": 16,
+        "body_font_size_mobile": 14,
+        "form_width": 60
+      }
+    },
     "dynamic_highlights_banner": {
       "type": "dynamic-highlights-banner",
       "blocks": {
@@ -113,6 +184,69 @@
         "highlight-2",
         "highlight-3",
         "highlight-4"
+      ],
+      "custom_css": [
+        "p {color: #0a2b39;}"
+      ],
+      "settings": {
+        "section_spacing": false,
+        "section_width": "content-width",
+        "icon_layout": "center",
+        "color": "#0a2b39",
+        "icon_color": "#046e82",
+        "background_color": "#ffffff",
+        "mobile_layout": "grid"
+      }
+    },
+    "dynamic_highlights_banner_hgGjRB": {
+      "type": "dynamic-highlights-banner",
+      "blocks": {
+        "highlight_jqDWBz": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-delivery",
+            "image": "shopify://shop_images/Frame.png",
+            "title": "Parturient dui",
+            "text": "<p>Curabitur integer tempor elementum lacinia</p>",
+            "link": ""
+          }
+        },
+        "highlight_keypqw": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-cell-phone",
+            "image": "shopify://shop_images/icon.svg",
+            "title": "Nascetur vel",
+            "text": "<p>Curabitur integer tempor elementum lacinia</p>",
+            "link": ""
+          }
+        },
+        "highlight_tfjgVN": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-chat-alternate",
+            "image": "shopify://shop_images/icon_44645efe-b114-4f5e-99ff-210e4600de06.svg",
+            "title": "Ligula condimentum",
+            "text": "<p>Curabitur integer tempor elementum lacinia</p>",
+            "link": ""
+          }
+        },
+        "highlight_dwpbrA": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-pin",
+            "image": "shopify://shop_images/icon_7f42ff8a-825e-4d4d-a0a1-5570191adb74.svg",
+            "title": "Dignissim sodales",
+            "text": "<p>Curabitur integer tempor elementum lacinia</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "highlight_jqDWBz",
+        "highlight_keypqw",
+        "highlight_tfjgVN",
+        "highlight_dwpbrA"
       ],
       "custom_css": [
         "p {color: #0a2b39;}"
@@ -884,7 +1018,10 @@
   "order": [
     "dynamic_custom_liquid_KE6Nwf",
     "custom_dynamic_slideshow_8CYVaY",
+    "klaviyo_form_2_section_FeNBNC",
+    "klaviyo_form_section_493Vf9",
     "dynamic_highlights_banner",
+    "dynamic_highlights_banner_hgGjRB",
     "dynamic_rich_text_zWGhiE",
     "custom_dynamic_slideshow_pgkixY",
     "dynamic_rich_text_b3gLDw",

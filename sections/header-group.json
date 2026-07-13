@@ -17,7 +17,7 @@
       "settings": {
         "announcement_success_text": "",
         "announcement_failure_text": "<p><strong>Viewing from {City, State}. DAPrDAN currently protects homes across the Pacific Northwest — and we're expanding. [Join the waitlist →]</strong></p>",
-        "allowed_locations": "king county, snohomish county, skagit county, island county, whatcom county, san juan county, chelan, okanogan, douglas, kittitas, grant",
+        "allowed_locations": "king county, snohomish county, skagit county, island county, whatcom county, san juan county, chelan, okanogan, douglas, kittitas, grant,",
         "background_color": "#f4f4f5",
         "text_color": "#111827"
       }

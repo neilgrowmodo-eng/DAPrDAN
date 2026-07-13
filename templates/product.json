@@ -24,6 +24,10 @@
           "type": "price",
           "settings": {}
         },
+        "recharge_subscriptions_subscription_widget_v2_ADrTMx": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget-v2/371eed76-0b44-4869-9813-730372ea378e",
+          "settings": {}
+        },
         "description": {
           "type": "description",
           "settings": {}
@@ -73,6 +77,7 @@
         "title",
         "rating",
         "price",
+        "recharge_subscriptions_subscription_widget_v2_ADrTMx",
         "description",
         "form",
         "key_details_XfXU8i",

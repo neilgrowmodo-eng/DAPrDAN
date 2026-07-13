@@ -14,6 +14,127 @@
       "disabled": true,
       "settings": {}
     },
+    "klaviyo_form_2_section_ATUBG9": {
+      "type": "klaviyo-form-2-section",
+      "blocks": {
+        "klaviyo_email_marketing_sms_form_embed_block_pn9ijp": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "settings": {
+            "formId": "XGuwQF"
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_email_marketing_sms_form_embed_block_pn9ijp"
+      ],
+      "name": "Klaviyo Form Section 2",
+      "settings": {
+        "klaviyo_background_color": "#000000",
+        "klaviyo_overlay_color": "#ffffff",
+        "klaviyo_overlay_opacity": 100,
+        "klaviyo_enable_horizontal_layout": false,
+        "heading": "We're not in {City} yet — but we're on our way.",
+        "heading_alignment": "left",
+        "heading_color": "#ffffff",
+        "sub_text": "<h3>DAPrDAN was built in the Pacific Northwest, where we've spent years perfecting how to protect homes against moss, moisture, and weather that punishes exteriors. We're bringing that same standard of care to new markets across the country — and your zip code is on our map.</h3>",
+        "sub_color": "#ffffff",
+        "body_text": "Every home we service is paired with TriGuard, our proprietary line of protective treatments engineered to defend roofs, siding, gutters, and hardscapes between visits. It's not just cleaning. It's a complete protection system designed to extend the life of your home's exterior — and we're building toward making it available to homeowners nationwide.\n<br>\nJoin the waitlist and you'll be the first to know when DAPrDAN services arrive in {City}. You'll also get early access to:\n<br>\n\n<ul>\n<li>\nLaunch pricing for founding customers in your area\n</li>\n<li>\nTriGuard Roof, our flagship asphalt shingle rejuvenation treatment that can extend roof life up to 10 years\n</li>\n<li>\nPriority scheduling once we open your market\n</li>\n</ul>",
+        "body_alignment": "left",
+        "body_color": "#0a2b39",
+        "klaviyo_shortcode": "<div class=\"klaviyo-form-XGuwQF\"></div>",
+        "heading_font_size_desktop": 32,
+        "heading_font_size_mobile": 24,
+        "sub_font_size_desktop": 16,
+        "sub_font_size_mobile": 14,
+        "body_font_size_desktop": 16,
+        "body_font_size_mobile": 14,
+        "form_width": 100
+      }
+    },
+    "custom_dynamic_slideshow_XehnMM": {
+      "type": "custom-dynamic-slideshow",
+      "blocks": {
+        "slide_VGFTbQ": {
+          "type": "slide",
+          "settings": {
+            "video": "shopify://files/videos/video-cropped.mp4",
+            "subheading": "",
+            "title": "Welcome To The Future Of Home Care Service",
+            "text": "DAPrDAN is now serving members only. Discover the advantages of membership and register to create your ideal home care plan.",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "Discover DAPrDAN",
+            "button_one_action": "popup",
+            "button_one_link": "#",
+            "button_one_style": "primary",
+            "popup_title": "Video Quizzes",
+            "popup_description": "Discover DAPrDAN",
+            "popup_video_1": "shopify://files/videos/softwash_siding (540p).mp4",
+            "popup_video_1_text": "Start Video Quizzes",
+            "popup_video_2": "shopify://files/videos/gutter_cleaning (540p).mp4",
+            "popup_video_2_text": "Start Video Quizzes",
+            "popup_video_3": "shopify://files/videos/subscriptions (540p).mp4",
+            "popup_video_3_text": "Start Video Quizzes",
+            "button_two_label": "",
+            "button_two_link": "#",
+            "button_two_style": "secondary",
+            "show_overlay": true,
+            "overlay_color": "#061b23",
+            "overlay_opacity": 60
+          }
+        }
+      },
+      "block_order": [
+        "slide_VGFTbQ"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_autoplay": false,
+        "autoplay_duration": 8,
+        "slideshow_width": "full",
+        "slideshow_height": "medium",
+        "slideshow_height_mobile": "x-large",
+        "slideshow_text_below_image": false,
+        "custom_class": "homepage-slideshow"
+      }
+    },
+    "klaviyo_form_section_9Rq7Dn": {
+      "type": "klaviyo-form-section",
+      "blocks": {
+        "klaviyo_email_marketing_sms_form_embed_block_QEC3eh": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "settings": {
+            "formId": "XGuwQF"
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_email_marketing_sms_form_embed_block_QEC3eh"
+      ],
+      "disabled": true,
+      "name": "Klaviyo Form Section",
+      "settings": {
+        "klaviyo_background_color": "#000000",
+        "klaviyo_background_image": "shopify://shop_images/daprdan-hcp-gutter-cleaning-hose.jpg",
+        "klaviyo_background_video": "shopify://files/videos/video-cropped.mp4",
+        "klaviyo_overlay_color": "#000000",
+        "klaviyo_overlay_opacity": 35,
+        "klaviyo_enable_horizontal_layout": false,
+        "heading": "Book a service",
+        "heading_alignment": "center",
+        "heading_color": "#ffffff",
+        "body_text": "If you would like to be notified when the services are available in your region, please provide your email below",
+        "body_alignment": "center",
+        "body_color": "#ffffff",
+        "klaviyo_shortcode": "<div class=\"klaviyo-form-XGuwQF\"></div>",
+        "heading_font_size_desktop": 42,
+        "heading_font_size_mobile": 30,
+        "body_font_size_desktop": 16,
+        "body_font_size_mobile": 14,
+        "form_width": 60
+      }
+    },
     "1779435904242b80b0": {
       "type": "apps",
       "blocks": {
@@ -37,6 +158,9 @@
   },
   "order": [
     "main",
+    "klaviyo_form_2_section_ATUBG9",
+    "custom_dynamic_slideshow_XehnMM",
+    "klaviyo_form_section_9Rq7Dn",
     "1779435904242b80b0"
   ]
 }

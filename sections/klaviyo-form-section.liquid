@@ -1,5 +1,15 @@
-<div class="klaviyo-form-section">
-  <div class="klaviyo-form-content">
+{% if section.settings.klaviyo_background_video != blank %}
+  <div class="klaviyo-background-media">
+    <video autoplay muted loop playsinline class="klaviyo-background-video">
+      <source src="{{ section.settings.klaviyo_background_video.sources[1].url }}" type="video/mp4">
+    </video>
+  </div>
+{% endif %}
+
+
+<div class="klaviyo-section-section">
+  <div class="klaviyo-section-content">
+    <div class="klaviyo-section-text">
     {% if section.settings.heading != blank %}
       <div class="klaviyo-heading" style="text-align: {{ section.settings.heading_alignment }};">
         <h2 style="font-size: {{ section.settings.heading_font_size_desktop }}px;">{{ section.settings.heading }}</h2>
@@ -11,9 +21,10 @@
         <p style="font-size: {{ section.settings.body_font_size_desktop }}px;">{{ section.settings.body_text }}</p>
       </div>
     {% endif %}
+    </div>
 
     {% if section.settings.klaviyo_shortcode != blank %}
-      <div class="klaviyo-form-container" style="width: {{ section.settings.form_width }}%;">
+      <div class="klaviyo-section-container" style="width: {{ section.settings.form_width }}%;">
         {{ section.settings.klaviyo_shortcode }}
       </div>
     {% endif %}
@@ -24,24 +35,69 @@
   .shopify-section.Dynamic-klaviyo-section {
     position: absolute;
     opacity: 0;
+    {% if section.settings.klaviyo_background_image %}
     background-image: url({{ section.settings.klaviyo_background_image | img_url: 'master' }});
     background-size: cover;
     background-position: center;
-    height: 500px;
+    {% else %}
+    background-color: {{ section.settings.klaviyo_background_color }};
+    {% endif %}
+    {% if section.settings.klaviyo_enable_horizontal_layout %}
+      height: auto;
+    {% else %}
+      min-height: 500px;
+      height: auto;
+    {% endif %}
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    transition: 1s ease;
   }
 
-  .klaviyo-form-section {
+  .klaviyo-background-media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .klaviyo-background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 100%;
-    padding: 20px;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
   }
 
-  .klaviyo-form-content {
+  .shopify-section.Dynamic-klaviyo-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.klaviyo_overlay_color }};
+    opacity: {{ section.settings.klaviyo_overlay_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .shopify-section.Dynamic-klaviyo-section .klaviyo-section-section {
+    position: relative;
+    z-index: 2;
+  }
+
+  .klaviyo-section-section {
+    width: 100%;
+    padding: 50px 20px;
+  }
+
+  .klaviyo-section-content {
     max-width: 1350px;
     margin: 0 auto;
+    {% if section.settings.klaviyo_enable_horizontal_layout %}
+      display: flex;
+    {% endif %}
   }
 
   .klaviyo-heading {
@@ -53,25 +109,62 @@
     line-height: 1.2;
     font-family: "Outfit", sans-serif;
     font-weight: 700;
-    color: white;
+    color: {{ section.settings.heading_color }};
   }
 
   .klaviyo-body {
+    padding: 0 50px;
     margin-bottom: 30px;
   }
 
+  .klaviyo-body p,
+  .klaviyo-body h3,
+  .klaviyo-body ul li,
+  .klaviyo-body {
+    color: {{ section.settings.body_color }};
+  }
+
+  .klaviyo-body ul {
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+    padding-top: 20px;
+    line-height: 1.5rem;
+  }
+
+  .klaviyo-body ul li {
+    max-width: 500px;
+    text-align: left;
+    margin: auto;
+  }
+
+  .klaviyo-body h3 {
+    font-size: 26px;
+  }
   .klaviyo-body p {
     margin: 0;
     line-height: 1.6;
-    color: white;
+    font-size: 16px;
+  }
+  .klaviyo-section-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .klaviyo-form-container {
-    margin: 0 auto;
-  }
 
   /* Desktop Font Sizes */
   @media (min-width: 769px) {
+
+   {% if section.settings.klaviyo_enable_horizontal_layout %}
+    .klaviyo-section-text {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    {% endif %}
     .klaviyo-heading h2 {
       font-size: {{ section.settings.heading_font_size_desktop }}px !important;
     }
@@ -90,6 +183,14 @@
     .klaviyo-body p {
       font-size: {{ section.settings.body_font_size_mobile }}px !important;
     }
+
+    .klaviyo-section-content {
+      flex-direction: column;
+    }
+
+    .klaviyo-body {
+      padding: 0;
+    }
   }
 
   /* Applied via JS: non-serviceable location state */
@@ -101,12 +202,21 @@
   .homepage-slideshow.hidden-non-serviceable {
     display: none !important;
   }
+
+  /* Temporary class used to suppress visual transitions when applying cached styling */
+  .daprdan-no-transition .homepage-slideshow,
+  .daprdan-no-transition .shopify-section.Dynamic-klaviyo-section {
+    transition: none !important;
+  }
 </style>
 
 <script>
   (function () {
     // Serviceable locations list (same as location-bar.liquid)
-    const SERVICEABLE_LOCATIONS = ['king','snohomish','skagit','island','whatcom','san juan','chelan','okanogan','douglas','kittitas','grant'];
+    const SERVICEABLE_LOCATIONS = window.global.allowedLocationsLiquid
+      ? window.global.allowedLocationsLiquid.split(',').map(s => s.trim().toLowerCase())
+      : ['king','snohomish','skagit','island','whatcom','san juan','chelan','okanogan','douglas','kittitas','grant'];
+    const APPLIED_KEY = 'daprdan_location_applied_ts';
 
     function normalizeLocation(value) {
       if (!value) return '';
@@ -116,20 +226,27 @@
     function getLocationData() {
       try {
         const raw = localStorage.getItem('daprdan_location_v1');
-        console.log('[klaviyo-form] raw localStorage:', raw);
+        console.log('[klaviyo-section] raw localStorage:', raw);
         if (!raw) return null;
         const parsed = JSON.parse(raw);
-        console.log('[klaviyo-form] parsed locationData:', parsed);
+        console.log('[klaviyo-section] parsed locationData:', parsed);
         return parsed;
       } catch (error) {
-        console.log('[klaviyo-form] error parsing location data:', error);
+        console.log('[klaviyo-section] error parsing location data:', error);
         return null;
       }
     }
 
+    function hasLocationInfo(data) {
+      if (!data) return false;
+      if (data.city || data.province || data.county) return true;
+      if (data.ipData && (data.ipData.city || data.ipData.region || data.ipData.county)) return true;
+      return false;
+    }
+
     function isLocationServiceable(locationData) {
-      console.log('[klaviyo-form] checking serviceability for:', locationData);
-      if (!locationData) return true; // If no data, show everything (default behavior)
+      console.log('[klaviyo-section] checking serviceability for:', locationData);
+      if (!locationData) return true; // preserve previous fallback when absolutely no data
 
       const candidates = [
         locationData.county,
@@ -138,62 +255,134 @@
         locationData.country
       ];
 
-      console.log('[klaviyo-form] candidates raw:', candidates);
+      console.log('[klaviyo-section] candidates raw:', candidates);
 
       for (let i = 0; i < candidates.length; i++) {
         const candidate = candidates[i];
         const normalized = normalizeLocation(candidate);
-        console.log('[klaviyo-form] candidate:', candidate, 'normalized:', normalized);
+        console.log('[klaviyo-section] candidate:', candidate, 'normalized:', normalized);
 
         if (normalized && SERVICEABLE_LOCATIONS.includes(normalized)) {
-          console.log('[klaviyo-form] location is SERVICEABLE:', normalized);
+          console.log('[klaviyo-section] location is SERVICEABLE:', normalized);
           return true;
         }
       }
 
-      console.log('[klaviyo-form] location is NOT SERVICEABLE');
+      console.log('[klaviyo-section] location is NOT SERVICEABLE');
       return false;
     }
 
-    function applyLocationStyling() {
-      const locationData = getLocationData();
-      const isServiceable = isLocationServiceable(locationData);
-
+    function _applyStylingForFlag(isServiceable, cacheTs) {
       const klaviyoSection = document.querySelector('.shopify-section.Dynamic-klaviyo-section');
-      const homepageSlideshow = document.querySelector('.homepage-slideshow');
 
       if (isServiceable) {
-        console.log('[klaviyo-form] applying serviceable location styling');
-        // Remove non-serviceable classes
-        if (klaviyoSection) {
-          klaviyoSection.classList.remove('non-serviceable');
-        }
-        if (homepageSlideshow) {
-          homepageSlideshow.classList.remove('hidden-non-serviceable');
-        }
+        console.log('[klaviyo-section] applying serviceable location styling');
+        if (klaviyoSection) klaviyoSection.classList.remove('non-serviceable');
       } else {
-        console.log('[klaviyo-form] applying non-serviceable location styling');
-        // Add non-serviceable classes
-        if (klaviyoSection) {
-          klaviyoSection.classList.add('non-serviceable');
-        }
-        if (homepageSlideshow) {
-          homepageSlideshow.classList.add('hidden-non-serviceable');
-        }
+        console.log('[klaviyo-section] applying non-serviceable location styling');
+        if (klaviyoSection) klaviyoSection.classList.add('non-serviceable');
       }
+
+      // Mark that styling was applied for this cached value so we don't repeat the "visual change" unnecessarily
+      try {
+        if (cacheTs) localStorage.setItem(APPLIED_KEY, String(cacheTs));
+      } catch (e) { console.warn('[klaviyo-section] failed to write applied marker', e); }
     }
 
-    // Apply styling immediately if DOM is ready
+    // Main function: attempt to read location and apply styling.
+    // If no location data yet (first visit), wait briefly for custom.js to populate it
+    function applyLocationStyling() {
+      const cache = getLocationData();
+      const cacheTs = cache && cache._timestamp ? String(cache._timestamp) : null;
+      const appliedTs = (function(){ try { return localStorage.getItem(APPLIED_KEY); } catch(e){ return null; } })();
+
+      // If we already applied for this cached timestamp, set classes immediately (no waiting)
+      if (cacheTs && appliedTs === cacheTs) {
+        console.log('[klaviyo-section] styling already applied for cache timestamp; applying immediately without polling');
+        const isServiceable = isLocationServiceable(cache);
+        // apply without waiting; to avoid visible flicker, briefly suppress transitions
+        try { document.documentElement.classList.add('daprdan-no-transition'); } catch(e){}
+        _applyStylingForFlag(isServiceable, cacheTs);
+        setTimeout(function(){ try { document.documentElement.classList.remove('daprdan-no-transition'); } catch(e){} }, 50);
+        return true;
+      }
+
+      // If cache present and we haven't applied this cache, and it has location info, apply now
+      if (cache && hasLocationInfo(cache)) {
+        const isServiceable = isLocationServiceable(cache);
+        _applyStylingForFlag(isServiceable, cacheTs);
+        return true;
+      }
+
+      // No data yet — set up short-lived observers: MutationObserver on #dynamic_location and a polling loop
+      const dynEl = document.getElementById('dynamic_location');
+      let resolved = false;
+
+      function resolveWithCurrent() {
+        if (resolved) return;
+        resolved = true;
+        const nowData = getLocationData();
+        const nowTs = nowData && nowData._timestamp ? String(nowData._timestamp) : cacheTs;
+        const isServiceable = isLocationServiceable(nowData);
+        _applyStylingForFlag(isServiceable, nowTs);
+        // cleanup
+        try { if (mutObs) mutObs.disconnect(); } catch(e){}
+        try { clearInterval(pollId); } catch(e){}
+        try { clearTimeout(timeoutId); } catch(e){}
+      }
+
+      // MutationObserver: detect same-tab DOM updates where custom.js writes textContent
+      let mutObs = null;
+      if (dynEl) {
+        mutObs = new MutationObserver(function (mutations) {
+          for (const m of mutations) {
+            const txt = (dynEl.textContent || '').trim();
+            if (txt && ['Locating...', 'Location unavailable', ''].indexOf(txt) === -1) {
+              console.log('[klaviyo-section] detected #dynamic_location DOM change:', txt);
+              resolveWithCurrent();
+              return;
+            }
+          }
+        });
+        mutObs.observe(dynEl, { childList: true, subtree: true, characterData: true });
+      }
+
+      // Poll localStorage in same tab (storage event doesn't fire locally)
+      const pollInterval = 200;
+      const maxWait = 5000; // ms
+      const start = Date.now();
+      const pollId = setInterval(function () {
+        const now = getLocationData();
+        if (hasLocationInfo(now)) {
+          console.log('[klaviyo-section] detected location data via polling');
+          resolveWithCurrent();
+          return;
+        }
+        if (Date.now() - start >= maxWait) {
+          console.log('[klaviyo-section] polling timed out; applying default fallback');
+          resolveWithCurrent();
+        }
+      }, pollInterval);
+
+      // Safety timeout to stop observers/polling
+      const timeoutId = setTimeout(function () {
+        if (!resolved) resolveWithCurrent();
+      }, maxWait + 200);
+
+      return false;
+    }
+
+    // Apply styling when DOM ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', applyLocationStyling);
     } else {
       applyLocationStyling();
     }
 
-    // Re-apply styling when storage changes (from other tabs)
+    // Re-apply styling when storage changes from other tabs
     window.addEventListener('storage', function (e) {
       if (e.key === 'daprdan_location_v1') {
-        console.log('[klaviyo-form] location storage changed from another tab, reapplying styling');
+        console.log('[klaviyo-section] location storage changed from another tab, reapplying styling');
         applyLocationStyling();
       }
     });
@@ -205,10 +394,44 @@
   "name": "Klaviyo Form Section",
   "settings": [
     {
+      "type": "color",
+      "id": "klaviyo_background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
       "type": "image_picker",
       "id": "klaviyo_background_image",
       "label": "Background Image",
       "info": "Optional background image for the section"
+    },
+    {
+      "type": "video",
+      "id": "klaviyo_background_video",
+      "label": "Background Video",
+      "info": "Optional background video for the section (MP4)"
+    },
+    {
+      "type": "color",
+      "id": "klaviyo_overlay_color",
+      "label": "Background overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "klaviyo_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background overlay opacity",
+      "default": 35
+    },
+    {
+      "type": "checkbox",
+      "id": "klaviyo_enable_horizontal_layout",
+      "label": "Enable Horizontal Layout",
+      "default": false
     },
     {
       "type": "text",
@@ -237,6 +460,12 @@
       "default": "left"
     },
     {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
+    {
       "type": "textarea",
       "id": "body_text",
       "label": "Body Text",
@@ -261,6 +490,12 @@
         }
       ],
       "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body Text Color",
+      "default": "#ffffff"
     },
     {
       "type": "textarea",
@@ -313,6 +548,11 @@
       "step": 5,
       "unit": "%",
       "default": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
     }
   ],
   "class": "Dynamic-klaviyo-section",
