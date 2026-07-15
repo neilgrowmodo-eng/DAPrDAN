@@ -1,52 +1,67 @@
-{% if section.settings.klaviyo_background_video != blank %}
-  <div class="klaviyo-background-media">
-    <video autoplay muted loop playsinline class="klaviyo-background-video">
-      <source src="{{ section.settings.klaviyo_background_video.sources[1].url }}" type="video/mp4">
-    </video>
-  </div>
-{% endif %}
+<div class="daprdan-klaviyo-popup" data-daprdan-klaviyo-popup="{{ section.id }}">
+  <div class="daprdan-klaviyo-popup__overlay" aria-hidden="true"></div>
 
+  <div
+    class="daprdan-klaviyo-popup__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="DaprdanKlaviyoPopupHeading-{{ section.id }}"
+  >
+    {% if section.settings.enable_close_button %}
+      <button
+        type="button"
+        class="daprdan-klaviyo-popup__close"
+        aria-label="Close popup"
+        data-daprdan-popup-close
+      >
+        ×
+      </button>
+    {% endif %}
 
-<style>
-  .klaviyo-section-heading-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    padding: 20px 20px 50px 20px;
-  }
-</style>
-
-<div class="klaviyo-section-section_heading">
-  <div class="klaviyo-section-content">
-    <div class="klaviyo-section-heading-area">
-    {% if section.settings.heading != blank %}
-      <div class="klaviyo-heading" style="text-align: {{ section.settings.heading_alignment }};">
-        <h2 style="font-size: {{ section.settings.heading_font_size_desktop }}px;">{{ section.settings.heading }}</h2>
+    {% if section.settings.klaviyo_background_video != blank or section.settings.klaviyo_background_image != blank %}
+      <div class="daprdan-klaviyo-popup__media">
+        {% if section.settings.klaviyo_background_video != blank %}
+          <video autoplay muted loop playsinline class="daprdan-klaviyo-popup__video">
+            <source src="{{ section.settings.klaviyo_background_video.sources[1].url }}" type="video/mp4">
+          </video>
+        {% elsif section.settings.klaviyo_background_image != blank %}
+          <img
+            src="{{ section.settings.klaviyo_background_image | image_url: width: 1600 }}"
+            alt=""
+            class="daprdan-klaviyo-popup__image"
+            loading="lazy"
+          >
+        {% endif %}
       </div>
     {% endif %}
 
-    {% if section.settings.sub_text != blank %}
-      <div class="klaviyo-subheading" style="text-align: {{ section.settings.subh_alignment }};">
-        {{ section.settings.sub_text }}
-      </div>
-    {% endif %}
-    </div>
-  </div>
-</div>
-<div class="klaviyo-text-and-form-area">
-  <div class="klaviyo-section-content" style="max-width: {{ section.settings.form_width }}%;">
-    <div class="klaviyo-section-section klaviyo-section-text">
-      {% if section.settings.body_text != blank %}
-        <div class="klaviyo-body" style="text-align: {{ section.settings.body_alignment }};">
-          <div class="klaviyo-text-body">
-            <p style="font-size: {{ section.settings.body_font_size_desktop }}px;">{{ section.settings.body_text }}</p>
+    <div class="daprdan-klaviyo-popup__content">
+      <div class="daprdan-klaviyo-popup__header">
+        {% if section.settings.heading != blank %}
+          <h2
+            id="DaprdanKlaviyoPopupHeading-{{ section.id }}"
+            class="daprdan-klaviyo-popup__heading"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.sub_text != blank %}
+          <div class="daprdan-klaviyo-popup__subtext rte">
+            {{ section.settings.sub_text }}
           </div>
-          {% if section.settings.klaviyo_shortcode != blank %}
-            <div class="klaviyo-form">
-              {{ section.settings.klaviyo_shortcode }}
-            </div>
-          {% endif %}
+        {% endif %}
+      </div>
+
+      {% if section.settings.body_text != blank %}
+        <div class="daprdan-klaviyo-popup__body rte">
+          {{ section.settings.body_text }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.klaviyo_shortcode != blank %}
+        <div class="daprdan-klaviyo-popup__form">
+          {{ section.settings.klaviyo_shortcode }}
         </div>
       {% endif %}
     </div>
@@ -55,427 +70,527 @@
 
 <style>
   .shopify-section.Dynamic-klaviyo-section {
-    position: absolute;
+    display: none;
     opacity: 0;
-    {% if section.settings.klaviyo_background_image %}
-    background-image: url({{ section.settings.klaviyo_background_image | img_url: 'master' }});
-    background-size: cover;
-    background-position: center;
-    {% else %}
-    background-color: {{ section.settings.klaviyo_background_color }};
-    {% endif %}
-    {% if section.settings.klaviyo_enable_horizontal_layout %}
-      height: auto;
-    {% else %}
-      min-height: 500px;
-      height: auto;
-    {% endif %}
-    display: flex;
-    flex-direction: column;
-    transition: 1s ease;
-  }
-
-  .klaviyo-background-media {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  .klaviyo-background-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    z-index: 0;
-  }
-
-  .shopify-section.Dynamic-klaviyo-section::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: {{ section.settings.klaviyo_overlay_color }};
-    opacity: {{ section.settings.klaviyo_overlay_opacity | divided_by: 100.0 }};
+    visibility: hidden;
     pointer-events: none;
+  }
+
+  .shopify-section.Dynamic-klaviyo-section.non-serviceable {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    opacity: 1 !important;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 9999;
+    padding: 24px;
+  }
+
+  .shopify-section.Dynamic-klaviyo-section.is-dismissed {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .daprdan-klaviyo-popup {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .daprdan-klaviyo-popup__overlay {
+    position: fixed;
+    inset: 0;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    backdrop-filter: blur({{ section.settings.overlay_blur }}px);
+    -webkit-backdrop-filter: blur({{ section.settings.overlay_blur }}px);
     z-index: 1;
   }
 
-  .shopify-section.Dynamic-klaviyo-section .klaviyo-section-section {
+  .daprdan-klaviyo-popup__dialog {
     position: relative;
     z-index: 2;
+    width: min({{ section.settings.popup_width }}px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: {{ section.settings.popup_radius }}px;
+    background: {{ section.settings.popup_background_color }};
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
   }
 
-  .klaviyo-section-section {
-    width: 100%;
-    padding: 0 20px;
+  .daprdan-klaviyo-popup__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    z-index: 0;
+    pointer-events: none;
   }
 
-  .klaviyo-section-content {
-    max-width: 1350px;
-    margin: 0 auto;
-    {% if section.settings.klaviyo_enable_horizontal_layout %}
-      display: flex;
-    {% endif %}
-  }
-
-  .klaviyo-heading {
-    margin-bottom: 20px;
-  }
-
-  .klaviyo-heading h2 {
-    margin: 0;
-    line-height: 1.2;
-    font-family: "Outfit", sans-serif;
-    font-weight: 700;
-    color: {{ section.settings.heading_color }};
-  }
-
-  .klaviyo-body {
-    margin: -50px auto 30px auto;
-    background: rgb(243, 243, 243);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    max-width: 1330px;
-  }
-  
-  .klaviyo-text-body {
-    padding: 20px;
-  }
-
-  .klaviyo-subheading h3 {
-    font-size: {{ section.settings.sub_font_size_desktop }}px !important;
-  }
-
-  .klaviyo-body p,
-  .klaviyo-body h3,
-  .klaviyo-body ul li,
-  .klaviyo-body {
-    color: {{ section.settings.body_color }};
-  }
-
-  .klaviyo-subheading p,
-  .klaviyo-subheading h3,
-  .klaviyo-subheading {
-    color: {{ section.settings.sub_color }};
-  }
-
-  .klaviyo-body ul {
-    list-style: none;
-    padding-left: 25px;
-  }
-
-  .klaviyo-body ul li {
-    position: relative;
-    padding-left: 28px;
-    margin-top: 20px;
-    padding-top: 5px;
-  }
-
-  .klaviyo-body ul li::before {
+  .daprdan-klaviyo-popup__media::after {
     content: "";
     position: absolute;
-    left: 0;
-    top: 4px;
-    width: 18px;
-    height: 18px;
-    background-image: url('https://cdn.shopify.com/s/files/1/0765/8304/3358/files/Checkbox_base.png?v=1779346585');
-    background-size: contain;
-    background-repeat: no-repeat;
+    inset: 0;
+    background: {{ section.settings.media_overlay_color }};
+    opacity: {{ section.settings.media_overlay_opacity | divided_by: 100.0 }};
   }
 
-  .klaviyo-body h3 {
-    font-size: 26px;
-  }
-  .klaviyo-body p {
-    margin: 0;
-    line-height: 1.6;
-    font-size: 16px;
-  }
-  
-  .klaviyo-section-container {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .klaviyo-section-section_heading {
+  .daprdan-klaviyo-popup__video,
+  .daprdan-klaviyo-popup__image {
     width: 100%;
-    padding: 0 20px;
-    background-color: #b8b8b8;
-    z-index: 2;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .klaviyo-form {
-    border-top: 2px solid #c1c1c1;
-    background: white;
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
+  .daprdan-klaviyo-popup__content {
+    position: relative;
+    z-index: 1;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_horizontal }}px {{ section.settings.padding_bottom }}px;
+    max-height: 80vh;
   }
 
-  .klaviyo-form .klaviyo-form-UKaGJp .klaviyo-form {
-    margin: auto;
+  .daprdan-klaviyo-popup__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #111;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
   }
 
-
-  /* Desktop Font Sizes */
-  @media (min-width: 769px) {
-
-   {% if section.settings.klaviyo_enable_horizontal_layout %}
-    .klaviyo-section-text {
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    {% endif %}
-    .klaviyo-heading h2 {
-      font-size: {{ section.settings.heading_font_size_desktop }}px !important;
-    }
-
-    .klaviyo-body p {
-      font-size: {{ section.settings.body_font_size_desktop }}px !important;
-    }
+  .daprdan-klaviyo-popup__heading {
+    margin: 0 0 16px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_font_size_desktop }}px;
+    line-height: 1.1;
+    text-align: {{ section.settings.heading_alignment }};
+    font-weight: 700;
+    color: black;
   }
 
-  /* Mobile Responsive Font Sizes */
-  @media (max-width: 768px) {
-    .klaviyo-heading h2 {
-      font-size: {{ section.settings.heading_font_size_mobile }}px !important;
-    }
-
-    .klaviyo-body p {
-      font-size: {{ section.settings.body_font_size_mobile }}px !important;
-    }
-
-    .klaviyo-subheading h3 {
-      font-size: {{ section.settings.sub_font_size_mobile }}px !important;
-    }
-
-    .klaviyo-section-content {
-      flex-direction: column;
-    }
-
-    .klaviyo-body {
-      padding: 0;
-    }
+  .daprdan-klaviyo-popup__subtext {
+    margin-bottom: 20px;
+    color: {{ section.settings.sub_color }};
+    font-size: {{ section.settings.sub_font_size_desktop }}px;
+    line-height: 1.45;
+    text-align: {{ section.settings.subh_alignment }};
   }
 
-  /* Applied via JS: non-serviceable location state */
-  .shopify-section.Dynamic-klaviyo-section.non-serviceable {
-    position: relative !important;
-    opacity: 1 !important;
+  .daprdan-klaviyo-popup__body {
+    margin-bottom: 24px;
+    color: {{ section.settings.body_color }};
+    font-size: {{ section.settings.body_font_size_desktop }}px;
+    line-height: 1.6;
+    text-align: {{ section.settings.body_alignment }};
   }
 
-  .homepage-slideshow.hidden-non-serviceable {
-    display: none !important;
+  .daprdan-klaviyo-popup__body p,
+  .daprdan-klaviyo-popup__subtext p {
+    margin-top: 0;
   }
 
-  /* Temporary class used to suppress visual transitions when applying cached styling */
-  .daprdan-no-transition .homepage-slideshow,
-  .daprdan-no-transition .shopify-section.Dynamic-klaviyo-section {
+  .daprdan-klaviyo-popup__form,
+  .daprdan-klaviyo-popup__app-blocks {
+    background: {{ section.settings.form_background_color }};
+    border-radius: {{ section.settings.form_radius }}px;
+    overflow: hidden;
+  }
+
+  .daprdan-klaviyo-popup__app-block + .daprdan-klaviyo-popup__app-block {
+    margin-top: 16px;
+  }
+
+  .daprdan-no-transition .shopify-section.Dynamic-klaviyo-section,
+  .daprdan-no-transition .shopify-section.Dynamic-klaviyo-section * {
     transition: none !important;
+  }
+
+  @media (max-width: 768px) {
+    .shopify-section.Dynamic-klaviyo-section.non-serviceable {
+      padding: 16px;
+      align-items: center;
+    }
+
+    .daprdan-klaviyo-popup__dialog {
+      max-height: 88vh;
+      width: 100%;
+    }
+
+    .daprdan-klaviyo-popup__content {
+      padding: {{ section.settings.padding_top_mobile }}px {{ section.settings.padding_horizontal_mobile }}px {{ section.settings.padding_bottom_mobile }}px;
+    }
+
+    .daprdan-klaviyo-popup__heading {
+      font-size: {{ section.settings.heading_font_size_mobile }}px;
+    }
+
+    .daprdan-klaviyo-popup__subtext {
+      font-size: {{ section.settings.sub_font_size_mobile }}px;
+    }
+
+    .daprdan-klaviyo-popup__body {
+      font-size: {{ section.settings.body_font_size_mobile }}px;
+    }
+
+    .daprdan-klaviyo-popup__content {
+      max-height: 70vh;
+    }
   }
 </style>
 
-<script src="{{ 'location-bar.js' | asset_url }}" defer></script>
+{% if section.settings.enable_close_button %}
+  <script>
+    (function () {
+      const section = document.currentScript.closest('.shopify-section.Dynamic-klaviyo-section');
+
+      if (!section) return;
+
+      const storageKey = 'daprdan_klaviyo_popup_dismissed_{{ section.id }}';
+      const closeButton = section.querySelector('[data-daprdan-popup-close]');
+
+      try {
+        if (sessionStorage.getItem(storageKey) === 'true') {
+          section.classList.add('is-dismissed');
+        }
+      } catch (error) {}
+
+      if (closeButton) {
+        closeButton.addEventListener('click', function () {
+          section.classList.add('is-dismissed');
+
+          try {
+            sessionStorage.setItem(storageKey, 'true');
+          } catch (error) {}
+        });
+      }
+    })();
+  </script>
+{% endif %}
 
 {% schema %}
 {
-  "name": "Klaviyo Form Section 2",
+  "name": "DAPrDAN Klaviyo Popup",
+  "class": "Dynamic-klaviyo-section",
   "settings": [
     {
+      "type": "checkbox",
+      "id": "enable_close_button",
+      "label": "Enable close button",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "popup_width",
+      "label": "Popup width",
+      "min": 420,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "popup_radius",
+      "label": "Popup border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
       "type": "color",
-      "id": "klaviyo_background_color",
-      "label": "Background Color",
-      "default": "#000000"
-    },
-    {
-      "type": "image_picker",
-      "id": "klaviyo_background_image",
-      "label": "Background Image",
-      "info": "Optional background image for the section"
-    },
-    {
-      "type": "video",
-      "id": "klaviyo_background_video",
-      "label": "Background Video",
-      "info": "Optional background video for the section (MP4)"
+      "id": "popup_background_color",
+      "label": "Popup background color",
+      "default": "#f3f3f3"
     },
     {
       "type": "color",
-      "id": "klaviyo_overlay_color",
-      "label": "Background overlay color",
+      "id": "overlay_color",
+      "label": "Page overlay color",
       "default": "#000000"
     },
     {
       "type": "range",
-      "id": "klaviyo_overlay_opacity",
+      "id": "overlay_opacity",
+      "label": "Page overlay opacity",
       "min": 0,
-      "max": 100,
+      "max": 90,
       "step": 5,
       "unit": "%",
-      "label": "Background overlay opacity",
-      "default": 35
+      "default": 50
     },
     {
-      "type": "checkbox",
-      "id": "klaviyo_enable_horizontal_layout",
-      "label": "Enable Horizontal Layout",
-      "default": false
+      "type": "range",
+      "id": "overlay_blur",
+      "label": "Page overlay blur",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "image_picker",
+      "id": "klaviyo_background_image",
+      "label": "Popup background image"
+    },
+    {
+      "type": "video",
+      "id": "klaviyo_background_video",
+      "label": "Popup background video"
+    },
+    {
+      "type": "color",
+      "id": "media_overlay_color",
+      "label": "Media overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "media_overlay_opacity",
+      "label": "Media overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 20
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Sign Up for Updates"
+      "default": "We’re not available in {City} yet"
     },
     {
       "type": "select",
       "id": "heading_alignment",
-      "label": "Heading Alignment",
+      "label": "Heading alignment",
       "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
       ],
-      "default": "left"
+      "default": "center"
     },
     {
       "type": "color",
       "id": "heading_color",
-      "label": "Heading Color",
-      "default": "#ffffff"
+      "label": "Heading color",
+      "default": "#111111"
     },
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "sub_text",
-      "label": "Sub Text",
-      "default": "Enter your sub heading here"
+      "label": "Sub text",
+      "default": "<p>DAPrDAN currently services select locations in the Pacific Northwest. Join the list and we’ll let you know when we launch in {City}.</p>"
+    },
+    {
+      "type": "select",
+      "id": "subh_alignment",
+      "label": "Sub text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
     },
     {
       "type": "color",
       "id": "sub_color",
-      "label": "Sub Text Color",
-      "default": "#ffffff"
+      "label": "Sub text color",
+      "default": "#333333"
     },
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "body_text",
-      "label": "Body Text",
-      "default": "Enter your description here"
+      "label": "Body text",
+      "default": "<p>Enter your email below to be notified when service becomes available in your area.</p>"
     },
     {
       "type": "select",
       "id": "body_alignment",
-      "label": "Body Text Alignment",
+      "label": "Body text alignment",
       "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
       ],
-      "default": "left"
+      "default": "center"
     },
     {
       "type": "color",
       "id": "body_color",
-      "label": "Body Text Color",
-      "default": "#ffffff"
+      "label": "Body text color",
+      "default": "#333333"
     },
     {
       "type": "textarea",
       "id": "klaviyo_shortcode",
-      "label": "Klaviyo Form Shortcode",
-      "info": "Paste your Klaviyo form embed code here"
+      "label": "Klaviyo form embed fallback",
+      "info": "Optional. You can also use an app block below instead."
     },
     {
-      "type": "header",
-      "content": "Font Sizes"
+      "type": "color",
+      "id": "form_background_color",
+      "label": "Form background color",
+      "default": "#ffffff"
     },
     {
       "type": "range",
-      "id": "heading_font_size_desktop",
-      "label": "Heading Font Size - Desktop (px)",
+      "id": "form_radius",
+      "label": "Form border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top padding mobile",
       "min": 16,
-      "max": 60,
-      "step": 1,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
       "default": 32
     },
     {
       "type": "range",
-      "id": "heading_font_size_mobile",
-      "label": "Heading Font Size - Mobile (px)",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom padding mobile",
       "min": 16,
-      "max": 40,
-      "step": 1,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "label": "Horizontal padding mobile",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
       "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Font sizes"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_desktop",
+      "label": "Heading size desktop",
+      "min": 18,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading size mobile",
+      "min": 18,
+      "max": 44,
+      "step": 1,
+      "unit": "px",
+      "default": 28
     },
     {
       "type": "range",
       "id": "sub_font_size_desktop",
-      "label": "Sub Text Font Size - Desktop (px)",
+      "label": "Sub text size desktop",
       "min": 12,
       "max": 32,
       "step": 1,
-      "default": 16
+      "unit": "px",
+      "default": 18
     },
     {
       "type": "range",
       "id": "sub_font_size_mobile",
-      "label": "Sub Text Font Size - Mobile (px)",
+      "label": "Sub text size mobile",
       "min": 12,
-      "max": 20,
+      "max": 24,
       "step": 1,
-      "default": 14
+      "unit": "px",
+      "default": 16
     },
     {
       "type": "range",
       "id": "body_font_size_desktop",
-      "label": "Body Font Size - Desktop (px)",
+      "label": "Body text size desktop",
       "min": 12,
-      "max": 32,
+      "max": 28,
       "step": 1,
+      "unit": "px",
       "default": 16
     },
     {
       "type": "range",
       "id": "body_font_size_mobile",
-      "label": "Body Font Size - Mobile (px)",
+      "label": "Body text size mobile",
       "min": 12,
-      "max": 20,
+      "max": 22,
       "step": 1,
-      "default": 14
-    },
-    {
-      "type": "range",
-      "id": "form_width",
-      "label": "Form Width (%)",
-      "min": 10,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "default": 100
+      "unit": "px",
+      "default": 15
     }
   ],
   "blocks": [
@@ -483,11 +598,9 @@
       "type": "@app"
     }
   ],
-  "class": "Dynamic-klaviyo-section",
   "presets": [
     {
-      "name": "Klaviyo Form Section 2",
-      "category": "Custom"
+      "name": "DAPrDAN Klaviyo Popup"
     }
   ]
 }
