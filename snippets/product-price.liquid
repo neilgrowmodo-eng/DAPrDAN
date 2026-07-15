@@ -184,7 +184,9 @@
             {{ compare_at_price_max | money }}
           </span>
         {% else %}
-          {{ 'product_price.item.price.range_html' | t: price: compare_at_price_html | strip_newlines }}
+          {% if product.tags contains 'gated-price-exempt' %}
+            {{ 'product_price.item.price.range_html' | t: price: compare_at_price_html | strip_newlines }}
+          {% endif %}
         {% endif %}
       </div>
       <div class="price__compare-at--hidden" data-compare-price-hidden>
@@ -221,11 +223,13 @@
     {% capture current_price_range_html %}
       {% if price_varies %}
         {% if price_range_format == 'range' %}
-          <span class="money price__current--min" data-price-min>{{ price_min | money}}</span>
-          -
-          <span class="money price__current--max" data-price-max>{{ price_max | money }}</span>
-        {% else %}
-          {{ 'product_price.price.range_html' | t: price: price_html | strip_newlines }}
+          {% if product.tags contains 'gated-price-exempt' %}
+            <span class="money price__current--min" data-price-min>{{ price_min | money}}</span>
+            -
+            <span class="money price__current--max" data-price-max>{{ price_max | money }}</span>
+          {% else %}
+            {{ 'product_price.price.range_html' | t: price: price_html | strip_newlines }}
+          {% endif %}
         {% endif %}
       {% endif %}
     {% endcapture %}
