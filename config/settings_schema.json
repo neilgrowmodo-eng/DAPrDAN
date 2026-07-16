@@ -445,6 +445,43 @@
     ]
   },
   {
+    "name": "Dynamic Variant Pricing",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_dynamic_variant_pricing",
+        "label": "Enable dynamic variant pricing",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "dynamic_variant_enabled_product_tag",
+        "label": "Dynamic pricing product tag fallback",
+        "default": "dynamic-variant-pricing",
+        "info": "Optional fallback tag. Products with this tag can use dynamic variant pricing if metafields are not available."
+      },
+      {
+        "type": "checkbox",
+        "id": "dynamic_variant_hide_non_matching_values",
+        "label": "Hide non-matching variant options",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dynamic_variant_auto_select_match",
+        "label": "Auto-select matching variant",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "dynamic_variant_show_debug",
+        "label": "Show dynamic pricing debug info",
+        "default": false,
+        "info": "Enable only during testing. This can help confirm customer tags and matched variants."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.products.name",
     "settings": [
       {

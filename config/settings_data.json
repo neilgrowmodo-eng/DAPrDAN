@@ -49,6 +49,8 @@
     "type_section_spacing": 0,
     "reduce_animations": true,
     "layout_max_width": 1400,
+    "dynamic_variant_pricing_keys": "TH, PS, WW, DP, DW",
+    "dynamic_variant_show_debug": true,
     "product_sales_badge": true,
     "product_sales_badge_style": "text",
     "inventory_status": false,

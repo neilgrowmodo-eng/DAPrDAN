@@ -22,15 +22,118 @@
         {{ 'product.variants.choose_option' | t: option: option.name }}
       {% endif %}
     </label>
+    {% comment %}
+      Dynamic Variant Pricing - Metafield-driven version
+
+      Product metafields:
+      - custom.dynamic_variant_pricing OR custom.dynamic-variant-pricing = true
+      - custom.pricing_profile_key = TH / PS / WW / DP
+
+      Variant metafield:
+      - custom.required_customer_tag = GROUP_1 / GROUP_2 / GROUP_3
+
+      Customer tag expected format:
+      - TH_GROUP_1
+      - PS_GROUP_1
+      - WW_GROUP_1
+      - DP_GROUP_1
+    {% endcomment %}
+
+    {% assign dynamic_pricing_enabled = settings.enable_dynamic_variant_pricing %}
+
+    {% assign dynamic_product_enabled = false %}
+    {% assign dynamic_product_metafield = product.metafields.custom.dynamic_variant_pricing.value %}
+
+    {% if dynamic_product_metafield == blank %}
+      {% assign dynamic_product_metafield = product.metafields.custom['dynamic-variant-pricing'].value %}
+    {% endif %}
+
+    {% if dynamic_pricing_enabled %}
+      {% if dynamic_product_metafield == true %}
+        {% assign dynamic_product_enabled = true %}
+      {% elsif settings.dynamic_variant_enabled_product_tag != blank and product.tags contains settings.dynamic_variant_enabled_product_tag %}
+        {% assign dynamic_product_enabled = true %}
+      {% endif %}
+    {% endif %}
+
+    {% assign product_pricing_key = product.metafields.custom.pricing_profile_key.value | default: product.metafields.custom.pricing_profile_key | strip | upcase %}
+
+    {% assign pricing_key_is_valid = false %}
+
+    {% if product_pricing_key != blank %}
+        {% assign pricing_key_is_valid = true %}
+    {% endif %}
+
+    {% assign should_filter_option = false %}
+
+    {% if dynamic_product_enabled and pricing_key_is_valid and settings.dynamic_variant_hide_non_matching_values %}
+      {% assign should_filter_option = true %}
+    {% endif %}
+
+    {% assign customer_tags_string = '' %}
+
+    {% if customer %}
+      {% assign customer_tags_string = customer.tags | join: '|' | upcase | prepend: '|' | append: '|' %}
+    {% endif %}
+
+    {% assign matched_option_value = blank %}
+    {% assign matched_variant_id = blank %}
+    {% assign matched_customer_tag = blank %}
+
+    {% if should_filter_option and customer %}
+      {% for value in option.values %}
+        {% assign value_has_match = false %}
+
+        {% for variant in product.variants %}
+          {% assign variant_option_value = variant.options[option_index] %}
+
+          {% if variant_option_value == value %}
+            {% assign required_customer_tag = variant.metafields.custom.required_customer_tag.value | default: variant.metafields.custom.required_customer_tag | strip | upcase %}
+
+            {% if required_customer_tag != blank %}
+              {% assign expected_customer_tag = required_customer_tag %}
+              {% assign expected_customer_tag_wrapped = '|' | append: expected_customer_tag | append: '|' %}
+
+              {% if customer_tags_string contains expected_customer_tag_wrapped %}
+                {% assign matched_option_value = value %}
+                {% assign matched_variant_id = variant.id %}
+                {% assign matched_customer_tag = expected_customer_tag %}
+                {% assign value_has_match = true %}
+                {% break %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% if value_has_match %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% assign chosen_option_value = 'false' %}
+    {% if should_filter_option and matched_option_value != blank and settings.dynamic_variant_auto_select_match %}
+      
+      {% assign chosen_option_value = matched_option_value %}
+
+    {% elsif selected_variant %}
+      {% assign chosen_option_value = option.selected_value %}
+
+    {% endif %}
     <div class="options-selection__input-select-wrapper">
+      
       <select
         id="{{ id }}-{{ section.id }}"
         class="options-selection__input-select"
         data-variant-option
         data-variant-option-index="{{ option_index }}"
-        data-variant-option-chosen-value="{% if selected_variant %}{{ option.selected_value }}{% else %}false{% endif %}"
+        data-variant-option-chosen-value="{{ chosen_option_value }}"
+        {% if matched_variant_id != blank %}
+          data-dynamic-matched-variant-id="{{ matched_variant_id }}"
+          data-dynamic-matched-customer-tag="{{ matched_customer_tag }}"
+        {% endif %}
       >
-        {% unless selected_variant %}
+        {% if should_filter_option and matched_option_value == blank %}
           <option
             value="not-selected"
             disabled
@@ -39,21 +142,66 @@
             data-variant-option-value
             data-variant-option-value-index="{{ option_index }}"
           >
-            {{ 'product.variants.choose_option' | t: option: option.name }}
+            Complete your profile to view your pricing
           </option>
-        {% endunless %}
-        {% for value in option.values %}
-          <option
-            value="{{ value | escape }}"
-            {% if selected_variant and option.selected_value == value %}selected{% endif %}
-            data-variant-option-value-wrapper
-            data-variant-option-value
-            data-variant-option-value-index="{{ option_index }}"
-          >
-            {{ value }}
-          </option>
-        {% endfor %}
+        {% else %}
+          {% unless selected_variant or matched_option_value != blank %}
+            <option
+              value="not-selected"
+              disabled
+              selected
+              data-variant-option-value-wrapper
+              data-variant-option-value
+              data-variant-option-value-index="{{ option_index }}"
+            >
+              {{ 'product.variants.choose_option' | t: option: option.name }}
+            </option>
+          {% endunless %}
+
+          {% for value in option.values %}
+            {% assign render_option_value = true %}
+
+            {% if should_filter_option %}
+              {% assign render_option_value = false %}
+
+              {% if matched_option_value == value %}
+                {% assign render_option_value = true %}
+              {% endif %}
+            {% endif %}
+
+            {% if render_option_value %}
+              <option
+                value="{{ value | escape }}"
+                {% if should_filter_option and matched_option_value == value and settings.dynamic_variant_auto_select_match %}
+                  selected
+                {% elsif selected_variant and option.selected_value == value %}
+                  selected
+                {% endif %}
+                data-variant-option-value-wrapper
+                data-variant-option-value
+                data-variant-option-value-index="{{ option_index }}"
+              >
+                {{ value }}
+              </option>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
       </select>
+    </div>
+
+    {% if settings.dynamic_variant_show_debug %}
+      <div style="margin-top: 10px; padding: 10px; font-size: 12px; background: #f4f4f4; color: #111;">
+        <strong>Dynamic Variant Pricing Debug</strong><br>
+        Dynamic product enabled: {{ dynamic_product_enabled }}<br>
+        Product pricing key: {{ product_pricing_key }}<br>
+        Pricing key valid: {{ pricing_key_is_valid }}<br>
+        Should filter option: {{ should_filter_option }}<br>
+        Matched option value: {{ matched_option_value }}<br>
+        Matched variant ID: {{ matched_variant_id }}<br>
+        Matched customer tag: {{ matched_customer_tag }}<br>
+        Customer tags: {{ customer.tags | join: ', ' }}
+      </div>
+    {% endif %}
       <div
         class="options-selection__input-select-chevron"
       >
@@ -74,3 +222,7 @@
     </div>
   </div>
 </div>
+
+{% if matched_variant_id != blank %}
+  <script src="{{ 'option-custom.js' | asset_url }}" defer></script>
+{% endif %}

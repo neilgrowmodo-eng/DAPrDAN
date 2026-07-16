@@ -184,9 +184,7 @@
             {{ compare_at_price_max | money }}
           </span>
         {% else %}
-          {% if product.tags contains 'gated-price-exempt' %}
             {{ 'product_price.item.price.range_html' | t: price: compare_at_price_html | strip_newlines }}
-          {% endif %}
         {% endif %}
       </div>
       <div class="price__compare-at--hidden" data-compare-price-hidden>
