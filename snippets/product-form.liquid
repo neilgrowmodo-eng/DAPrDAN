@@ -633,8 +633,16 @@
           </span>
         </a>
       {% endif %}
-      {% if show_dynamic_checkout_button %}
-        {{ form | payment_button }}
+      {% assign customer_is_pending = false %}
+
+      {% if customer and customer.tags contains 'pending' %}
+        {% assign customer_is_pending = true %}
+      {% endif %}
+
+      {% if customer and customer_is_pending == false %}
+        {% if show_dynamic_checkout_button %}
+          {{ form | payment_button }}
+        {% endif %}
       {% endif %}
     </div>
   </div>
