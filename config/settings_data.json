@@ -49,8 +49,8 @@
     "type_section_spacing": 0,
     "reduce_animations": true,
     "layout_max_width": 1400,
-    "dynamic_variant_pricing_keys": "TH, PS, WW, DP, DW",
-    "dynamic_variant_show_debug": true,
+    "dynamic_variant_hide_non_matching_values": true,
+    "dynamic_variant_show_debug": false,
     "product_sales_badge": true,
     "product_sales_badge_style": "text",
     "inventory_status": false,
@@ -85,6 +85,7 @@
     "continue_shopping_url": "shopify://collections/all",
     "continue_url_cart": true,
     "continue_url_404": true,
+    "dynamic_variant_pricing_keys": "",
     "product_show_sku": false,
     "product_social_sharing": false,
     "product_grid_show_quickshop": "always",
@@ -113,13 +114,6 @@
     "quickshop_show_vendor": true,
     "content_for_index": [],
     "blocks": {
-      "15390791335168990234": {
-        "type": "shopify://apps/addify-dynamic-pricing/blocks/wholesale-tiered-pricing/9ab4b5b0-20a7-4b48-8ce9-803a3d3f63ec",
-        "disabled": false,
-        "settings": {
-          "custom_html": ""
-        }
-      },
       "6097499278999377719": {
         "type": "shopify://apps/globo-mega-menu/blocks/app-embed/7a00835e-fe40-45a5-a615-2eb4ab697b58",
         "disabled": false,
@@ -162,6 +156,13 @@
         "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
         "disabled": false,
         "settings": {}
+      },
+      "15390791335168990234": {
+        "type": "shopify://apps/addify-dynamic-pricing/blocks/wholesale-tiered-pricing/9ab4b5b0-20a7-4b48-8ce9-803a3d3f63ec",
+        "disabled": true,
+        "settings": {
+          "custom_html": ""
+        }
       }
     }
   },

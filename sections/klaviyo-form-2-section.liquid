@@ -50,6 +50,9 @@
           <div class="daprdan-klaviyo-popup__subtext rte">
             {{ section.settings.sub_text }}
           </div>
+          <div class="daprdan-klaviyo-popup__subtext rte daprdan-klaviyo-popup__subtext--mobile">
+            {{ section.settings.sub_text_mobile }}
+          </div>
         {% endif %}
       </div>
 
@@ -61,7 +64,12 @@
 
       {% if section.settings.klaviyo_shortcode != blank %}
         <div class="daprdan-klaviyo-popup__form">
-          {{ section.settings.klaviyo_shortcode }}
+          <div class="daprdan-klaviyo-popup__spinner" aria-hidden="false">
+            Loading form {% render 'icon-spinner' %}
+          </div>
+          <div class="daprdan-klaviyo-popup__form-inner">
+            {{ section.settings.klaviyo_shortcode }}
+          </div>
         </div>
       {% endif %}
     </div>
@@ -189,6 +197,10 @@
     text-align: {{ section.settings.subh_alignment }};
   }
 
+  .daprdan-klaviyo-popup__subtext--mobile {
+    display: none;
+  }
+
   .daprdan-klaviyo-popup__body {
     margin-bottom: 24px;
     color: {{ section.settings.body_color }};
@@ -216,6 +228,39 @@
   .daprdan-no-transition .shopify-section.Dynamic-klaviyo-section,
   .daprdan-no-transition .shopify-section.Dynamic-klaviyo-section * {
     transition: none !important;
+  }
+
+  .daprdan-klaviyo-popup__form {
+    position: relative;
+    min-height: 120px;
+  }
+
+  .daprdan-klaviyo-popup__spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    width: 100%;
+  }
+
+  .daprdan-klaviyo-popup__spinner svg {
+    width: 32px;
+    height: 32px;
+    animation: daprdan-spin 0.8s linear infinite;
+  }
+
+  .daprdan-klaviyo-popup__form.is-loading .daprdan-klaviyo-popup__form-inner {
+    opacity: 0;
+  }
+
+  .daprdan-klaviyo-popup__form:not(.is-loading) .daprdan-klaviyo-popup__form-inner {
+    opacity: 1;
+  }
+
+  @keyframes daprdan-spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @media (max-width: 768px) {
@@ -246,7 +291,57 @@
     }
 
     .daprdan-klaviyo-popup__content {
-      max-height: 70vh;
+      max-height: 75vh;
+    }
+
+    form.kl-private-reset-css-Xuajs1 {
+      padding: 0 !important;
+    }
+
+    .go1067252541.go1067252541.go1067252541 {
+      padding: 2px 30px;
+    }
+  }
+
+  @media screen and (max-width: 540px) {
+    .go3623435737.go3623435737.go3623435737 {
+      padding: 0 10px 10px 10px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .daprdan-klaviyo-popup__subtext {
+      display: none;
+    }
+
+    .daprdan-klaviyo-popup__subtext--mobile {
+      display: block;
+      font-size: {{ section.settings.sub_font_size_mobile }}px;
+    }
+
+    .kl-private-reset-css-Xuajs1 h1 strong {
+      font-size: 16px !important;
+    }
+
+    .kl-private-reset-css-Xuajs1 p em {
+      font-size: 14px !important;
+    }
+
+    .go704645816.go704645816.go704645816 {
+      height: 40px;
+    }
+
+    .go3645913935.go3645913935.go3645913935 {
+      font-size: 12px;
+    }
+
+    .daprdan-klaviyo-popup__close {
+      width: 20px;
+      height: 20px;
+      top: 5px;
+      right: 5px;
+      font-size: 22px;
+      padding-left: 3.5px;
     }
   }
 </style>
@@ -277,7 +372,21 @@
         });
       }
     })();
+
+  setTimeout(function () {
+    var container = document.querySelector('.daprdan-klaviyo-popup__form');
+    if (!container) return;
+
+    var spinner = container.querySelector('.daprdan-klaviyo-popup__spinner');
+    if (!spinner) return;
+
+    spinner.style.display = 'none';
+    spinner.setAttribute('aria-hidden', 'true');
+    container.classList.remove('is-loading');
+  }, 5000);
+
   </script>
+
 {% endif %}
 
 {% schema %}
@@ -397,6 +506,12 @@
       "id": "sub_text",
       "label": "Sub text",
       "default": "<p>DAPrDAN currently services select locations in the Pacific Northwest. Join the list and we’ll let you know when we launch in {City}.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "sub_text_mobile",
+      "label": "Sub text mobile",
+      "default": "<p>DAPrDAN was built in the Pacific Northwest to protect homes from moss, moisture, and harsh weather. Now, we’re bringing that same care to new areas — including yours.</p>"
     },
     {
       "type": "select",
